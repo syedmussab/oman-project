@@ -838,30 +838,42 @@
             ctx.arc(centerX, centerY, size * 0.35, 0, Math.PI * 2);
             ctx.stroke();
             
-            // Draw Khanjar blade shape
+            // Draw Khanjar blade shape with rotation
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(rotationY * Math.PI / 180);
+            ctx.scale(scale, scale);
+            
             ctx.fillStyle = isLightMode ? '#00d4ff' : '#d4af37';
             ctx.strokeStyle = isLightMode ? '#00ffff' : '#ffd700';
             ctx.lineWidth = 2;
             
-            const bladeTop = centerY - size * 0.5;
-            const bladeBottom = centerY + size * 0.3;
-            const bladeLeft = centerX - size * 0.2;
-            const bladeRight = centerX + size * 0.2;
+            const bladeTop = -size * 0.5;
+            const bladeBottom = size * 0.3;
+            const bladeLeft = -size * 0.2;
+            const bladeRight = size * 0.2;
             
             ctx.beginPath();
-            ctx.moveTo(centerX, bladeTop);
-            ctx.quadraticCurveTo(centerX + size * 0.25, bladeTop + size * 0.3, centerX + size * 0.15, bladeBottom - size * 0.2);
-            ctx.lineTo(centerX, bladeBottom);
-            ctx.lineTo(centerX - size * 0.15, bladeBottom - size * 0.2);
-            ctx.quadraticCurveTo(centerX - size * 0.25, bladeTop + size * 0.3, centerX, bladeTop);
+            ctx.moveTo(0, bladeTop);
+            ctx.quadraticCurveTo(size * 0.25, bladeTop + size * 0.3, size * 0.15, bladeBottom - size * 0.2);
+            ctx.lineTo(0, bladeBottom);
+            ctx.lineTo(-size * 0.15, bladeBottom - size * 0.2);
+            ctx.quadraticCurveTo(-size * 0.25, bladeTop + size * 0.3, 0, bladeTop);
             ctx.fill();
             ctx.stroke();
             
-            // Draw handle
+            ctx.restore();
+            
+            // Draw handle with rotation
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(rotationY * Math.PI / 180);
+            ctx.scale(scale, scale);
+            
             ctx.fillStyle = isLightMode ? '#ff6600' : '#8b4513';
             ctx.strokeStyle = isLightMode ? '#ff9900' : '#654321';
             ctx.beginPath();
-            ctx.ellipse(centerX, centerY + size * 0.55, size * 0.12, size * 0.25, 0, 0, Math.PI * 2);
+            ctx.ellipse(0, size * 0.55, size * 0.12, size * 0.25, 0, 0, Math.PI * 2);
             ctx.fill();
             ctx.stroke();
             
@@ -869,12 +881,14 @@
             ctx.strokeStyle = '#d4af37';
             ctx.lineWidth = 2;
             for (let i = 0; i < 5; i++) {
-                const y = centerY + size * 0.35 + (i * size * 0.1);
+                const y = size * 0.35 + (i * size * 0.1);
                 ctx.beginPath();
-                ctx.moveTo(bladeLeft * 0.7, y);
-                ctx.lineTo(bladeRight * 0.7, y);
+                ctx.moveTo(-size * 0.14, y);
+                ctx.lineTo(size * 0.14, y);
                 ctx.stroke();
             }
+            
+            ctx.restore();
             
             // Draw floating particles
             for (let i = 0; i < 30; i++) {
