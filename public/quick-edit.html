@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Image Processor - Oman Celebrities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37',
+                        'oman-red': '#c0392b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-3xl font-bold text-oman-blue mb-4">🎨 Image Quick Processor</h1>
+        <p class="text-gray-600 mb-6">Click a button to apply effect to your image</p>
+        
+        <div class="bg-white rounded-xl p-6 shadow-lg">
+            <img id="sourceImage" class="max-w-xs mx-auto rounded mb-4" style="max-height: 300px;">
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+                <button onclick="processImage('original')" class="p-4 bg-gray-200 rounded-lg font-semibold hover:bg-gray-300">📷 Original</button>
+                <button onclick="processImage('brightness')" class="p-4 bg-yellow-100 rounded-lg font-semibold hover:bg-yellow-200">☀️ Bright +30</button>
+                <button onclick="processImage('contrast')" class="p-4 bg-blue-100 rounded-lg font-semibold hover:bg-blue-200">◐ Contrast +30</button>
+                <button onclick="processImage('gold')" class="p-4 bg-oman-gold rounded-lg font-semibold text-oman-dark hover:bg-yellow-400">✨ Gold Highlight</button>
+                <button onclick="processImage('saturation')" class="p-4 bg-purple-100 rounded-lg font-semibold hover:bg-purple-200">🎨 Saturate +40</button>
+                <button onclick="processImage('warm')" class="p-4 bg-orange-100 rounded-lg font-semibold hover:bg-orange-200">🔥 Warm Tone</button>
+            </div>
+            
+            <div class="mt-6">
+                <h3 class="font-bold mb-2">Edited Result:</h3>
+                <canvas id="resultCanvas" class="max-w-full rounded shadow"></canvas>
+            </div>
+            
+            <button onclick="download()" class="mt-4 px-6 py-3 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700">
+                ⬇️ Download Edited Image
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        const img = new Image();
+        img.crossOrigin = 'Anonymous';
+        img.onload = function() {
+            document.getElementById('sourceImage').src = img.src;
+        };
+        img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Sultan_Qaboos_bin_Said_Al_Said_2019.jpg/440px-Sultan_Qaboos_bin_Said_Al_Said_2019.jpg';
+        
+        let canvas = document.getElementById('resultCanvas');
+        let ctx = canvas.getContext('2d');
+        
+        function processImage(type) {
+            // Resize
+            let w = img.width, h = img.height;
+            if (w > 600) { h = (600/w)*h; w = 600; }
+            canvas.width = w; canvas.height = h;
+            
+            ctx.drawImage(img, 0, 0, w, h);
+            
+            const data = ctx.getImageData(0, 0, w, h);
+            const pixels = data.data;
+            
+            if (type === 'brightness') {
+                for (let i = 0; i < pixels.length; i += 4) {
+                    pixels[i] = Math.min(255, pixels[i] + 30);
+                    pixels[i+1] = Math.min(255, pixels[i+1] + 30);
+                    pixels[i+2] = Math.min(255, pixels[i+2] + 30);
+                }
+            } else if (type === 'contrast') {
+                for (let i = 0; i < pixels.length; i += 4) {
+                    for (let c = 0; c < 3; c++) {
+                        let p = pixels[i+c];
+                        p = ((p - 128) * 1.3) + 128;
+                        pixels[i+c] = Math.max(0, Math.min(255, p));
+                    }
+                }
+            } else if (type === 'gold') {
+                for (let i = 0; i < pixels.length; i += 4) {
+                    let r = pixels[i], g = pixels[i+1], b = pixels[i+2];
+                    if (g > 100 && r > 150 && b < 120) {
+                        pixels[i] = Math.min(255, r + 40);
+                        pixels[i+1] = Math.min(255, g + 20);
+                    }
+                }
+            } else if (type === 'saturation') {
+                for (let i = 0; i < pixels.length; i += 4) {
+                    let gray = 0.2989 * pixels[i] + 0.5870 * pixels[i+1] + 0.1140 * pixels[i+2];
+                    pixels[i] = gray + 1.4 * (pixels[i] - gray);
+                    pixels[i+1] = gray + 1.4 * (pixels[i+1] - gray);
+                    pixels[i+2] = gray + 1.4 * (pixels[i+2] - gray);
+                }
+            } else if (type === 'warm') {
+                for (let i = 0; i < pixels.length; i += 4) {
+                    pixels[i] = Math.min(255, pixels[i] + 25);
+                    pixels[i+2] = Math.max(0, pixels[i+2] - 15);
+                }
+            }
+            
+            ctx.putImageData(data, 0, 0);
+        }
+        
+        function download() {
+            const link = document.createElement('a');
+            link.download = 'edited-omani-image.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+    </script>
+</body>
+</html>

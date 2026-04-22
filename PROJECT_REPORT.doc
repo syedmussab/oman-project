@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<title>Oman Castles - Project Report</title>
+<style>
+body {
+    font-family: 'Times New Roman';
+    font-size: 12pt;
+    line-height: 1.5;
+    margin: 2.5cm;
+    text-align: justify;
+}
+h1 {
+    font-size: 24pt;
+    color: #1a5276;
+    text-align: center;
+    border-bottom: 3px double #1a5276;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+h2 {
+    font-size: 16pt;
+    color: #1a5276;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 8px;
+}
+h3 {
+    font-size: 13pt;
+    color: #2c3e50;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 15px 0;
+    font-size: 11pt;
+}
+th {
+    background-color: #1a5276;
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    border: 1px solid #1a5276;
+}
+td {
+    padding: 8px 12px;
+    border: 1px solid #1a5276;
+    vertical-align: top;
+}
+tr:nth-child(even) {
+    background-color: #f0f8ff;
+}
+ol, ul {
+    margin: 10px 0 15px 30px;
+}
+li {
+    margin: 8px 0;
+}
+p {
+    margin: 10px 0;
+    text-indent: 1cm;
+}
+p:first-of-type {
+    text-indent: 0;
+}
+.page-break {
+    page-break-before: always;
+}
+.title-page {
+    text-align: center;
+    margin-top: 5cm;
+}
+.subtitle {
+    font-size: 18pt;
+    color: #666;
+    margin-top: 20px;
+}
+.check {
+    color: #008000;
+    font-weight: bold;
+}
+.highlight {
+    background-color: #d4af37;
+    color: white;
+    padding: 2px 6px;
+}
+.cover-box {
+    border: 3px double #1a5276;
+    padding: 30px;
+    margin: 50px 0;
+    text-align: center;
+}
+.info-table td:first-child {
+    width: 30%;
+    font-weight: bold;
+    background-color: #f0f8ff;
+}
+.page-header {
+    font-size: 10pt;
+    color: #666;
+    text-align: right;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: TITLE PAGE -->
+<div class="title-page">
+    <br><br><br><br><br>
+    <h1 style="font-size: 32pt; border: none;">
+        🏛️ OMAN CASTLES
+    </h1>
+    <p class="subtitle">Interactive Educational Website</p>
+    <br>
+    <div class="cover-box">
+        <p style="font-size: 14pt; text-indent: 0;">PROJECT REPORT</p>
+        <br>
+        <p style="font-size: 12pt; text-indent: 0; margin: 20px 0;">
+            <strong>Digital Media Assignment</strong>
+        </p>
+    </div>
+    <br><br><br><br><br><br>
+    <table style="width: 80%; margin: auto; text-align: left;">
+    <tr>
+        <td style="border: none; padding: 5px;"><strong>Student Name:</strong></td>
+        <td style="border: none; padding: 5px;">_________________________________</td>
+    </tr>
+    <tr>
+        <td style="border: none; padding: 5px;"><strong>Roll Number:</strong></td>
+        <td style="border: none; padding: 5px;">_________________________________</td>
+    </tr>
+    <tr>
+        <td style="border: none; padding: 5px;"><strong>Course:</strong></td>
+        <td style="border: none; padding: 5px;">Digital Media</td>
+    </tr>
+    <tr>
+        <td style="border: none; padding: 5px;"><strong>Semester:</strong></td>
+        <td style="border: none; padding: 5px;">________________</td>
+    </tr>
+    <tr>
+        <td style="border: none; padding: 5px;"><strong>Date:</strong></td>
+        <td style="border: none; padding: 5px;">April 22, 2026</td>
+    </tr>
+    <tr>
+        <td style="border: none; padding: 5px;"><strong>Submitted To:</strong></td>
+        <td style="border: none; padding: 5px;">_________________________________</td>
+    </tr>
+    </table>
+    <br><br><br>
+    <p style="font-size: 10pt; color: #888;">Press ENTER to continue →</p>
+</div>
+
+<!-- PAGE 2: ACKNOWLEDGEMENT -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Acknowledgement</h1>
+
+<p>I would like to express my sincere gratitude to all those who have contributed to the successful completion of this project.</p>
+
+<p>First and foremost, I am deeply grateful to my course instructor for their valuable guidance and support throughout this project. Their insights and suggestions have been instrumental in shaping this educational website.</p>
+
+<p>I would also like to thank the Sultanate of Oman for its rich cultural heritage that served as the inspiration for this project. The magnificent forts and castles of Oman are truly remarkable architectural achievements that deserve to be showcased to the world.</p>
+
+<p>Special thanks to the developers of open-source tools and technologies that made this project possible, including HTML5, CSS3, JavaScript, and the Tailwind CSS framework.</p>
+
+<p>Lastly, I acknowledge the support of my family and friends who encouraged me throughout this academic journey.</p>
+
+<br><br>
+<p style="text-align: right;">Date: April 22, 2026</p>
+<p style="text-align: right;">Student Signature: ______________</p>
+
+<!-- PAGE 3: TABLE OF CONTENTS -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Table of Contents</h1>
+
+<table>
+<tr><th>S.No.</th><th>Chapter</th><th>Page No.</th></tr>
+<tr><td>1</td><td>Introduction</td><td>1</td></tr>
+<tr><td>2</td><td>Project Overview</td><td>2</td></tr>
+<tr><td>3</td><td>Website Structure</td><td>3</td></tr>
+<tr><td>4</td><td>Features & Functionality</td><td>4</td></tr>
+<tr><td>5</td><td>Technical Implementation</td><td>5</td></tr>
+<tr><td>6</td><td>Testing & Results</td><td>6</td></tr>
+<tr><td>7</td><td>Learning Outcomes</td><td>7</td></tr>
+<tr><td>8</td><td>Conclusion</td><td>8</td></tr>
+<tr><td>9</td><td>References</td><td>9</td></tr>
+</table>
+
+<!-- PAGE 4: INTRODUCTION -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Chapter 1: Introduction</h1>
+
+<h2>1.1 About Oman</h2>
+<p>Oman, officially the Sultanate of Oman, is a country located on the southeastern coast of the Arabian Peninsula in Western Asia. With a rich history spanning over 5,000 years, Oman has developed a unique cultural identity that is reflected in its magnificent forts, castles, and mosques.</p>
+
+<p>The architectural heritage of Oman is particularly notable for its defensive structures, including numerous forts and castles strategically positioned throughout the country. These structures served various purposes, from defense against invasions to administration centers and royal residences.</p>
+
+<h2>1.2 Project Purpose</h2>
+<p>This educational website aims to showcase the rich heritage of Omani castles and cultural landmarks through an interactive digital experience. The project serves as both a learning tool and a demonstration of web development skills.</p>
+
+<p>The primary objectives of this project are:</p>
+<ul>
+<li>To educate visitors about the historical significance of Omani castles</li>
+<li>To demonstrate proficiency in multimedia web development</li>
+<li>To create an engaging and interactive user experience</li>
+<li>To meet the technical requirements of the Digital Media course</li>
+</ul>
+
+<h2>1.3 Scope of Project</h2>
+<p>The website includes the following key features:</p>
+<ul>
+<li>Interactive gallery of Omani castles with hover effects</li>
+<li>3D interactive Khanjar (traditional dagger) visualization</li>
+<li>Image editor with 12 filter effects</li>
+<li>YouTube video integration</li>
+<li>Web Audio synthesized music</li>
+<li>Hidden Easter egg feature</li>
+<li>Fully responsive design for all devices</li>
+</ul>
+
+<!-- PAGE 5: PROJECT OVERVIEW -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Chapter 2: Project Overview</h1>
+
+<h2>2.1 Project Details</h2>
+<table class="info-table">
+<tr><td>Project Name:</td><td>Oman Castles</td></tr>
+<tr><td>Project Type:</td><td>Educational Website</td></tr>
+<tr><td>Technology:</td><td>HTML5, CSS3, JavaScript</td></tr>
+<tr><td>Framework:</td><td>Tailwind CSS (CDN)</td></tr>
+<tr><td>File Count:</td><td>6 HTML pages, CSS, JS</td></tr>
+<tr><td>Total Lines:</td><td>1,099 (main page)</td></tr>
+</table>
+
+<h2>2.2 Technical Stack</h2>
+<table>
+<tr><th>Component</th><th>Technology</th><th>Version</th></tr>
+<tr><td>Structure</td><td>HTML5</td><td>Standard</td></tr>
+<tr><td>Styling</td><td>CSS3 + Tailwind CSS</td><td>Latest</td></tr>
+<tr><td>Logic</td><td>JavaScript (ES6+)</td><td>Standard</td></tr>
+<tr><td>Icons</td><td>Font Awesome</td><td>6.0</td></tr>
+<tr><td>3D Graphics</td><td>Canvas API</td><td>Standard</td></tr>
+<tr><td>Audio</td><td>Web Audio API</td><td>Standard</td></tr>
+</table>
+
+<h2>2.3 Featured Castles</h2>
+<table>
+<tr><th>Castle</th><th>Built</th><th>Location</th><th>Significance</th></tr>
+<tr><td>Nizwa Fort</td><td>1668 AD</td><td>Interior Region</td><td>Massive circular tower</td></tr>
+<tr><td>Bahla Fort</td><td>13th Century</td><td>Interior Region</td><td>UNESCO World Heritage Site</td></tr>
+<tr><td>Jabrin Castle</td><td>1675 AD</td><td>Interior Oman</td><td>Decorated ceilings</td></tr>
+<tr><td>Rustaq Fort</td><td>1250 AD</td><td>Batinah Region</td><td>One of oldest forts</td></tr>
+<tr><td>Nakhal Fort</td><td>1500 AD</td><td>Batinah Region</td><td>Strategic location</td></tr>
+<tr><td>Sultan Qaboos Mosque</td><td>2001 AD</td><td>Muscat</td><td>Largest mosque in Oman</td></tr>
+</table>
+
+<!-- PAGE 6: WEBSITE STRUCTURE -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Chapter 3: Website Structure</h1>
+
+<h2>3.1 File Organization</h2>
+<pre style="font-family: 'Courier New'; font-size: 10pt; background: #f5f5f5; padding: 15px;">
+oman- project/
+│
+├── public/                 (Website Files)
+│   ├── index-en.html       (Main Page - 1099 lines)
+│   ├── gallery.html       (Gallery Page)
+│   ├── image-editor.html  (Image Editor Page)
+│   ├── upload-media.html  (Upload Page)
+│   ├── css/
+│   │   └── style.css      (Custom Styles)
+│   └── js/
+│       └── main.js        (JavaScript Functions)
+│
+├── Images/                 (Media Files)
+│   ├── nizwa fort.png.jpg
+│   ├── bhla fort.jpg
+│   ├── rustaq.jpg
+│   ├── khanjar.jpg
+│   └── sultan qaboos masjid.jpg
+│
+└── Documentation/
+    └── PROJECT_REPORT.doc (This Report)
+</pre>
+
+<h2>3.2 Page Sections</h2>
+<table>
+<tr><th>Section</th><th>Features</th></tr>
+<tr><td>Header</td><td>Title with animated particles</td></tr>
+<tr><td>Navigation</td><td>Responsive hamburger menu, language selector</td></tr>
+<tr><td>Gallery</td><td>6 castle cards with 3D hover effects</td></tr>
+<tr><td>Image Editor</td><td>Upload, 12 filters, save functionality</td></tr>
+<tr><td>Video</td><td>YouTube embed with autoplay</td></tr>
+<tr><td>3D Section</td><td>Interactive Khanjar with controls</td></tr>
+<tr><td>Audio</td><td>Web Audio API with visualizer</td></tr>
+<tr><td>Upload</td><td>File upload with preview</td></tr>
+<tr><td>Footer</td><td>Copyright information</td></tr>
+</table>
+
+<h2>3.3 Color Scheme</h2>
+<table>
+<tr><th>Color Name</th><th>Hex Code</th><th>Usage</th></tr>
+<tr><td style="color: #1a5276;">Oman Blue</td><td>#1a5276</td><td>Primary color, headers</td></tr>
+<tr><td style="color: #d4af37;">Oman Gold</td><td>#d4af37</td><td>Accents, highlights</td></tr>
+<tr><td style="color: #c0392b;">Oman Red</td><td>#c0392b</td><td>Important elements</td></tr>
+<tr><td style="color: #2c3e50;">Oman Dark</td><td>#2c3e50</td><td>Dark sections</td></tr>
+<tr><td style="color: #666;">Oman Light</td><td>#f4f4f4</td><td>Background</td></tr>
+</table>
+
+<!-- PAGE 7: FEATURES & FUNCTIONALITY -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Chapter 4: Features & Functionality</h1>
+
+<h2>4.1 Navigation System</h2>
+<p>The website features a fully responsive navigation system that adapts to different screen sizes:</p>
+
+<ul>
+<li><strong>Desktop:</strong> Horizontal menu with all navigation links visible</li>
+<li><strong>Mobile:</strong> Hamburger menu with dropdown toggle</li>
+<li><strong>Language Selector:</strong> EN/AR/HI buttons for multilingual support</li>
+<li><strong>Sticky Position:</strong> Navigation stays fixed at top on scroll</li>
+</ul>
+
+<h2>4.2 Gallery Section</h2>
+<p>The gallery showcases six famous Omani castles with the following interactive features:</p>
+
+<ul>
+<li><strong>3D Hover Effect:</strong> CSS transforms create a 3D rotation on hover</li>
+<li><strong>Content Overlay:</strong> Castle information appears on mouse hover</li>
+<li><strong>Responsive Grid:</strong> 1 column (mobile) to 3 columns (desktop)</li>
+<li><strong>Shadow Animation:</strong> Depth effect increases on interaction</li>
+</ul>
+
+<h2>4.3 Image Editor</h2>
+<p>The image editor allows users to upload images and apply various filter effects:</p>
+
+<table>
+<tr><th>Filter</th><th>Effect</th><th>Filter</th><th>Effect</th></tr>
+<tr><td>Original</td><td>No change</td><td>Bright</td><td>+30 brightness</td></tr>
+<tr><td>Dark</td><td>-40 brightness</td><td>Warm</td><td>Red tones</td></tr>
+<tr><td>Cool</td><td>Blue tones</td><td>Vintage</td><td>Sepia effect</td></tr>
+<tr><td>Gold</td><td>Golden hue</td><td>Dramatic</td><td>High contrast</td></tr>
+<tr><td>B&W</td><td>Grayscale</td><td>Pop</td><td>Vibrant colors</td></tr>
+</table>
+
+<h2>4.4 Video Integration</h2>
+<p>The video section integrates YouTube content with the following features:</p>
+<ul>
+<li>YouTube embed with autoplay capability</li>
+<li>Responsive video container</li>
+<li>Direct link to view on YouTube</li>
+<li>3D container effect matching design theme</li>
+</ul>
+
+<h2>4.5 3D Interactive Experience</h2>
+<p>The 3D Khanjar visualization includes:</p>
+
+<table>
+<tr><th>Control</th><th>Action</th></tr>
+<tr><td>Mouse Click + Drag</td><td>Rotate the 3D model</td></tr>
+<tr><td>Scroll Wheel</td><td>Zoom in/out</td></tr>
+<tr><td>Auto Rotate Button</td><td>Toggle continuous rotation</td></tr>
+<tr><td>Lighting Button</td><td>Toggle color mode (Neon/Cyan)</td></tr>
+<tr><td>View Buttons</td><td>Preset angles (Front/Side/Top)</td></tr>
+<tr><td>Reset Button</td><td>Return to default view</td></tr>
+</table>
+
+<!-- PAGE 8: TECHNICAL IMPLEMENTATION -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Chapter 5: Technical Implementation</h1>
+
+<h2>5.1 HTML5 Semantic Structure</h2>
+<pre style="font-family: 'Courier New'; font-size: 9pt; background: #f5f5f5; padding: 10px;">
+&lt;header&gt;
+    &lt;h1&gt;Oman Castles&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;nav&gt;
+    &lt;a href="#gallery"&gt;Gallery&lt;/a&gt;
+    &lt;a href="#video"&gt;Video&lt;/a&gt;
+    &lt;a href="#3d-section"&gt;3D&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;main&gt;
+    &lt;section id="gallery"&gt;...&lt;/section&gt;
+    &lt;section id="video"&gt;...&lt;/section&gt;
+    &lt;section id="3d-section"&gt;...&lt;/section&gt;
+    &lt;section id="audio"&gt;...&lt;/section&gt;
+    &lt;section id="upload"&gt;...&lt;/section&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+    &lt;p&gt;© 2026 Oman Castles Project&lt;/p&gt;
+&lt;/footer&gt;
+</pre>
+
+<h2>5.2 CSS3 3D Transforms</h2>
+<pre style="font-family: 'Courier New'; font-size: 9pt; background: #f5f5f5; padding: 10px;">
+/* 3D Perspective */
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+/* 3D Hover Effect */
+.rotateY-3:hover {
+    transform: rotateY(3deg) translateZ(10px);
+}
+
+.rotateX-3:hover {
+    transform: rotateX(-3deg);
+}
+
+/* Animated Float */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+</pre>
+
+<h2>5.3 JavaScript Image Filter</h2>
+<pre style="font-family: 'Courier New'; font-size: 9pt; background: #f5f5f5; padding: 10px;">
+function applyFilter(type) {
+    resizeAndDraw();
+    const data = editorCtx.getImageData(0, 0, 
+        editorCanvas.width, editorCanvas.height);
+    const pixels = data.data;
+    
+    for(let i = 0; i < pixels.length; i += 4) {
+        let r = pixels[i], g = pixels[i+1], b = pixels[i+2];
+        switch(type) {
+            case 'bright': 
+                r = Math.min(255, r + 30);
+                g = Math.min(255, g + 30);
+                b = Math.min(255, b + 30);
+                break;
+            case 'bw':
+                const gray = 0.2989*r + 0.5870*g + 0.1140*b;
+                r = g = b = gray;
+                break;
+        }
+        pixels[i] = r;
+        pixels[i+1] = g;
+        pixels[i+2] = b;
+    }
+    editorCtx.putImageData(data, 0, 0);
+}
+</pre>
+
+<h2>5.4 Web Audio API</h2>
+<pre style="font-family: 'Courier New'; font-size: 9pt; background: #f5f5f5; padding: 10px;">
+function playAudio() {
+    const audioCtx = new (window.AudioContext || 
+        window.webkitAudioContext)();
+    
+    const notes = [261.63, 293.66, 329.63, 349.23, 
+        392.00, 329.63, 293.66, 261.63];
+    let noteIndex = 0;
+    
+    function playNote() {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sine';
+        osc.frequency.value = notes[noteIndex];
+        
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, 
+            audioCtx.currentTime + 0.5);
+        
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.5);
+        
+        noteIndex = (noteIndex + 1) % notes.length;
+    }
+    
+    intervalId = setInterval(playNote, 400);
+}
+</pre>
+
+<h2>5.5 Easter Egg Feature</h2>
+<pre style="font-family: 'Courier New'; font-size: 9pt; background: #f5f5f5; padding: 10px;">
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key === 'O') {
+        e.preventDefault();
+        playEasterEgg();
+    }
+});
+
+function playEasterEgg() {
+    const audioCtx = new (window.AudioContext || 
+        window.webkitAudioContext)();
+    const notes = [523.25, 659.25, 783.99, 1046.50];
+    
+    notes.forEach((freq, i) => {
+        setTimeout(() => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = freq;
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }, i * 200);
+    });
+    
+    alert('🎉 Easter Egg Found!');
+}
+</pre>
+
+<!-- PAGE 9: TESTING & RESULTS -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Chapter 6: Testing & Results</h1>
+
+<h2>6.1 Browser Compatibility</h2>
+<table>
+<tr><th>Browser</th><th>Version</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Chrome</td><td>Latest</td><td class="check">✓ Pass</td><td>Full functionality</td></tr>
+<tr><td>Firefox</td><td>Latest</td><td class="check">✓ Pass</td><td>Full functionality</td></tr>
+<tr><td>Edge</td><td>Latest</td><td class="check">✓ Pass</td><td>Full functionality</td></tr>
+<tr><td>Safari</td><td>Latest</td><td class="check">✓ Pass</td><td>Full functionality</td></tr>
+</table>
+
+<h2>6.2 Feature Testing</h2>
+<table>
+<tr><th>Feature</th><th>Test</th><th>Expected</th><th>Result</th></tr>
+<tr><td>Navigation</td><td>Click menu items</td><td>Navigate to sections</td><td class="check">✓ Pass</td></tr>
+<tr><td>Mobile Menu</td><td>Resize to mobile</td><td>Hamburger appears</td><td class="check">✓ Pass</td></tr>
+<tr><td>Gallery Hover</td><td>Hover on images</td><td>3D rotation + info</td><td class="check">✓ Pass</td></tr>
+<tr><td>Image Upload</td><td>Upload image</td><td>Display in canvas</td><td class="check">✓ Pass</td></tr>
+<tr><td>Filters</td><td>Click filter button</td><td>Apply effect</td><td class="check">✓ Pass</td></tr>
+<tr><td>Save Image</td><td>Click save</td><td>Download file</td><td class="check">✓ Pass</td></tr>
+<tr><td>3D Drag</td><td>Click + drag</td><td>Rotate model</td><td class="check">✓ Pass</td></tr>
+<tr><td>3D Zoom</td><td>Scroll wheel</td><td>Zoom in/out</td><td class="check">✓ Pass</td></tr>
+<tr><td>Audio Play</td><td>Click play</td><td>Music plays</td><td class="check">✓ Pass</td></tr>
+<tr><td>Easter Egg</td><td>Ctrl+Shift+O</td><td>Alert + music</td><td class="check">✓ Pass</td></tr>
+<tr><td>File Upload</td><td>Upload file</td><td>Preview shows</td><td class="check">✓ Pass</td></tr>
+</table>
+
+<h2>6.3 Bugs Fixed</h2>
+<table>
+<tr><th>Bug</th><th>Issue</th><th>Solution</th><th>Status</th></tr>
+<tr><td>Title Text</td><td>"Oman Celebrities"</td><td>Changed to "Oman Castles"</td><td class="check">Fixed</td></tr>
+<tr><td>Footer</td><td>"Celebrities"</td><td>Changed to "Castles"</td><td class="check">Fixed</td></tr>
+<tr><td>Mobile Menu</td><td>Missing class</td><td>Added md:hidden</td><td class="check">Fixed</td></tr>
+<tr><td>Image Editor</td><td>Not working</td><td>Renamed variables</td><td class="check">Fixed</td></tr>
+</table>
+
+<!-- PAGE 10: LEARNING OUTCOMES -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Chapter 7: Learning Outcomes</h1>
+
+<h2>7.1 Technical Skills Developed</h2>
+<table>
+<tr><th>Skill</th><th>Application</th><th>Proficiency</th></tr>
+<tr><td>HTML5</td><td>Semantic tags, Canvas, Video</td><td>Advanced</td></tr>
+<tr><td>CSS3</td><td>Transforms, Animations, Flexbox</td><td>Advanced</td></tr>
+<tr><td>JavaScript</td><td>DOM, Events, APIs</td><td>Intermediate</td></tr>
+<tr><td>Responsive Design</td><td>Mobile-first approach</td><td>Advanced</td></tr>
+<tr><td>Tailwind CSS</td><td>Utility classes</td><td>Intermediate</td></tr>
+<tr><td>Multimedia</td><td>Video + Audio APIs</td><td>Intermediate</td></tr>
+</table>
+
+<h2>7.2 Concepts Understood</h2>
+<ul>
+<li>HTML5 semantic markup and accessibility</li>
+<li>CSS3 responsive design and animations</li>
+<li>JavaScript DOM manipulation and event handling</li>
+<li>Canvas API for graphics rendering</li>
+<li>Web Audio API for sound synthesis</li>
+<li>Feature detection for cross-browser compatibility</li>
+<li>User experience principles and interaction design</li>
+</ul>
+
+<h2>7.3 Course Requirements Met</h2>
+<table>
+<tr><th>Requirement</th><th>Implementation</th><th>Status</th></tr>
+<tr><td>Interactive Video</td><td>YouTube embed + autoplay</td><td class="check">✓</td></tr>
+<tr><td>Graphics/Imagery</td><td>Responsive picture elements</td><td class="check">✓</td></tr>
+<tr><td>Interactive 3D</td><td>Canvas-based 3D Khanjar</td><td class="check">✓</td></tr>
+<tr><td>2D Animations</td><td>CSS transforms, hover effects</td><td class="check">✓</td></tr>
+<tr><td>3D Animations</td><td>CSS perspective, rotate</td><td class="check">✓</td></tr>
+<tr><td>Hidden Audio Easter Egg</td><td>Ctrl+Shift+O key</td><td class="check">✓</td></tr>
+<tr><td>Tailwind CSS</td><td>CDN version</td><td class="check">✓</td></tr>
+<tr><td>Responsive Design</td><td>Mobile hamburger</td><td class="check">✓</td></tr>
+</table>
+
+<!-- PAGE 11: CONCLUSION -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Chapter 8: Conclusion</h1>
+
+<h2>8.1 Project Summary</h2>
+<p>This educational website successfully showcases the rich cultural heritage of Omani castles through an interactive digital experience. Built using modern web technologies, the project demonstrates proficiency in multimedia integration, responsive design, and interactive functionality.</p>
+
+<h2>8.2 Key Achievements</h2>
+<ul>
+<li>✅ Fully responsive design with mobile hamburger menu</li>
+<li>✅ Interactive 3D Khanjar visualization with controls</li>
+<li>✅ Image editor with 12 filter effects</li>
+<li>✅ Web Audio API synthesized music</li>
+<li>✅ Hidden Easter Egg feature</li>
+<li>✅ YouTube video integration</li>
+<li>✅ Cross-browser compatibility</li>
+<li>✅ Professional project documentation</li>
+</ul>
+
+<h2>8.3 Areas for Improvement</h2>
+<ul>
+<li>Add Arabic and Hindi full translations</li>
+<li>Implement image crop functionality</li>
+<li>Add lightbox gallery view</li>
+<li>Include more 3D models using Three.js</li>
+<li>Add social sharing functionality</li>
+</ul>
+
+<h2>8.4 Final Remarks</h2>
+<p>This project represents the culmination of skills learned throughout the Digital Media course. The interactive nature of the website demonstrates a comprehensive understanding of multimedia integration, while the responsive design showcases proficiency in modern web development practices.</p>
+
+<p>The combination of educational content about Omani heritage with technical implementation creates an engaging learning experience that meets all course requirements while providing value to visitors interested in learning about Omani architecture and culture.</p>
+
+<br><br>
+<p style="text-align: center; font-style: italic; color: #666;">
+"The forts of Oman stand as testament to human ingenuity and architectural excellence."
+</p>
+
+<!-- PAGE 12: REFERENCES -->
+<div class="page-break"></div>
+<h1 style="font-size: 20pt;">Chapter 9: References</h1>
+
+<h2>9.1 Technologies Used</h2>
+<ol>
+<li>HTML5 - Web Standard (https://html.spec.whatwg.org/)</li>
+<li>CSS3 - Web Standard (https://www.w3.org/TR/CSS/)</li>
+<li>JavaScript - ECMA International (https://www.ecma-international.org/)</li>
+<li>Tailwind CSS - https://tailwindcss.com/</li>
+<li>Font Awesome - https://fontawesome.com/</li>
+</ol>
+
+<h2>9.2 Image Sources</h2>
+<ol>
+<li>Local image files from project directory</li>
+<li>Wikimedia Commons (https://commons.wikimedia.org/)</li>
+<li>YouTube video content</li>
+</ol>
+
+<h2>9.3 Learning Resources</h2>
+<ol>
+<li>MDN Web Docs (https://developer.mozilla.org/)</li>
+<li>W3Schools (https://www.w3schools.com/)</li>
+<li>Tailwind CSS Documentation</li>
+<li>Web Audio API Documentation</li>
+</ol>
+
+<h2>9.4 Cultural References</h2>
+<ol>
+<li>Sultanate of Oman - Official Tourism Portal</li>
+<li>UNESCO World Heritage - Bahla Fort</li>
+<li>Omani Ministry of Heritage and Culture</li>
+</ol>
+
+<br><br><br>
+<hr>
+<p style="text-align: center; font-size: 10pt; color: #666;">
+🏛️ <strong>Oman Castles - Interactive Educational Website</strong><br>
+Project Report | Digital Media Assignment | April 2026
+</p>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Oman Castles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37',
+                        'oman-dark': '#2c3e50'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-gradient-to-r from-oman-blue to-blue-800 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-4xl font-bold">🏰 Oman Castles Gallery</h1>
+                <p class="mt-2">Discover the historic forts of Oman</p>
+            </div>
+            <a href="index-en.html" class="px-4 py-2 bg-white/20 rounded hover:bg-white/30">← Back</a>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto p-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Nizwa Fort -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                <img src="https://picsum.photos/400/300?random=1" alt="Nizwa Fort" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-oman-blue">🏰 Nizwa Fort</h3>
+                    <p class="text-gray-600">Built: 1668 AD</p>
+                    <p class="text-gray-600">Location: Nizwa, Interior</p>
+                    <p class="text-oman-gold text-sm mt-1">Famous for its massive circular tower</p>
+                </div>
+            </div>
+
+            <!-- Bahla Fort -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                <img src="https://picsum.photos/400/300?random=2" alt="Bahla Fort" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-oman-blue">🏰 Bahla Fort</h3>
+                    <p class="text-gray-600">Built: 13th Century</p>
+                    <p class="text-gray-600">Location: Bahla, Interior</p>
+                    <p class="text-oman-gold text-sm mt-1">UNESCO World Heritage Site</p>
+                </div>
+            </div>
+
+            <!-- Jabrin Castle -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                <img src="https://picsum.photos/400/300?random=3" alt="Jabrin Castle" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-oman-blue">🏰 Jabrin Castle</h3>
+                    <p class="text-gray-600">Built: 1675 AD</p>
+                    <p class="text-gray-600">Location: Interior Oman</p>
+                    <p class="text-oman-gold text-sm mt-1">Famous for decorated ceilings</p>
+                </div>
+            </div>
+
+            <!-- Rustaq Fort -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                <img src="https://picsum.photos/400/300?random=4" alt="Rustaq Fort" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-oman-blue">🏰 Rustaq Fort</h3>
+                    <p class="text-gray-600">Built: 1250 AD</p>
+                    <p class="text-gray-600">Location: Rustaq, Batinah</p>
+                    <p class="text-oman-gold text-sm mt-1">One of the oldest forts</p>
+                </div>
+            </div>
+
+            <!-- Nakhal Fort -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                <img src="https://picsum.photos/400/300?random=5" alt="Nakhal Fort" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-oman-blue">🏰 Nakhal Fort</h3>
+                    <p class="text-gray-600">Built: 1500 AD</p>
+                    <p class="text-gray-600">Location: Nakhal, Batinah</p>
+                    <p class="text-oman-gold text-sm mt-1">Strategic location</p>
+                </div>
+            </div>
+
+            <!-- Sultan Qaboos Mosque -->
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                <img src="https://picsum.photos/400/300?random=6" alt="Grand Mosque" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-oman-blue">🕌 Sultan Qaboos Mosque</h3>
+                    <p class="text-gray-600">Built: 2001 AD</p>
+                    <p class="text-gray-600">Location: Muscat</p>
+                    <p class="text-oman-gold text-sm mt-1">One of largest mosques</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

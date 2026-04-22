@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processor - Oman Castles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37',
+                        'oman-sand': '#E8DCC4'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="bg-oman-blue text-white py-6 text-center">
+        <h1 class="text-3xl font-bold">🖼️ Image Processor - Oman Castles</h1>
+        <p class="mt-2">Download & edit images for website</p>
+    </div>
+
+    <div class="max-w-6xl mx-auto p-4">
+        <!-- Download Section -->
+        <div class="bg-white rounded-xl p-6 shadow-lg mb-6">
+            <h2 class="text-2xl font-bold text-oman-blue mb-4">📥 Download Original Images</h2>
+            <p class="text-gray-600 mb-4">Click to download Oman castle images from Wikimedia Commons:</p>
+            
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="border rounded-lg p-4 text-center">
+                    <img id="img1-thumb" class="w-full h-32 object-cover rounded mb-2">
+                    <p class="font-bold text-sm">Nizwa Fort</p>
+                    <button onclick="downloadImage(1)" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Download</button>
+                </div>
+                <div class="border rounded-lg p-4 text-center">
+                    <img id="img2-thumb" class="w-full h-32 object-cover rounded mb-2">
+                    <p class="font-bold text-sm">Bahla Fort</p>
+                    <button onclick="downloadImage(2)" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Download</button>
+                </div>
+                <div class="border rounded-lg p-4 text-center">
+                    <img id="img3-thumb" class="w-full h-32 object-cover rounded mb-2">
+                    <p class="font-bold text-sm">Jabrin Castle</p>
+                    <button onclick="downloadImage(3)" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Download</button>
+                </div>
+                <div class="border rounded-lg p-4 text-center">
+                    <img id="img4-thumb" class="w-full h-32 object-cover rounded mb-2">
+                    <p class="font-bold text-sm">Rustaq Fort</p>
+                    <button onclick="downloadImage(4)" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Download</button>
+                </div>
+                <div class="border rounded-lg p-4 text-center">
+                    <img id="img5-thumb" class="w-full h-32 object-cover rounded mb-2">
+                    <p class="font-bold text-sm">Nakhal Fort</p>
+                    <button onclick="downloadImage(5)" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Download</button>
+                </div>
+                <div class="border rounded-lg p-4 text-center">
+                    <img id="img6-thumb" class="w-full h-32 object-cover rounded mb-2">
+                    <p class="font-bold text-sm">Sunaysin Castle</p>
+                    <button onclick="downloadImage(6)" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Download</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor Section -->
+        <div class="bg-white rounded-xl p-6 shadow-lg mb-6">
+            <h2 class="text-2xl font-bold text-oman-blue mb-4">🎨 Quick Editor</h2>
+            <p class="text-gray-600 mb-4">Upload your own image or use downloaded one:</p>
+            
+            <input type="file" id="upload" accept="image/*" class="mb-4" onchange="handleUpload(event)">
+            <canvas id="canvas" class="max-w-full border rounded hidden"></canvas>
+            <img id="preview" class="max-w-md border rounded hidden">
+            
+            <div class="grid md:grid-cols-5 gap-4 mt-4">
+                <button onclick="applyEdit('original')" class="py-2 bg-gray-200 rounded">📷 Original</button>
+                <button onclick="applyEdit('brighten')" class="py-2 bg-yellow-100 rounded">☀️ Brighten</button>
+                <button onclick="applyEdit('contrast')" class="py-2 bg-blue-100 rounded">◐ Contrast</button>
+                <button onclick="applyEdit('warm')" class="py-2 bg-orange-100 rounded">🔥 Warm</button>
+                <button onclick="applyEdit('gold')" class="py-2 bg-oman-gold text-white rounded">✨ Gold</button>
+            </div>
+            
+            <button onclick="saveImage()" class="mt-4 px-6 py-3 bg-green-600 text-white rounded font-bold">
+                ⬇️ Save Edited Image
+            </button>
+        </div>
+
+        <!-- Use in Website -->
+        <div class="bg-white rounded-xl p-6 shadow-lg">
+            <h2 class="text-2xl font-bold text-oman-blue mb-4">🌐 Use in Oman Castles Website</h2>
+            <p class="text-gray-600 mb-4">After editing, save images to <code class="bg-gray-200 px-2">public/images/</code> folder</p>
+            <ul class="list-disc pl-6 text-gray-600">
+                <li><strong>Filename:</strong> nizwa-fort.jpg, bahla-fort.jpg, jabrin-castle.jpg, etc.</li>
+                <li><strong>Format:</strong> JPG (for photos) or WebP (smaller size)</li>
+                <li><strong>Size:</strong> 800px width is good for website</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const imageUrls = [
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/640px-Nizwa_fort_oman.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/640px-Bahla_fort.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/640px-Jabrin_Castle.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rustaq_Fort.jpg/640px-Rustaq_Fort.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nakhal_Fort.jpg/640px-Nakhal_Fort.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Sunayr_Fort.jpg/640px-Sunayr_Fort.jpg'
+        ];
+
+        let currentImage = null;
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext('2d');
+
+        // Load thumbnails
+        imageUrls.forEach((url, i) => {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = function() {
+                document.getElementById('img' + (i+1) + '-thumb').src = url;
+            };
+            img.src = url;
+        });
+
+        function downloadImage(num) {
+            const link = document.createElement('a');
+            link.download = 'oman-castle-' + num + '.jpg';
+            link.href = imageUrls[num-1];
+            link.click();
+        }
+
+        function handleUpload(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    currentImage = img;
+                    resizeAndShow(img);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resizeAndShow(img) {
+            let w = img.width, h = img.height;
+            if (w > 800) {
+                h = (800/w) * h;
+                w = 800;
+            }
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(img, 0, 0, w, h);
+            document.getElementById('preview').src = canvas.toDataURL();
+            document.getElementById('preview').classList.remove('hidden');
+            canvas.classList.add('hidden');
+        }
+
+        function applyEdit(type) {
+            if (!currentImage) {
+                alert('Please upload an image first!');
+                return;
+            }
+            
+            resizeAndShow(currentImage);
+            
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                let r = data[i], g = data[i+1], b = data[i+2];
+                
+                switch(type) {
+                    case 'brighten':
+                        r = Math.min(255, r + 25);
+                        g = Math.min(255, g + 25);
+                        b = Math.min(255, b + 25);
+                        break;
+                    case 'contrast':
+                        for (let c = 0; c < 3; c++) {
+                            data[i+c] = ((data[i+c] - 128) * 1.2) + 128;
+                        }
+                        break;
+                    case 'warm':
+                        r = Math.min(255, r + 20);
+                        b = Math.max(0, b - 10);
+                        break;
+                    case 'gold':
+                        if (g > 100 && r > 150 && b < 120) {
+                            r = Math.min(255, r + 30);
+                            g = Math.min(255, g + 15);
+                        }
+                        break;
+                }
+                
+                data[i] = Math.max(0, Math.min(255, r));
+                data[i+1] = Math.max(0, Math.min(255, g));
+                data[i+2] = Math.max(0, Math.min(255, b));
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            document.getElementById('preview').src = canvas.toDataURL();
+        }
+
+        function saveImage() {
+            const link = document.createElement('a');
+            link.download = 'edited-castle.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+    </script>
+</body>
+</html>

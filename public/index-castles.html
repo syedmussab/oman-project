@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oman Castles | قلاع عُمان</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-sand': '#E8DCC4',
+                        'oman-gold': '#D4AF37',
+                        'oman-blue': '#1E5F74',
+                        'oman-terracotta': '#C17C59',
+                        'oman-dark': '#2C1810'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 2s linear infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: '-20px' }
+                        },
+                        shimmer: {
+                            '0%': { left: '-100%' },
+                            '100%': { left: '100%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        .castle-card:hover .castle-overlay { transform: translateY(0); }
+        .castle-card .castle-overlay { transform: translateY(100%); }
+        
+        /* Video Custom Controls */
+        .video-container { position: relative; }
+        .custom-controls { 
+            position: absolute; bottom: 0; left: 0; right: 0; 
+            background: linear-gradient(transparent, rgba(0,0,0,0.8)); 
+            padding: 16px; opacity: 0; transition: opacity 0.3s;
+        }
+        .video-container:hover .custom-controls { opacity: 1; }
+        .progress-bar { height: 6px; background: rgba(255,255,255,0.3); border-radius: 3px; cursor: pointer; }
+        .progress-fill { height: 100%; background: #D4AF37; border-radius: 3px; transition: width 0.1s; }
+        
+        /* 3D Section */
+        .webgl-container { 
+            position: relative; height: 400px; 
+            background: linear-gradient(135deg, #2C1810, #1a1a1a);
+            overflow: hidden;
+        }
+        .castle-3d {
+            position: absolute; top: 50%; left: 50%;
+            width: 150px; height: 150px;
+            background: linear-gradient(135deg, #D4AF37, #C17C59);
+            border-radius: 12px;
+            transform: translate(-50%, -50%) perspective(500px) rotateY(0deg);
+            cursor: grab;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; color: #2C1810;
+            animation: float 4s ease-in-out infinite;
+            transition: transform 0.1s;
+        }
+        .castle-3d:active { cursor: grabbing; }
+        
+        /* Animation on hover */
+        .hover-animate { transition: all 0.3s ease; }
+        .hover-animate:hover { transform: translateY(-5px) scale(1.02); }
+        
+        /* Page load animation */
+        .fade-in { animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-oman-sand text-oman-dark font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-oman-dark via-oman-terracotta to-oman-dark text-white py-16 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-4 left-10 text-6xl text-oman-gold">🏰</div>
+            <div class="absolute top-20 right-20 text-4xl text-oman-gold">🗿</div>
+            <div class="absolute bottom-10 left-1/4 text-5xl text-oman-gold">⚔️</div>
+            <div class="absolute bottom-20 right-1/3 text-3xl text-oman-gold">🛡️</div>
+        </div>
+        <div class="relative z-10">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">🏰 Oman Castles</h1>
+            <p class="text-xl md:text-2xl text-oman-gold mb-4">قلاع ومساجد سلطنة عُمان</p>
+            <p class="text-lg opacity-90 max-w-2xl mx-auto">Discover the ancient forts and castles of Oman - architectural marvels from the Islamic Golden Age</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-oman-dark sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">🏰</span>
+                    <span class="font-bold text-white">Oman Castles</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#castles" class="text-white hover:text-oman-gold transition">Castles</a>
+                    <a href="#video" class="text-white hover:text-oman-gold transition">Video</a>
+                    <a href="#3d" class="text-white hover:text-oman-gold transition">3D999999999999</a>
+                    <a href="#history" class="text-white hover:text-oman-gold transition">History</a>
+                    <a href="#art_direction" class="text-white hover:text-oman-gold transition">Art Direction</a>
+                    <a href="#gallery" class="text-white hover:text-oman-gold transition">Gallery</a>
+                    <a href="#visit" class="text-white hover:text-oman-gold transition">Visit</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Castles Grid -->
+    <section id="castles" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-oman-dark mb-4">🗼 Famous Omani Forts</h2>
+            <p class="text-center text-gray-600 mb-12">Ancient fortresses showcasing Omani architecture</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Nizwa Fort -->
+                <div class="castle-card group relative overflow-hidden rounded-2xl shadow-xl bg-gray-100">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/640px-Nizwa_fort_oman.jpg" alt="Nizwa Fort" class="w-full h-72 object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="castle-overlay absolute inset-0 bg-gradient-to-t from-oman-dark/95 to-transparent flex flex-col justify-end p-6 transition-transform duration-300">
+                        <h3 class="text-2xl font-bold text-white">🏰 Nizwa Fort</h3>
+                        <p class="text-oman-gold text-sm">Nizwa, Interior</p>
+                        <p class="text-gray-300 text-sm mt-2">17th century圆形tower fortress. Built 1668 by Imam Sultan bin Saif al-Ya'arubi.</p>
+                        <div class="flex gap-2 mt-3">
+                            <span class="px-2 py-1 bg-oman-gold text-oman-dark text-xs rounded">UNESCO Site</span>
+                            <span class="px-2 py-1 bg-white/20 text-white text-xs rounded">30m Tower</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bahla Fort -->
+                <div class="castle-card group relative overflow-hidden rounded-2xl shadow-xl bg-gray-100">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/640px-Bahla_fort.jpg" alt="Bahla Fort" class="w-full h-72 object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="castle-overlay absolute inset-0 bg-gradient-to-t from-oman-dark/95 to-transparent flex flex-col justify-end p-6 transition-transform duration-300">
+                        <h3 class="text-2xl font-bold text-white">🏰 Bahla Fort</h3>
+                        <p class="text-oman-gold text-sm">Bahla, Interior</p>
+                        <p class="text-gray-300 text-sm mt-2">13th-17th century. Famous for its massive walls and 7km radius. UNESCO World Heritage.</p>
+                        <div class="flex gap-2 mt-3">
+                            <span class="px-2 py-1 bg-oman-gold text-oman-dark text-xs rounded">UNESCO</span>
+                            <span class="px-2 py-1 bg-white/20 text-white text-xs rounded">12th Century</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jabrin Castle -->
+                <div class="castle-card group relative overflow-hidden rounded-2xl shadow-xl bg-gray-100">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/640px-Jabrin_Castle.jpg" alt="Jabrin Castle" class="w-full h-72 object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="castle-overlay absolute inset-0 bg-gradient-to-t from-oman-dark/95 to-transparent flex flex-col justify-end p-6 transition-transform duration-300">
+                        <h3 class="text-2xl font-bold text-white">🏰 Jabrin Castle</h3>
+                        <p class="text-oman-gold text-sm">Jabrin, Interior</p>
+                        <p class="text-gray-300 text-sm mt-2">17th century palace-fortress. Built 1670s by Imam bin Sultan. Beautiful carvings.</p>
+                        <div class="flex gap-2 mt-3">
+                            <span class="px-2 py-1 bg-oman-gold text-oman-dark text-xs rounded">Palace</span>
+                            <span class="px-2 py-1 bg-white/20 text-white text-xs rounded">Ornate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rustaq Fort -->
+                <div class="castle-card group relative overflow-hidden rounded-2xl shadow-xl bg-gray-100">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rustaq_Fort.jpg/640px-Rustaq_Fort.jpg" alt="Rustaq Fort" class="w-full h-72 object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="castle-overlay absolute inset-0 bg-gradient-to-t from-oman-dark/95 to-transparent flex flex-col justify-end p-6 transition-transform duration-300">
+                        <h3 class="text-2xl font-bold text-white">🏰 Rustaq Fort</h3>
+                        <p class="text-oman-gold text-sm">Rustaq, Al Batinah</p>
+                        <p class="text-gray-300 text-sm mt-2">13th century fort. One of the oldest in Oman. 4 towers, 3 gates.</p>
+                        <div class="flex gap-2 mt-3">
+                            <span class="px-2 py-1 bg-oman-gold text-oman-dark text-xs rounded">13th Century</span>
+                            <span class="px-2 py-1 bg-white/20 text-white text-xs rounded">Oldest</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nakhal Fort -->
+                <div class="castle-card group relative overflow-hidden rounded-2xl shadow-xl bg-gray-100">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nakhal_Fort.jpg/640px-Nakhal_Fort.jpg" alt="Nakhal Fort" class="w-full h-72 object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="castle-overlay absolute inset-0 bg-gradient-to-t from-oman-dark/95 to-transparent flex flex-col justify-end p-6 transition-transform duration-300">
+                        <h3 class="text-2xl font-bold text-white">🏰 Nakhal Fort</h3>
+                        <p class="text-oman-gold text-sm">Nakhal, Al Batinah</p>
+                        <p class="text-gray-300 text-sm mt-2">16th century fort near natural spring. Renovated 1585 by Imam.</p>
+                        <div class="flex gap-2 mt-3">
+                            <span class="px-2 py-1 bg-oman-gold text-oman-dark text-xs rounded">Spring View</span>
+                            <span class="px-2 py-1 bg-white/20 text-white text-xs rounded">16th Century</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sunaysin Castle -->
+                <div class="castle-card group relative overflow-hidden rounded-2xl shadow-xl bg-gray-100">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Sunayr_Fort.jpg/640px-Sunayr_Fort.jpg" alt="Sunaysin Castle" class="w-full h-72 object-cover hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="castle-overlay absolute inset-0 bg-gradient-to-t from-oman-dark/95 to-transparent flex flex-col justify-end p-6 transition-transform duration-300">
+                        <h3 class="text-2xl font-bold text-white">🏰 Sunaysin Castle</h3>
+                        <p class="text-oman-gold text-sm">Sunaysin, Dhahirah</p>
+                        <p class="text-gray-300 text-sm mt-2">19th centuryfort. Famous for its cylindrical tower and strategic location.</p>
+                        <div class="flex gap-2 mt-3">
+                            <span class="px-2 py-1 bg-oman-gold text-oman-dark text-xs rounded">19th Century</span>
+                            <span class="px-2 py-1 bg-white/20 text-white text-xs rounded">Cylindrical</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="py-16 bg-oman-dark text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-4">📜 History of Omani Forts</h2>
+            <p class="text-center text-gray-400 mb-12">Evolution of defensive architecture</p>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-oman-terracotta/30 rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">🏛️</div>
+                    <h3 class="text-xl font-bold text-oman-gold mb-2">Ancient Period</h3>
+                    <p class="text-sm text-gray-300">Pre-1500 AD<br>Simple stone structures<br>Basic defensive walls</p>
+                </div>
+                <div class="bg-oman-terracotta/30 rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">🗼</div>
+                    <h3 class="text-xl font-bold text-oman-gold mb-2">Ya'rubi Dynasty</h3>
+                    <p class="text-sm text-gray-300">1624-1744 AD<br>Round towers built<br>Advanced fortifications</p>
+                </div>
+                <div class="bg-oman-terracotta/30 rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">🎭</div>
+                    <h3 class="text-xl font-bold text-oman-gold mb-2">Al Said Dynasty</h3>
+                    <p class="text-sm text-gray-300">1744-1856 AD<br>Ornate palaces<br>Decorative carvings</p>
+                </div>
+                <div class="bg-oman-terracotta/30 rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">🛡️</div>
+                    <h3 class="text-xl font-bold text-oman-gold mb-2">Modern Era</h3>
+                    <p class="text-sm text-gray-300">1856-Present<br>Restoration projects<br>UNESCO sites</p>
+                </div>
+            </div>
+
+            <!-- Architecture Info -->
+            <div class="mt-12 bg-gray-800 rounded-xl p-8 grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold text-oman-gold mb-4">🏗️ Architectural Features</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>🌀 <strong>Circular Towers:</strong> Unique to Oman - difficult to climb</li>
+                        <li>🚪 <strong>Hidden Passages:</strong> Secret escape routes</li>
+                        <li>🕳️ <strong>Dark Chambers:</strong> Prison cells</li>
+                        <li>💧 <strong>Water Cisterns:</strong> Rainwater storage</li>
+                        <li>🪟 <strong>Narrows Windows:</strong> Defense & ventilation</li>
+                        <li>🪨 <strong>Local Stone:</strong> Mud & limestone construction</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-oman-gold mb-4">🎯 UNESCO World Heritage Sites</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>✅ <strong>Bahla Fort</strong> (1987) - Ancient walls</li>
+                        <li>✅ <strong>Nizwa Fort</strong> - Round tower</li>
+                        <li>✅ <strong>Aflaj Irrigation</strong> - Ancient canals</li>
+                        <li>⚠️ <strong>At Risk:</strong> Due to erosion</li>
+                        <li>🛠️ <strong>Restoration:</strong> Ongoing work</li>
+                        <li>📸 <strong>Preservation:</strong> Key priority</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Art Direction - Responsive Picture Element -->
+    <section id="art-direction" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-oman-dark mb-4"> Art Direction - Responsive Images</h2>
+            <p class="text-center text-gray-600 mb-8">Different crops for different devices using picture element</p>
+            <img src="../Art Direction.png" alt="">
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Desktop Art Direction -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="bg-blue-600 text-white px-4 py-2">
+                        <h3 class="font-bold">Desktop (1920x1080)</h3>
+                        <p class="text-sm opacity-80">Full wide shot</p>
+                    </div>
+                    <picture>
+                        <source srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/800px-Nizwa_fort_oman.jpg" media="(min-width: 1024px)" type="image/jpeg">
+                        <source srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/600px-Nizwa_fort_oman.jpg" media="(min-width: 768px)" type="image/jpeg">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/320px-Nizwa_fort_oman.jpg" alt="Nizwa Fort Desktop" class="w-full h-64 object-cover">
+                    </picture>
+                    <div class="p-3 bg-gray-50">
+                        <code class="text-xs text-gray-500">&lt;picture&gt; &lt;source media="(min-width: 1024px)"&gt; &lt;img&gt;</code>
+                    </div>
+                </div>
+
+                <!-- Tablet Art Direction -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="bg-green-600 text-white px-4 py-2">
+                        <h3 class="font-bold">Tablet (1024x768)</h3>
+                        <p class="text-sm opacity-80">Cropped view</p>
+                    </div>
+                    <picture>
+                        <source srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/600px-Bahla_fort.jpg" media="(min-width: 768px)" type="image/jpeg">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/320px-Bahla_fort.jpg" alt="Bahla Fort Tablet" class="w-full h-64 object-cover" style="object-position: center;">
+                    </picture>
+                    <div class="p-3 bg-gray-50">
+                        <code class="text-xs text-gray-500">&lt;picture&gt; - Responsive crop for tablet</code>
+                    </div>
+                </div>
+
+                <!-- Smartphone Art Direction -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="bg-purple-600 text-white px-4 py-2">
+                        <h3 class="font-bold">Smartphone (480x320)</h3>
+                        <p class="text-sm opacity-80">Tall crop</p>
+                    </div>
+                    <picture>
+                        <source srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/320px-Jabrin_Castle.jpg" type="image/jpeg">
+                        <img src="./images/castles/jabrin-castle.jpg" alt="Jabrin Castle Mobile" class="w-full h-64 object-cover" style="object-position: top;">
+                    </picture>
+                    <div class="p-3 bg-gray-50">
+                        <code class="text-xs text-gray-500">&lt;picture&gt; - Touch-friendly size</code>
+                    </div>
+                </div>
+
+                <!-- Pixel Density srcset -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="bg-orange-600 text-white px-4 py-2">
+                        <h3 class="font-bold">Pixel Density (Retina)</h3>
+                        <p class="text-sm opacity-80">1x, 2x, 3x resolution</p>
+                    </div>
+                    <picture>
+                        <source srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/320px-Nizwa_fort_oman.jpg 1x, https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/640px-Nizwa_fort_oman.jpg 2x" type="image/jpeg">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/320px-Nizwa_fort_oman.jpg" alt="Nizwa Pixel Density" class="w-full h-64 object-cover">
+                    </picture>
+                    <div class="p-3 bg-gray-50">
+                        <code class="text-xs text-gray-500">srcset="image.jpg 1x, image@2x.jpg 2x"</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section - Random Images -->
+    <section id="gallery" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-oman-dark mb-4">📸 Oman Castles Gallery</h2>
+            <p class="text-center text-gray-600 mb-12">Random images - Click to refresh!</p>
+
+            <!-- Random Gallery -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="randomGallery">
+                <!-- Images loaded via JavaScript for random display -->
+            </div>
+
+            <div class="text-center mt-8">
+                <button onclick="loadRandomImages()" class="px-6 py-3 bg-oman-gold text-oman-dark font-bold rounded-lg hover:bg-yellow-500 transition">
+                    🔄 Load New Random Images
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visit Section -->
+    <section id="visit" class="py-16 bg-oman-sand">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-oman-dark mb-4">🗺️ Plan Your Visit</h2>
+            <p class="text-center text-gray-600 mb-12">Explore Omani forts</p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <h3 class="text-xl font-bold text-oman-terracotta mb-4">📍 Interior Region</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>🏰 Nizwa Fort - 2h from Muscat</li>
+                        <li>🏰 Bahla Fort - 2.5h from Muscat</li>
+                        <li>🏰 Jabrin Castle - 2.5h</li>
+                        <li>⏰ Best: Morning</li>
+                        <li>🎟️ OMR 5-10</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <h3 class="text-xl font-bold text-oman-terracotta mb-4">📍 Al Batinah Region</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>🏰 Rustaq Fort - 1.5h</li>
+                        <li>🏰 Nakhal Fort - 1.5h</li>
+                        <li>🌴 Nakhal Springs nearby</li>
+                        <li>⏰ Best: Afternoon</li>
+                        <li>🎟️ OMR 3-5</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <h3 class="text-xl font-bold text-oman-terracotta mb-4">📍 Dhahirah Region</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>🏰 Sunaysin Castle - 3h</li>
+                        <li>🏰 Wadi Ghul - nearby</li>
+                        <li>🏔️ Mountain views</li>
+                        <li>⏰ Best: Evening</li>
+                        <li>🎟️ OMR 5</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-oman-dark text-white rounded-xl p-8 text-center">
+                <h3 class="text-2xl font-bold mb-4">🧳 Travel Tips</h3>
+                <div class="grid md:grid-cols-4 gap-4 text-sm">
+                    <div>👟 Wear comfortable shoes</div>
+                    <div>💧 Bring water</div>
+                    <div>🧴 Sunscreen</div>
+                    <div>📷 Camera ready</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Video Section -->
+    <section id="video" class="py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-white mb-4">🎬 Interactive Video Journey</h2>
+            <p class="text-center text-gray-400 mb-8">Choose your path through Omani history</p>
+
+            <div class="video-container relative bg-black rounded-xl overflow-hidden shadow-2xl max-w-4xl mx-auto">
+                <!-- Video with AutoPlay -->
+                <video id="mainVideo" class="w-full aspect-video" playsinline webkit-playsinline>
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                </video>
+                
+                <!-- Play Button Overlay -->
+                <div id="playOverlay" class="absolute inset-0 flex items-center justify-center bg-black/50 cursor-pointer" onclick="toggleVideo()">
+                    <div class="text-center">
+                        <i class="fas fa-play-circle text-6xl text-oman-gold hover:scale-125 transition-transform duration-300"></i>
+                        <p class="text-white mt-2">Click to Play</p>
+                    </div>
+                </div>
+
+                <!-- Branching Options -->
+                <div class="branch-options absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden flex-col gap-3 z-20" id="branch-options">
+                    <button onclick="playRoute(1)" class="bg-oman-gold text-oman-dark px-6 py-3 rounded-lg font-semibold hover:bg-white transform hover:scale-105 transition-all duration-300">🛕 Route 1: Nizwa Fort</button>
+                    <button onclick="playRoute(2)" class="bg-oman-gold text-oman-dark px-6 py-3 rounded-lg font-semibold hover:bg-white transform hover:scale-105 transition-all duration-300">🏰 Route 2: Bahla Fort</button>
+                    <button onclick="playFullVideo()" class="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-600 transform hover:scale-105 transition-all duration-300">🎥 Watch Full on YouTube</button>
+                </div>
+
+                <!-- Custom Video Controls -->
+                <div class="custom-controls flex items-center gap-3">
+                    <button onclick="toggleVideo()" class="w-10 h-10 rounded-full bg-oman-gold flex items-center justify-center hover:scale-110 transition-all duration-300">
+                        <i class="fas text-oman-dark" id="play-icon"></i>
+                    </button>
+                    <div class="progress-bar flex-1 cursor-pointer" onclick="seekVideo(event)">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <span class="text-white text-sm font-mono" id="time-display">0:00 / 3:00</span>
+                    <button onclick="toggleFullscreen()" class="text-white hover:text-oman-gold">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-500 mt-4">Click play - video chalega screen par!</p>
+        </div>
+    </section>
+
+    <!-- 3D Interactive Section -->
+    <section id="3d" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-oman-dark mb-4">🎮 Interactive 3D Castle</h2>
+            <p class="text-center text-gray-600 mb-8">Drag to rotate - Explore the 3D model</p>
+
+            <div class="webgl-container rounded-xl shadow-2xl max-w-2xl mx-auto">
+                <div id="castle3d" class="castle-3d">3D CASTLE</div>
+                
+                <div class="absolute top-4 right-4 bg-black/50 text-white text-sm px-3 py-1 rounded-full">Click and drag to rotate</div>
+                
+                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-wrap gap-2 justify-center">
+                    <button onclick="reset3D()" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300">Reset</button>
+                    <button onclick="toggleAutoRotate()" id="rotateBtn" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300">Auto Rotate</button>
+                    <button onclick="zoomIn()" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300">Zoom +</button>
+                    <button onclick="zoomOut()" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300">Zoom -</button>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-gray-100 rounded-xl p-4 max-w-2xl mx-auto">
+                <p class="text-center text-gray-600"><strong>WebGL Fallback:</strong> <a href="https://youtube.com" target="_blank" class="text-oman-blue underline">Watch 3D Tour on YouTube</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Graphics & Animation Section -->
+    <section class="py-16 bg-oman-sand">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-oman-dark mb-4">✨ Graphics & Animations</h2>
+            
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg hover-animate text-center">
+                    <div class="text-4xl mb-2">🏰</div>
+                    <h3 class="font-bold">Hover Animation</h3>
+                    <p class="text-sm text-gray-500">Hover over this card</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg hover-animate text-center">
+                    <div class="text-4xl mb-2 animate-pulse">⚔️</div>
+                    <h3 class="font-bold">Pulse Effect</h3>
+                    <p class="text-sm text-gray-500">Continuous animation</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg hover-animate text-center">
+                    <div class="text-4xl mb-2 animate-bounce">🛡️</div>
+                    <h3 class="font-bold">Bounce Effect</h3>
+                    <p class="text-sm text-gray-500">On hover trigger</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg hover-animate text-center">
+                    <div class="text-4xl mb-2" style="animation: float 3s ease-in-out infinite;">🏛️</div>
+                    <h3 class="font-bold">Float Effect</h3>
+                    <p class="text-sm text-gray-500">Looping animation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 text-center">
+        <p class="text-2xl mb-2">🏰 سلطنة عُمان 🏰</p>
+        <p class="text-gray-400">Oman Castles - Educational Project</p>
+        <p class="text-gray-500 text-sm mt-4">Images: Wikimedia Commons | Created 2026</p>
+        
+        <!-- Easter Egg Hint -->
+        <div id="easter-hint" class="fixed bottom-4 right-4 text-gray-500 text-xs opacity-0 transition-opacity" style="transition: opacity 0.3s;">
+            Hint: Press Ctrl+Shift+O
+        </div>
+    </footer>
+
+    <script>
+        /* ==================== VIDEO CONTROLS ==================== */
+        let videoPlaying = false;
+        let videoProgress = 0;
+        var mainVideo = document.getElementById('mainVideo');
+        var playOverlay = document.getElementById('playOverlay');
+
+        function toggleVideo() {
+            if (!mainVideo) return;
+            
+            videoPlaying = !videoPlaying;
+            const icon = document.getElementById('play-icon');
+            icon.className = videoPlaying ? 'fas fa-pause text-oman-dark' : 'fas fa-play text-oman-dark';
+            
+            if (videoPlaying) {
+                // Hide overlay, play video
+                playOverlay.style.display = 'none';
+                mainVideo.play();
+                
+                // Show routes after some time
+                setTimeout(function() {
+                    document.getElementById('branch-options').classList.remove('hidden');
+                    document.getElementById('branch-options').classList.add('flex');
+                }, 5000);
+                
+                startVideoProgress();
+            } else {
+                mainVideo.pause();
+                playOverlay.style.display = 'flex';
+            }
+        }
+
+        function startVideoProgress() {
+            if (videoPlaying && mainVideo) {
+                if (mainVideo.duration) {
+                    videoProgress = (mainVideo.currentTime / mainVideo.duration) * 100;
+                    document.getElementById('progress-fill').style.width = videoProgress + '%';
+                    
+                    var time = Math.floor(mainVideo.currentTime);
+                    var mins = Math.floor(time / 60);
+                    var secs = time % 60;
+                    var durMins = Math.floor(mainVideo.duration / 60);
+                    var durSecs = Math.floor(mainVideo.duration % 60);
+                    document.getElementById('time-display').textContent = mins + ':' + secs.toString().padStart(2, '0') + ' / ' + durMins + ':' + durSecs.toString().padStart(2, '0');
+                }
+                
+                if (!mainVideo.paused) {
+                    requestAnimationFrame(startVideoProgress);
+                }
+            }
+        }
+
+        function seekVideo(event) {
+            if (mainVideo && mainVideo.duration) {
+                var rect = event.target.getBoundingClientRect();
+                var percent = (event.clientX - rect.left) / rect.width;
+                mainVideo.currentTime = percent * mainVideo.duration;
+                document.getElementById('progress-fill').style.width = (percent * 100) + '%';
+            }
+        }
+
+        function playRoute(route) {
+            var routeNames = { 1: 'Nizwa Fort Journey - Exploring the famous round tower fortress', 2: 'Bahla Fort Journey - UNESCO World Heritage site' };
+            alert('🎬 Playing Route ' + route + ': ' + routeNames[route]);
+            
+            // Reset video
+            mainVideo.currentTime = 0;
+            videoProgress = 0;
+            
+            document.getElementById('branch-options').classList.add('hidden');
+            document.getElementById('branch-options').classList.remove('flex');
+            playOverlay.style.display = 'none';
+            mainVideo.play();
+            videoPlaying = true;
+            document.getElementById('play-icon').className = 'fas fa-pause text-oman-dark';
+            
+            startVideoProgress();
+        }
+
+        function playFullVideo() {
+            window.open('https://www.youtube.com/watch?v=ScMzIvxBwi4', '_blank');
+        }
+
+        function toggleFullscreen() {
+            var container = document.querySelector('.video-container');
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                container.requestFullscreen();
+            }
+        }
+
+        /* ==================== 3D CONTROLS ==================== */
+        var rotationX = 0, rotationY = 0;
+        var scale = 1;
+        var autoRotating = false;
+        var isDragging = false;
+        var lastMouse = { x: 0, y: 0 };
+
+        var castle3d = document.getElementById('castle3d');
+        
+        castle3d.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            lastMouse = { x: e.clientX, y: e.clientY };
+        });
+        
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            var deltaX = e.clientX - lastMouse.x;
+            var deltaY = e.clientY - lastMouse.y;
+            rotationY += deltaX * 0.5;
+            rotationX -= deltaY * 0.5;
+            update3D();
+            lastMouse = { x: e.clientX, y: e.clientY };
+        });
+        
+        document.addEventListener('mouseup', function() { isDragging = false; });
+        
+        function update3D() {
+            castle3d.style.transform = 'translate(-50%, -50%) perspective(500px) rotateX(' + rotationX + 'deg) rotateY(' + rotationY + 'deg) scale(' + scale + ')';
+        }
+
+        function reset3D() {
+            rotationX = 0; rotationY = 0; scale = 1;
+            update3D();
+        }
+
+        function toggleAutoRotate() {
+            autoRotating = !autoRotating;
+            if (autoRotating) {
+                document.getElementById('rotateBtn').classList.add('bg-oman-gold', 'text-oman-dark');
+                document.getElementById('rotateBtn').classList.remove('bg-white/10', 'text-white');
+                autoRotate();
+            } else {
+                document.getElementById('rotateBtn').classList.remove('bg-oman-gold', 'text-oman-dark');
+                document.getElementById('rotateBtn').classList.add('bg-white/10', 'text-white');
+            }
+        }
+
+        function autoRotate() {
+            if (!autoRotating) return;
+            rotationY += 1;
+            update3D();
+            requestAnimationFrame(autoRotate);
+        }
+
+        function zoomIn() { scale = Math.min(2, scale + 0.2); update3D(); }
+        function zoomOut() { scale = Math.max(0.5, scale - 0.2); update3D(); }
+
+        /* ==================== KEYBOARD CONTROLS ==================== */
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') { e.preventDefault(); toggleVideo(); }
+            if (e.code === 'ArrowRight') { videoProgress = Math.min(100, videoProgress + 10); document.getElementById('progress-fill').style.width = videoProgress + '%'; }
+            if (e.code === 'ArrowLeft') { videoProgress = Math.max(0, videoProgress - 10); document.getElementById('progress-fill').style.width = videoProgress + '%'; }
+        });
+
+        /* ==================== EASTER EGG ==================== */
+        var easterEggPlayed = false;
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'O') {
+                e.preventDefault();
+                playEasterEgg();
+            }
+        });
+
+        // Show hint after 30 seconds
+        setTimeout(function() {
+            document.getElementById('easter-hint').classList.remove('opacity-0');
+        }, 30000);
+
+        function playEasterEgg() {
+            if (easterEggPlayed) return;
+            easterEggPlayed = true;
+            
+            // Create audio
+            var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            var oscillator = audioCtx.createOscillator();
+            var gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            // Omani-style melody
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
+            oscillator.frequency.setValueAtTime(523, audioCtx.currentTime + 0.2);
+            oscillator.frequency.setValueAtTime(392, audioCtx.currentTime + 0.4);
+            oscillator.frequency.setValueAtTime(349, audioCtx.currentTime + 0.6);
+            oscillator.frequency.setValueAtTime(440, audioCtx.currentTime + 0.8);
+            
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
+            
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 1.5);
+            
+            alert('🎉 You found the Easter Egg!\n\nThis audio was generated using Web Audio API - synthesized Omani-style tones!\n\nCreated for educational purposes.');
+        }
+
+        /* ==================== FEATURE DETECTION ==================== */
+        // WebGL Detection
+        if (!window.WebGLRenderingContext) {
+            document.getElementById('castle3d').innerHTML = 'WebGL not supported. <a href="https://youtube.com" class="text-oman-gold">Watch video instead</a>';
+        }
+
+        // Fullscreen API Detection
+        if (!document.fullscreenEnabled) {
+            console.log('Fullscreen not supported in this browser');
+        }
+
+        /* ==================== RANDOM GALLERY ==================== */
+        const omanImages = [
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/320px-Nizwa_fort_oman.jpg', alt: 'Nizwa Fort', desc: 'Famous round tower fortress' },
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/320px-Bahla_fort.jpg', alt: 'Bahla Fort', desc: 'UNESCO World Heritage' },
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/320px-Jabrin_Castle.jpg', alt: 'Jabrin Castle', desc: '17th century palace' },
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rustaq_Fort.jpg/320px-Rustaq_Fort.jpg', alt: 'Rustaq Fort', desc: 'One of oldest forts' },
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nakhal_Fort.jpg/320px-Nakhal_Fort.jpg', alt: 'Nakhal Fort', desc: 'Near natural spring' },
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Sunayr_Fort.jpg/320px-Sunayr_Fort.jpg', alt: 'Sunaysin Castle', desc: 'Cylindrical tower' },
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Sultan_Qaboos_Grand_Mosque_Muscat_Oman.jpg/320px-Sultan_Qaboos_Grand_Mosque_Muscat_Oman.jpg', alt: 'Grand Mosque', desc: 'Muscat landmark' },
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Khanjar.jpg/320px-Khanjar.jpg', alt: 'Khanjar', desc: 'Traditional dagger' },
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Muttrah_Souq_Muscat.jpg/320px-Muttrah_Souq_Muscat.jpg', alt: 'Muttrah Souq', desc: 'Traditional market' },
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Wadi_Ghul_ Oman.jpg/320px-Wadi_Ghul_Oman.jpg', alt: 'Wadi Ghul', desc: 'Grand Canyon of Oman' }
+        ];
+
+        function loadRandomImages() {
+            const gallery = document.getElementById('randomGallery');
+            gallery.innerHTML = '';
+            
+            // Shuffle array
+            const shuffled = [...omanImages].sort(() => Math.random() - 0.5);
+            
+            // Display 8 random images
+            for (let i = 0; i < 8; i++) {
+                const img = shuffled[i];
+                const div = document.createElement('div');
+                div.className = 'relative rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group';
+                div.innerHTML = `
+                    <img src="${img.src}" alt="${img.alt}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                        <div>
+                            <h4 class="text-white font-bold text-sm">${img.alt}</h4>
+                            <p class="text-gray-200 text-xs">${img.desc}</p>
+                        </div>
+                    </div>
+                `;
+                gallery.appendChild(div);
+            }
+        }
+
+        // Load random images on page load
+        window.addEventListener('load', loadRandomImages);
+    </script>
+</body>
+</html>

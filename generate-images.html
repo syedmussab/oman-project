@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Generator for Oman Celebrities Project</title>
+</head>
+<body>
+    <h1>Sample Image Generator</h1>
+    <p>Click the buttons below to generate sample images for your project.</p>
+    
+    <button onclick="generatePortrait()">Generate Portrait</button>
+    <button onclick="generateScene()">Generate Scene/Building</button>
+    <button onclick="generateObjectImage()">Generate Object Image</button>
+    <button onclick="generateGroup()">Generate Group Scene</button>
+    <br><br>
+    <div id="output"></div>
+    
+    <script>
+    function createCanvas(w, h) {
+        const c = document.createElement('canvas');
+        c.width = w;
+        c.height = h;
+        return c;
+    }
+    
+    function generatePortrait() {
+        const c = createCanvas(800, 1000);
+        const ctx = c.getContext('2d');
+        
+        // Background
+        const gradient = ctx.createLinearGradient(0, 0, 0, 1000);
+        gradient.addColorStop(0, '#1a5276');
+        gradient.addColorStop(1, '#2c3e50');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 800, 1000);
+        
+        // Circle for head
+        ctx.beginPath();
+        ctx.arc(400, 350, 150, 0, Math.PI * 2);
+        const skinGrad = ctx.createRadialGradient(400, 350, 50, 400, 350, 150);
+        skinGrad.addColorStop(0, '#d4a574');
+        skinGrad.addColorStop(1, '#b8906a');
+        ctx.fillStyle = skinGrad;
+        ctx.fill();
+        
+        // Body
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(200, 500, 400, 500);
+        
+        // Suit
+        ctx.fillStyle = '#2c3e50';
+        ctx.fillRect(200, 520, 400, 200);
+        
+        // Tie
+        ctx.beginPath();
+        ctx.moveTo(400, 520);
+        ctx.lineTo(380, 720);
+        ctx.lineTo(400, 750);
+        ctx.lineTo(420, 720);
+        ctx.closePath();
+        ctx.fillStyle = '#c0392b';
+        ctx.fill();
+        
+        // Eyes
+        ctx.fillStyle = '#2c2c2c';
+        ctx.beginPath();
+        ctx.ellipse(350, 330, 20, 12, 0, 0, Math.PI * 2);
+        ctx.ellipse(450, 330, 20, 12, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Smile
+        ctx.beginPath();
+        ctx.arc(400, 400, 50, 0.2, Math.PI - 0.2);
+        ctx.strokeStyle = '#8b4513';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        
+        // Name text
+        ctx.fillStyle = '#f4d03f';
+        ctx.font = 'bold 48px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Omani Celebrity', 400, 900);
+        
+        downloadCanvas(c, 'portrait.jpg');
+    }
+    
+    function generateScene() {
+        const c = createCanvas(1920, 1080);
+        const ctx = c.getContext('2d');
+        
+        // Sky
+        const skyGrad = ctx.createLinearGradient(0, 0, 0, 600);
+        skyGrad.addColorStop(0, '#87ceeb');
+        skyGrad.addColorStop(1, '#f0e68c');
+        ctx.fillStyle = skyGrad;
+        ctx.fillRect(0, 0, 1920, 600);
+        
+        // Ground
+        ctx.fillStyle = '#deb887';
+        ctx.fillRect(0, 600, 1920, 480);
+        
+        // Castle/Fort
+        ctx.fillStyle = '#c4a35a';
+        ctx.fillRect(600, 300, 720, 600);
+        
+        // Towers
+        ctx.fillStyle = '#a08040';
+        ctx.fillRect(500, 200, 120, 300);
+        ctx.fillRect(1300, 200, 120, 300);
+        
+        // Dome
+        ctx.beginPath();
+        ctx.arc(960, 300, 150, Math.PI, 0);
+        ctx.fillStyle = '#8b4513';
+        ctx.fill();
+        
+        // Windows
+        ctx.fillStyle = '#2c2c2c';
+        ctx.fillRect(750, 400, 40, 80);
+        ctx.fillRect(900, 400, 40, 80);
+        ctx.fillRect(1050, 400, 40, 80);
+        
+        // Gate
+        ctx.fillStyle = '#4a3728';
+        ctx.fillRect(880, 600, 160, 300);
+        ctx.beginPath();
+        ctx.arc(960, 600, 80, Math.PI, 0);
+        ctx.fill();
+        
+        // Sun
+        ctx.beginPath();
+        ctx.arc(1600, 150, 80, 0, Math.PI * 2);
+        const sunGrad = ctx.createRadialGradient(1600, 150, 20, 1600, 150, 80);
+        sunGrad.addColorStop(0, '#fff700');
+        sunGrad.addColorStop(1, '#ffa500');
+        ctx.fillStyle = sunGrad;
+        ctx.fill();
+        
+        // Title
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 60px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Oman Historic Fort', 960, 1000);
+        
+        downloadCanvas(c, 'scene-building.jpg');
+    }
+    
+    function generateObjectImage() {
+        const c = createCanvas(1200, 800);
+        const ctx = c.getContext('2d');
+        
+        // Background with object to remove
+        ctx.fillStyle = '#e8d4a8';
+        ctx.fillRect(0, 0, 1200, 800);
+        
+        // Add an object (phone/wire) to remove later
+        ctx.strokeStyle = '#333333';
+        ctx.lineWidth = 8;
+        ctx.beginPath();
+        ctx.moveTo(0, 400);
+        ctx.bezierCurveTo(300, 200, 600, 600, 900, 300);
+        ctx.bezierCurveTo(1000, 100, 1200, 400, 1200, 400);
+        ctx.stroke();
+        
+        // Main object (traditional Omani dagger - Khanjar)
+        const kx = 600, ky = 400;
+        
+        // Handle
+        ctx.fillStyle = '#8b4513';
+        ctx.beginPath();
+        ctx.ellipse(kx, ky - 80, 30, 60, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Sheath
+        ctx.fillStyle = '#d4af37';
+        ctx.beginPath();
+        ctx.moveTo(kx - 50, ky);
+        ctx.lineTo(kx, ky + 150);
+        ctx.lineTo(kx + 50, ky);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Belt
+        ctx.strokeStyle = '#4a2800';
+        ctx.lineWidth = 20;
+        ctx.beginPath();
+        ctx.moveTo(0, ky);
+        ctx.lineTo(kx - 50, ky);
+        ctx.moveTo(kx + 50, ky);
+        ctx.lineTo(1200, ky);
+        ctx.stroke();
+        
+        // Title
+        ctx.fillStyle = '#2c2c2c';
+        ctx.font = 'bold 50px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Traditional Khanjar', 600, 700);
+        
+        downloadCanvas(c, 'object-removal.jpg');
+    }
+    
+    function generateGroup() {
+        const c = createCanvas(1600, 900);
+        const ctx = c.getContext('2d');
+        
+        // Background
+        const grad = ctx.createLinearGradient(0, 0, 0, 900);
+        grad.addColorStop(0, '#3498db');
+        grad.addColorStop(1, '#2c3e50');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1600, 900);
+        
+        // People silhouettes
+        function drawPerson(x, y, scale, color) {
+            ctx.fillStyle = color;
+            // Head
+            ctx.beginPath();
+            ctx.arc(x, y, 40 * scale, 0, Math.PI * 2);
+            ctx.fill();
+            // Body
+            ctx.fillRect(x - 30 * scale, y + 30 * scale, 60 * scale, 120 * scale);
+        }
+        
+        drawPerson(400, 350, 1.2, '#1a1a1a');
+        drawPerson(600, 380, 1.0, '#333333');
+        drawPerson(800, 360, 1.1, '#2c2c2c');
+        drawPerson(1000, 370, 1.0, '#404040');
+        
+        // Stage/Platform
+        ctx.fillStyle = '#8b4513';
+        ctx.fillRect(200, 600, 1200, 200);
+        
+        // Decorative elements
+        ctx.fillStyle = '#d4af37';
+        for (let i = 0; i < 5; i++) {
+            ctx.beginPath();
+            ctx.arc(300 + i * 250, 650, 30, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        // Title
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 60px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Omani Cultural Event', 800, 150);
+        
+        downloadCanvas(c, 'group-scene.jpg');
+    }
+    
+    function downloadCanvas(c, filename) {
+        c.toBlob(function(blob) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = URL.createObjectURL(blob);
+            link.click();
+            alert('Downloaded: ' + filename);
+        }, 'image/jpeg', 0.95);
+    }
+    </script>
+</body>
+</html>

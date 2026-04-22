@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Tools - Oman Castles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37',
+                        'oman-sand': '#E8DCC4',
+                        'oman-dark': '#2c3e50'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-oman-blue via-blue-700 to-oman-dark text-white py-8 text-center">
+        <h1 class="text-4xl font-bold">🖼️ Image Tools - Oman Castles</h1>
+        <p class="mt-2">Download • Edit • Use</p>
+    </header>
+
+    <!-- Tabs -->
+    <div class="bg-white shadow sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-2 p-3">
+            <button onclick="showTab('download')" class="tab-btn px-4 py-2 bg-oman-blue text-white rounded font-bold">📥 Download</button>
+            <button onclick="showTab('editor')" class="tab-btn px-4 py-2 bg-gray-200 rounded">🎨 Edit</button>
+            <button onclick="showTab('photopea')" class="tab-btn px-4 py-2 bg-gray-200 rounded">📖 Photopea Guide</button>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto p-4">
+        <!-- DOWNLOAD TAB -->
+        <div id="download" class="tab-content active">
+            <div class="bg-white rounded-xl p-6 shadow-lg">
+                <h2 class="text-2xl font-bold text-oman-blue mb-4">📥 Download Castle Images</h2>
+                <p class="text-gray-600 mb-4">Click to download original images from Wikimedia Commons:</p>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="border rounded-lg p-3 text-center hover:shadow-lg transition">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/320px-Nizwa_fort_oman.jpg" class="w-full h-40 object-cover rounded mb-2">
+                        <p class="font-bold">Nizwa Fort</p>
+                        <button onclick="downloadImg(0)" class="mt-2 px-4 py-2 bg-green-600 text-white rounded">📥 Download</button>
+                    </div>
+                    <div class="border rounded-lg p-3 text-center hover:shadow-lg transition">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/320px-Bahla_fort.jpg" class="w-full h-40 object-cover rounded mb-2">
+                        <p class="font-bold">Bahla Fort</p>
+                        <button onclick="downloadImg(1)" class="mt-2 px-4 py-2 bg-green-600 text-white rounded">📥 Download</button>
+                    </div>
+                    <div class="border rounded-lg p-3 text-center hover:shadow-lg transition">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/320px-Jabrin_Castle.jpg" class="w-full h-40 object-cover rounded mb-2">
+                        <p class="font-bold">Jabrin Castle</p>
+                        <button onclick="downloadImg(2)" class="mt-2 px-4 py-2 bg-green-600 text-white rounded">📥 Download</button>
+                    </div>
+                    <div class="border rounded-lg p-3 text-center hover:shadow-lg transition">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rustaq_Fort.jpg/320px-Rustaq_Fort.jpg" class="w-full h-40 object-cover rounded mb-2">
+                        <p class="font-bold">Rustaq Fort</p>
+                        <button onclick="downloadImg(3)" class="mt-2 px-4 py-2 bg-green-600 text-white rounded">📥 Download</button>
+                    </div>
+                    <div class="border rounded-lg p-3 text-center hover:shadow-lg transition">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nakhal_Fort.jpg/320px-Nakhal_Fort.jpg" class="w-full h-40 object-cover rounded mb-2">
+                        <p class="font-bold">Nakhal Fort</p>
+                        <button onclick="downloadImg(4)" class="mt-2 px-4 py-2 bg-green-600 text-white rounded">📥 Download</button>
+                    </div>
+                    <div class="border rounded-lg p-3 text-center hover:shadow-lg transition">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Sunayr_Fort.jpg/320px-Sunayr_Fort.jpg" class="w-full h-40 object-cover rounded mb-2">
+                        <p class="font-bold">Sunaysin Castle</p>
+                        <button onclick="downloadImg(5)" class="mt-2 px-4 py-2 bg-green-600 text-white rounded">📥 Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDITOR TAB -->
+        <div id="editor" class="tab-content">
+            <div class="bg-white rounded-xl p-6 shadow-lg mb-6">
+                <h2 class="text-2xl font-bold text-oman-blue mb-4">🎨 Quick Image Editor</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p class="font-bold mb-2">📤 Upload Your Image:</p>
+                        <input type="file" id="uploadInput" accept="image/*" class="border p-2 w-full rounded" onchange="loadImage(event)">
+                        
+                        <div class="mt-4 p-4 bg-gray-100 rounded-lg text-center">
+                            <img id="imagePreview" class="max-w-full max-h-64 mx-auto rounded">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <p class="font-bold mb-2">✨ Apply Effects:</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="applyEffect('original')" class="py-3 bg-gray-200 rounded hover:bg-gray-300">📷 Original</button>
+                            <button onclick="applyEffect('brighten')" class="py-3 bg-yellow-100 rounded hover:bg-yellow-200">☀️ Brighten +25</button>
+                            <button onclick="applyEffect('contrast')" class="py-3 bg-blue-100 rounded hover:bg-blue-200">◐ Contrast +20</button>
+                            <button onclick="applyEffect('warm')" class="py-3 bg-orange-100 rounded hover:bg-orange-200">🔥 Warm Tone</button>
+                            <button onclick="applyEffect('gold')" class="py-3 bg-oman-gold rounded hover:bg-yellow-400 text-white">✨ Gold Highlight</button>
+                            <button onclick="applyEffect('sharpen')" class="py-3 bg-purple-100 rounded hover:bg-purple-200">🔪 Sharpen</button>
+                        </div>
+                        
+                        <button onclick="saveImage()" class="mt-4 w-full py-3 bg-green-600 text-white font-bold rounded hover:bg-green-700">
+                            ⬇️ Save Edited Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHOTOPEA GUIDE TAB -->
+        <div id="photopea" class="tab-content">
+            <div class="bg-white rounded-xl p-6 shadow-lg mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold text-oman-blue">📖 Photopea Guide</h2>
+                    <a href="https://www.photopea.com" target="_blank" class="px-4 py-2 bg-oman-blue text-white rounded hover:bg-blue-700">🎨 Open Photopea</a>
+                </div>
+                
+                <!-- Keyboard Shortcuts -->
+                <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                    <h3 class="font-bold mb-2">⌨️ Keyboard Shortcuts:</h3>
+                    <div class="grid md:grid-cols-4 gap-2 text-sm">
+                        <div><kbd class="bg-white px-2 border rounded">S</kbd> Clone Stamp</div>
+                        <div><kbd class="bg-white px-2 border rounded">B</kbd> Brush</div>
+                        <div><kbd class="bg-white px-2 border rounded">E</kbd> Eraser</div>
+                        <div><kbd class="bg-white px-2 border rounded">W</kbd> Quick Select</div>
+                        <div><kbd class="bg-white px-2 border rounded">U</kbd> Hue/Saturation</div>
+                        <div><kbd class="bg-white px-2 border rounded">Ctrl+U</kbd> Color Dialog</div>
+                        <div><kbd class="bg-white px-2 border rounded">Ctrl+L</kbd> Levels</div>
+                        <div><kbd class="bg-white px-2 border rounded">Ctrl+F</kbd> Filter Gallery</div>
+                    </div>
+                </div>
+                
+                <!-- Step by Step -->
+                <div class="space-y-4">
+                    <div class="border-l-4 border-red-400 pl-4">
+                        <h4 class="font-bold text-red-600">1️⃣ Remove Element - Clone Stamp (S)</h4>
+                        <ol class="list-decimal pl-4 text-sm text-gray-600">
+                            <li>Press <kbd class="bg-gray-200 px-1">S</kbd> for Clone Stamp</li>
+                            <li>Set brush size from top slider</li>
+                            <li>Alt+Click on clean area to sample</li>
+                            <li>Paint over unwanted area</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="border-l-4 border-yellow-400 pl-4">
+                        <h4 class="font-bold text-yellow-600">2️⃣ Color Correction</h4>
+                        <ol class="list-decimal pl-4 text-sm text-gray-600">
+                            <li><strong>Alt+U</strong> for Hue/Saturation</li>
+                            <li>Select color to adjust</li>
+                            <li>Move sliders</li>
+                            <li>For gold: increase saturation</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="border-l-4 border-purple-400 pl-4">
+                        <h4 class="font-bold text-purple-600">3️⃣ Filter - High Pass</h4>
+                        <ol class="list-decimal pl-4 text-sm text-gray-600">
+                            <li><strong>Ctrl+J</strong> duplicate layer</li>
+                            <li>Filter > Other > High Pass</li>
+                            <li>Set radius 1-3px</li>
+                            <li>Change blend to Overlay</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="border-l-4 border-blue-400 pl-4">
+                        <h4 class="font-bold text-blue-600">4️⃣ Sharpness</h4>
+                        <ol class="list-decimal pl-4 text-sm text-gray-600">
+                            <li>Filter > Sharpen > Unsharp Mask</li>
+                            <li>Amount: 100-150%</li>
+                            <li>Radius: 0.5-1px</li>
+                            <li>Click OK</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="border-l-4 border-teal-400 pl-4">
+                        <h4 class="font-bold text-teal-600">5️⃣ HDR Effect</h4>
+                        <ol class="list-decimal pl-4 text-sm text-gray-600">
+                            <li>Filter > HDR</li>
+                            <li>Adjust Detail, Highlights</li>
+                            <li>Adjust Shadows</li>
+                            <li>Click OK</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-600">💾 Save for Website</h4>
+                        <ol class="list-decimal pl-4 text-sm text-gray-600">
+                            <li>File > Export > WebP</li>
+                            <li>Quality: 80-90%</li>
+                            <li>Save to <code class="bg-gray-200 px-1">public/images/</code></li>
+                            <li>Use in website</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+        <p>🖼️ Image Tools - Oman Castles | <a href="https://www.photopea.com" class="text-oman-gold">Photopea</a></p>
+    </footer>
+
+    <script>
+        // Tabs
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('bg-oman-blue', 'text-white');
+                b.classList.add('bg-gray-200');
+            });
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.remove('bg-gray-200');
+            event.target.classList.add('bg-oman-blue', 'text-white');
+        }
+
+        // Download
+        const imageUrls = [
+            'images/castles/nizwa.jpg',
+            'images/castles/bahla.jpg',
+            'images/castles/jabrin.jpg',
+            'images/castles/rustaq.jpg',
+            'images/castles/nakhal.jpg',
+            'images/castles/sunaysin.jpg'
+        ];
+
+        function downloadImg(idx) {
+            const link = document.createElement('a');
+            link.download = idx+1 + '-' + imageUrls[idx].split('/').pop();
+            link.href = imageUrls[idx];
+            link.click();
+        }
+
+        // Editor
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
+        let currentImg = null;
+
+        function loadImage(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const img = new Image();
+                img.onload = function() {
+                    currentImg = img;
+                    resizeImage();
+                    document.getElementById('imagePreview').src = canvas.toDataURL();
+                };
+                img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resizeImage() {
+            let w = currentImg.width, h = currentImg.height;
+            if (w > 800) { h = (800/w)*h; w = 800; }
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(currentImg, 0, 0, w, h);
+        }
+
+        function applyEffect(type) {
+            if (!currentImg) { alert('Upload an image first!'); return; }
+            
+            resizeImage();
+            const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const pixels = data.data;
+            
+            for (let i = 0; i < pixels.length; i += 4) {
+                let r = pixels[i], g = pixels[i+1], b = pixels[i+2];
+                
+                switch(type) {
+                    case 'brighten':
+                        r = Math.min(255, r + 25);
+                        g = Math.min(255, g + 25);
+                        b = Math.min(255, b + 25);
+                        break;
+                    case 'contrast':
+                        [r, g, b] = [r, g, b].map(c => ((c-128)*1.2+128));
+                        break;
+                    case 'warm':
+                        r = Math.min(255, r + 20);
+                        b = Math.max(0, b - 10);
+                        break;
+                    case 'gold':
+                        if (g > 100 && r > 150 && b < 120) {
+                            r = Math.min(255, r + 30);
+                            g = Math.min(255, g + 15);
+                        }
+                        break;
+                    case 'sharpen':
+                        let avg = (r + g + b) / 3;
+                        r = r + (r - avg) * 0.3;
+                        g = g + (g - avg) * 0.3;
+                        b = b + (b - avg) * 0.3;
+                        break;
+                }
+                
+                pixels[i] = Math.max(0, Math.min(255, r));
+                pixels[i+1] = Math.max(0, Math.min(255, g));
+                pixels[i+2] = Math.max(0, Math.min(255, b));
+            }
+            
+            ctx.putImageData(data, 0, 0);
+            document.getElementById('imagePreview').src = canvas.toDataURL();
+        }
+
+        function saveImage() {
+            const link = document.createElement('a');
+            link.download = 'edited-castle.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+    </script>
+</body>
+</html>

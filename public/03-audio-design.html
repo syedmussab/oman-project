@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Design Document - Oman Celebrities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37',
+                        'oman-red': '#c0392b',
+                        'oman-dark': '#2c3e50'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-oman-blue mb-8">AUDIO DESIGN DOCUMENT</h1>
+        
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">1. PROJECT OVERVIEW</h2>
+            <p class="text-gray-600">Audio editing and effects for narrative voice-over about Omani culture. The audio clip demonstrates professional editing techniques with cleaned audio and multiple format support.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">2. SOURCE MATERIAL</h2>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                <li><strong>Voice-over:</strong> Original recording by student</li>
+                <li><strong>Background Music:</strong> Royalty-free Omani-inspired ambient music</li>
+                <li><strong>Ambient Sounds:</strong> Traditional Omani sounds (market, mosque)</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">3. AUDIO EDITING TECHNIQUES</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">1. Noise Reduction</h3>
+                    <p class="text-sm text-gray-600">Removed background hiss and electrical hum (50/60Hz).</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">2. Click/Pop Removal</h3>
+                    <p class="text-sm text-gray-600">Cleaned audio artefacts from recording equipment.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">3. De-Esser</h3>
+                    <p class="text-sm text-gray-600">Reduced harsh sibilance in voice recording.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">4. Volume Normalization</h3>
+                    <p class="text-sm text-gray-600">Matched overall volume levels across all clips.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">5. EQ Adjustment</h3>
+                    <p class="text-sm text-gray-600">Enhanced voice clarity with proper equalization.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">6. Compression</h3>
+                    <p class="text-sm text-gray-600">Applied dynamic range compression for consistency.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">7. Fade In/Out</h3>
+                    <p class="text-sm text-gray-600">Added smooth fade effects at beginnings and ends.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">8. Crossfade</h3>
+                    <p class="text-sm text-gray-600">Smooth transitions between audio segments.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">4. AUDIO FORMATS (Cross-Browser)</h2>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-gray-300">
+                            <th class="text-left py-3 px-4">Format</th>
+                            <th class="text-left py-3 px-4">Chrome</th>
+                            <th class="text-left py-3 px-4">Firefox</th>
+                            <th class="text-left py-3 px-4">Safari</th>
+                            <th class="text-left py-3 px-4">Edge</th>
+                            <th class="text-left py-3 px-4">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 px-4">MP3</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">Universal - Primary format</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 px-4">OGG Vorbis</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">❌</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">Open source - Firefox/Chrome</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 px-4">WAV</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">Uncompressed - Studio quality</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4">AAC</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">✅</td>
+                            <td class="py-3 px-4">Apple standard - High quality</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">5. OUTPUT SPECIFICATIONS</h2>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                <li><strong>MP3:</strong> 192kbps, 44.1kHz (Primary web delivery)</li>
+                <li><strong>OGG:</strong> Quality 5, 44.1kHz (Open source browsers)</li>
+                <li><strong>WAV:</strong> 16-bit, 44.1kHz (Archival/master)</li>
+                <li><strong>AAC:</strong> 128kbps, 44.1kHz (Safari Mobile)</li>
+            </ul>
+        </div>
+
+        <div class="bg-oman-blue text-white rounded-xl p-8 shadow-md">
+            <h2 class="text-2xl font-bold mb-4">6. DESIGN RATIONALE (250 words)</h2>
+            <div class="prose prose-invert text-gray-200">
+                <p>The audio production for this Oman Celebrities project demonstrates professional editing techniques essential for delivering high-quality educational content on the web.</p>
+                
+                <p>Noise reduction was prioritized to remove background distractions, particularly the characteristic air conditioning hum common in indoor recordings. The 50Hz electrical noise was eliminated using spectral editing, while broadband hiss was reduced without compromising voice clarity.</p>
+                
+                <p>Click and pop removal addresses common recording artefacts that detract from professional presentation. These micro-artefacts were removed using a combination of automatic detection and manual editing for optimal results.</p>
+                
+                <p>Volume normalization ensures consistent playback across all listening environments, from high-end speakers to mobile devices. The target loudness of -16 LUFS (integrated) matches broadcast standards and ensures comfortable listening.</p>
+                
+                <p>EQ adjustment enhances voice clarity by reducing muddiness in the low-mid frequencies and controlling harshness in the high frequencies. This processing preserves the natural voice character while improving intelligibility.</p>
+                
+                <p>Multiple format support ensures accessibility across all browsers and devices. MP3 serves as the universal format, while OGG provides open-source support. WAV serves as the master for future re-processing, and AAC ensures quality on Apple devices.</p>
+                
+                <p>The final output balances quality and file size, achieving professional broadcast quality at web-appropriate bitrates suitable for streaming and download.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Still Images Design Document - Oman Celebrities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37',
+                        'oman-red': '#c0392b',
+                        'oman-dark': '#2c3e50'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; }
+        .prose { max-width: 65ch; margin: 0 auto; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-oman-blue mb-8">STILL IMAGES DESIGN DOCUMENT</h1>
+        
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">1. PROJECT OVERVIEW</h2>
+            <p class="text-gray-600">This project demonstrates still image manipulation skills for an interactive web application showcasing Omani celebrities. The images will be used in an interactive media-rich website.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">2. SOURCE MATERIAL REQUIREMENTS</h2>
+            
+            <h3 class="text-xl font-semibold mb-3">2.1 Original Photographs</h3>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                <li><strong>Portrait Image:</strong> High-resolution photo of an Omani celebrity (Sultan Qaboos or similar)</li>
+                <li><strong>Scene/Building:</strong> Historic Omani location (Sultan Qaboos Grand Mosque or Nizwa Fort)</li>
+                <li><strong>Object Image:</strong> Traditional Omani item (Khanjar dagger) with removable elements</li>
+                <li><strong>Group Scene:</strong> Cultural event with multiple subjects</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mt-6 mb-3">2.2 Technical Specifications</h3>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                <li>Format: JPEG/PNG</li>
+                <li>Resolution: Minimum 2000x1500 pixels for editing</li>
+                <li>Color Space: sRGB</li>
+                <li>Bit Depth: 8-bit</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">3. EDITING EFFECTS AND TECHNIQUES</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-oman-blue mb-2">3.1 Element Removal</h3>
+                    <p class="text-gray-600 text-sm">Remove distracting background elements (power lines, signs) using content-aware fill and clone stamp tools.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-oman-blue mb-2">3.2 Color Correction</h3>
+                    <p class="text-gray-600 text-sm">Highlight specific color (e.g., gold in traditional dress). Adjust white balance and saturation.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-oman-blue mb-2">3.3 Filter Effects</h3>
+                    <p class="text-gray-600 text-sm">Filter 1: High-pass sharpening for detail. Filter 2: Soft focus/glow for promotional use.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-oman-blue mb-2">3.4 Exposure Correction</h3>
+                    <p class="text-gray-600 text-sm">Shadow/highlight adjustment. Noise reduction for low-light photos.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-oman-blue mb-2">3.5 Portrait Enhancement</h3>
+                    <p class="text-gray-600 text-sm">Skin retouching (subtle), contrast enhancement, subject isolation/background blur.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-oman-blue mb-2">3.6 Scene Enhancement</h3>
+                    <p class="text-gray-600 text-sm">HDR tone mapping, perspective correction, architectural straightening.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">4. RESPONSIVE IMAGE DELIVERY</h2>
+            
+            <h3 class="text-xl font-semibold mb-3">4.1 Art Direction (picture element)</h3>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600 mb-4">
+                <li>Desktop: 1920x1080</li>
+                <li>Tablet: 1024x768</li>
+                <li>Smartphone: 480x320</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mb-3">4.2 Pixel Density</h3>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                <li>Standard: 1x resolution</li>
+                <li>Retina: 2x resolution</li>
+                <li>High-DPI: 3x resolution</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">5. OUTPUT FILES</h2>
+            
+            <h3 class="text-xl font-semibold mb-3">5.1 High Quality (Master)</h3>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600 mb-4">
+                <li>Format: PNG</li>
+                <li>Resolution: Original</li>
+                <li>Use: Printing/archival</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mb-3">5.2 Web Optimized</h3>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                <li>Format: WebP with JPEG fallback</li>
+                <li>Max-width: 1920px</li>
+                <li>Quality: 85%</li>
+                <li>File size target: <500KB</li>
+            </ul>
+        </div>
+
+        <div class="bg-oman-blue text-white rounded-xl p-8 shadow-md">
+            <h2 class="text-2xl font-bold mb-4">6. DESIGN RATIONALE (250 words)</h2>
+            <div class="prose prose-invert text-gray-200">
+                <p>The image manipulation strategy for this Oman Celebrities project prioritizes both aesthetic excellence and functional performance. Each editing decision serves specific purposes aligned with the project's educational and cultural objectives.</p>
+                
+                <p>Color correction and highlighting of traditional gold tones in Omani dress (the Khanjar belt, ceremonial jewelry) creates visual emphasis on cultural identity. This intentional design choice guides viewer attention to the rich heritage depicted in each image while maintaining authenticity.</p>
+                
+                <p>The dual-filter approach addresses different viewing contexts: high-pass sharpening ensures architectural details of Omani forts remain crisp on large displays, while soft-focus effects create promotional imagery suitable for social sharing. This versatility maximizes the media assets' utility across platforms.</p>
+                
+                <p>Responsive image delivery using the picture element addresses the diverse device landscape of web users. The art direction approach (cropping for different aspect ratios) ensures visual impact across desktop, tablet, and smartphone form factors. Pixel density variants (1x, 2x, 3x) prevent unnecessary bandwidth consumption on lower-resolution displays while preserving quality for high-DPI devices.</p>
+                
+                <p>Element removal serves the professional presentation standard required for educational media, removing anachronistic or distracting elements that would detract from the core content. This editorial approach mirrors industry standards in documentary and educational media production.</p>
+                
+                <p>The technical choices reflect careful consideration of compression quality versus file size, ensuring fast loading times without visible degradation. WebP with JPEG fallback provides broad browser compatibility while optimizing performance.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

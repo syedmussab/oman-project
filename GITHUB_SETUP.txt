@@ -1,0 +1,113 @@
+# 🚀 GitHub Setup Guide
+
+Ye steps follow karo GitHub pe project push karne ke liye:
+
+## Step 1: GitHub Repository Banayein
+
+1. **Browser mein jaao:** https://github.com/new
+2. **Repository name:** `oman-castles`
+3. **Description:** `Interactive Educational Website - Oman Castles`
+4. **Public** select karo
+5. **"Create repository"** click karo
+
+---
+
+## Step 2: Terminal Mein Commands Run Karo
+
+PowerShell ya Command Prompt kholo aur ye commands run karo:
+
+```powershell
+# Folder mein jaao
+cd "C:\Users\QT\Desktop\oman- project"
+
+# Git initialize (agar nahi kiya)
+git init
+
+# Files add karo
+git add .
+
+# Commit karo
+git commit -m "Initial commit - Oman Castles Website"
+
+# Remote add karo (apna username dalo)
+git remote add origin https://github.com/syedmussab/oman-castles.git
+
+# Push karo
+git branch -M main
+git push -u origin main
+```
+
+---
+
+## Step 3: Token Ke Sath Push (Agar username/password maange)
+
+```powershell
+# Personal Access Token use karo
+git push https://ghp_YOUR_TOKEN@github.com/syedmussab/oman-castles.git main
+```
+
+---
+
+## Token Kaise Banaayein:
+
+1. Jaao: https://github.com/settings/tokens
+2. "Generate new token (classic)"
+3. Name: `oman-castles-push`
+4. Expiration: 30 days
+5. Select: `repo` checkbox
+6. "Generate token" click karo
+7. Token copy karo aur future use ke liye save karo
+
+---
+
+## Agar Error Aaye:
+
+### Error 1: "Authentication failed"
+```powershell
+# Credential manager clear karo
+git config --global credential.helper manager
+git credential reject
+https://github.com
+# Phir se push karo - token maangega
+```
+
+### Error 2: "Repository not found"
+- Repository pehle banalo GitHub pe
+- URL check karo
+
+---
+
+## ✅ Baad Mein GitHub Pages Setup
+
+Repository push ho jaane ke baad:
+
+1. GitHub pe jaao: https://github.com/syedmussab/oman-castles
+2. **Settings** tab click karo
+3. **Pages** click karo (left side)
+4. Source: **Deploy from a branch**
+5. Branch: **main** select karo
+6. **Save** click karo
+7. 2-5 minute wait karo
+8. Website open hogi: `https://syedmussab.github.io/oman-castles/`
+
+---
+
+## Commands Summary
+
+```powershell
+# Full push commands
+cd "C:\Users\QT\Desktop\oman- project"
+git init
+git add .
+git commit -m "Oman Castles - Interactive Educational Website"
+git remote add origin https://github.com/syedmussab/oman-castles.git
+git branch -M main
+git push -u origin main
+```
+
+**Token ke sath:**
+```powershell
+git push https://ghp_YOUR_TOKEN@github.com/syedmussab/oman-castles.git main
+```
+
+Good luck! 🎉

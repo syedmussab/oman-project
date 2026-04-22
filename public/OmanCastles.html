@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmanCastles | قلاع عُمان</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-gold': '#d4af37',
+                        'oman-blue': '#1a5276'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        h1, h2 { font-family: 'Playfair Display', serif; }
+        
+        /* 3D Animation */
+        .castle-3d {
+            perspective: 500px;
+            transform-style: preserve-3d;
+        }
+        .cube {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(-20deg) rotateY(-30deg);
+            animation: rotate3d 10s linear infinite;
+        }
+        .face {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #d4af37, #c17c59);
+            border: 2px solid #ffd700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a2937;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .face-front  { transform: translateZ(75px); }
+        .face-back   { transform: rotateY(180deg) translateZ(75px); }
+        .face-right { transform: rotateY(90deg) translateZ(75px); }
+        .face-left  { transform: rotateY(-90deg) translateZ(75px); }
+        .face-top   { transform: rotateX(90deg) translateZ(75px); }
+        .face-bottom{ transform: rotateX(-90deg) translateZ(75px); }
+        
+        @keyframes rotate3d {
+            from { transform: rotateX(-20deg) rotateY(0deg); }
+            to { transform: rotateX(-20deg) rotateY(360deg); }
+        }
+        
+        /* 2D Animations */
+        .hover-scale:hover { transform: scale(1.05); }
+        .hover-lift:hover { transform: translateY(-10px); }
+        .hover-glow:hover { box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
+        
+        .fade-in { animation: fadeIn 1s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        /* Video Custom Controls */
+        .video-controls {
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .video-wrapper:hover .video-controls { opacity: 1; }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #d4af37;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 text-white py-20 text-center fade-in">
+        <p class="text-oman-gold tracking-widest uppercase text-sm mb-4">Discover • Explore • Experience</p>
+        <h1 class="text-5xl md:text-7xl font-bold mb-4">Oman<span class="text-oman-gold">Castles</span></h1>
+        <p class="text-xl text-gray-300 mb-6">قلاع ومساجد سلطنة عُمان</p>
+        <div class="flex gap-4 justify-center">
+            <a href="#castles" class="px-6 py-3 bg-oman-gold text-gray-900 font-bold rounded-full hover:bg-yellow-400 transition hover-scale">Explore Now</a>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-gray-800 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 flex flex-wrap gap-4 py-3 justify-center">
+            <a href="#castles" class="text-white hover:text-oman-gold">🏰 Castles</a>
+            <a href="#video" class="text-white hover:text-oman-gold">🎬 Video</a>
+            <a href="#gallery" class="text-white hover:text-oman-gold">🖼️ Gallery</a>
+            <a href="#3d" class="text-white hover:text-oman-gold">🎲 3D</a>
+            <a href="#technical-spec" class="text-white hover:text-oman-gold">📋 Technical Spec</a>
+            <a href="#critical-evaluation" class="text-white hover:text-oman-gold">📝 Critical Eval</a>
+        </div>
+    </nav>
+
+    <!-- Interactive Video Section -->
+    <section id="video" class="py-16 bg-gray-900 text-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-4">🎬 Interactive Video Journey</h2>
+            <p class="text-center text-gray-400 mb-6">Choose your path through Omani history</p>
+            
+            <!-- Video with Custom Controls -->
+            <div class="video-wrapper relative rounded-2xl overflow-hidden shadow-2xl">
+                <!-- Video Source (changes based on selection) -->
+                <video id="mainVideo" class="w-full aspect-video" poster="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/800px-Nizwa_fort_oman.jpg">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                </video>
+                
+                <!-- Custom Controls Overlay -->
+                <div class="video-controls absolute bottom-0 left-0 right-0 p-4">
+                    <!-- Title -->
+                    <h3 id="videoTitle" class="text-xl font-bold text-white mb-2">🏰 Nizwa Fort Journey</h3>
+                    
+                    <!-- Progress Bar -->
+                    <div class="progress-bar mb-3" onclick="seekVideo(event)">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    
+                    <!-- Buttons -->
+                    <div class="flex items-center gap-4">
+                        <button onclick="togglePlay()" class="w-12 h-12 bg-oman-gold rounded-full flex items-center justify-center hover:bg-yellow-400 transition">
+                            <i class="fas fa-play text-gray-900" id="playIcon"></i>
+                        </button>
+                        <button onclick="toggleMute()" class="text-white hover:text-oman-gold">
+                            <i class="fas fa-volume-up text-xl" id="muteIcon"></i>
+                        </button>
+                        <span class="text-white text-sm" id="timeDisplay">0:00 / 0:00</span>
+                        <button onclick="toggleFullscreen()" class="ml-auto text-white hover:text-oman-gold">
+                            <i class="fas fa-expand text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Route Selection Buttons -->
+            <div class="grid md:grid-cols-3 gap-4 mt-6">
+                <button onclick="playRoute(1)" class="p-4 bg-oman-gold text-gray-900 font-bold rounded-xl hover:bg-yellow-400 transition hover-lift">
+                    🏰 Route 1: Nizwa Fort
+                </button>
+                <button onclick="playRoute(2)" class="p-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition hover-lift">
+                    🏛️ Route 2: Bahla Fort
+                </button>
+                <button onclick="openYouTube()" class="p-4 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition hover-lift">
+                    📺 Watch Full Video
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Forts Grid -->
+    <section id="castles" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">🏰 Famous Omani Forts</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Nizwa -->
+                <div class="rounded-xl overflow-hidden shadow-lg hover-glow transition-all duration-300 hover-lift cursor-pointer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/640px-Nizwa_fort_oman.jpg" class="w-full h-56 object-cover hover-scale transition duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold">Nizwa Fort</h3>
+                        <p class="text-gray-500 text-sm">1668 AD • Interior Region</p>
+                    </div>
+                </div>
+                
+                <!-- Bahla -->
+                <div class="rounded-xl overflow-hidden shadow-lg hover-glow transition-all duration-300 hover-lift cursor-pointer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/640px-Bahla_fort.jpg" class="w-full h-56 object-cover hover-scale transition duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold">Bahla Fort</h3>
+                        <p class="text-gray-500 text-sm">1200s AD • UNESCO Site</p>
+                    </div>
+                </div>
+                
+                <!-- Jabrin -->
+                <div class="rounded-xl overflow-hidden shadow-lg hover-glow transition-all duration-300 hover-lift cursor-pointer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/640px-Jabrin_Castle.jpg" class="w-full h-56 object-cover hover-scale transition duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold">Jabrin Castle</h3>
+                        <p class="text-gray-500 text-sm">1670s AD • Palace</p>
+                    </div>
+                </div>
+                
+                <!-- Rustaq -->
+                <div class="rounded-xl overflow-hidden shadow-lg hover-glow transition-all duration-300 hover-lift cursor-pointer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rustaq_Fort.jpg/640px-Rustaq_Fort.jpg" class="w-full h-56 object-cover hover-scale transition duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold">Rustaq Fort</h3>
+                        <p class="text-gray-500 text-sm">1300s AD • Al Batinah</p>
+                    </div>
+                </div>
+                
+                <!-- Nakhal -->
+                <div class="rounded-xl overflow-hidden shadow-lg hover-glow transition-all duration-300 hover-lift cursor-pointer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nakhal_Fort.jpg/640px-Nakhal_Fort.jpg" class="w-full h-56 object-cover hover-scale transition duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold">Nakhal Fort</h3>
+                        <p class="text-gray-500 text-sm">1585 AD • Springs</p>
+                    </div>
+                </div>
+                
+                <!-- Sunaysin -->
+                <div class="rounded-xl overflow-hidden shadow-lg hover-glow transition-all duration-300 hover-lift cursor-pointer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Sunayr_Fort.jpg/640px-Sunayr_Fort.jpg" class="w-full h-56 object-cover hover-scale transition duration-300">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold">Sunaysin Castle</h3>
+                        <p class="text-gray-500 text-sm">1800s AD • Dhahirah</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive 3D Section -->
+    <section id="3d" class="py-16 bg-gray-800 text-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4">🎮 Interactive 3D Castle</h2>
+            <p class="text-gray-400 mb-8">Click and drag to rotate the 3D cube</p>
+            
+            <!-- 3D with YouTube Fallback -->
+            <div id="webglContainer" class="relative h-80 bg-gradient-to-br from-gray-900 to-gray-700 rounded-2xl overflow-hidden shadow-2xl">
+                <div class="castle-3d flex items-center justify-center h-full cursor-move" id="cubeContainer">
+                    <div class="cube" id="castleCube">
+                        <div class="face face-front">🏰</div>
+                        <div class="face face-back">🗿</div>
+                        <div class="face face-right">⚔️</div>
+                        <div class="face face-left">🛡️</div>
+                        <div class="face face-top">☀️</div>
+                        <div class="face face-bottom">🏜️</div>
+                    </div>
+                </div>
+                
+                <div class="absolute bottom-4 left-4 flex gap-2">
+                    <button onclick="reset3D()" class="px-3 py-1 bg-white/20 rounded hover:bg-white/40">Reset</button>
+                    <button onclick="toggleAutoRotate()" id="autoRotateBtn" class="px-3 py-1 bg-oman-gold text-gray-900 rounded">Auto Rotate</button>
+                </div>
+                
+                <div class="absolute top-4 right-4">
+                    <button onclick="showYouTube3D()" class="px-3 py-1 bg-red-600 rounded hover:bg-red-700">
+                        <i class="fab fa-youtube mr-1"></i> YouTube 3D
+                    </button>
+                </div>
+            </div>
+            
+            <!-- YouTube Embed (Hidden by default) -->
+            <div id="youtube3D" class="hidden mt-4">
+                <div class="aspect-video rounded-xl overflow-hidden">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/ScMzIvxBwi4" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <button onclick="hideYouTube3D()" class="mt-2 px-4 py-2 bg-gray-700 rounded">Close YouTube</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Graphics Gallery - Before/After -->
+    <section id="gallery" class="py-16 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">🖼️ Image Editor - Before & After</h2>
+            <p class="text-center text-gray-500 mb-8">Hover to see the edited version</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Nizwa Fort -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                    <div class="relative group">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/400px-Nizwa_fort_oman.jpg" 
+                             class="w-full h-48 object-cover">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/400px-Nizwa_fort_oman.jpg" 
+                             class="w-full h-48 object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition"
+                             style="filter: brightness(1.2) contrast(1.1) saturate(1.3);">
+                    </div>
+                    <div class="p-3 text-center">
+                        <p class="font-bold text-sm">Nizwa Fort</p>
+                        <p class="text-xs text-gray-500">Hover for Bright + Gold</p>
+                    </div>
+                </div>
+                
+                <!-- Bahla Fort -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                    <div class="relative group">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/400px-Bahla_fort.jpg" 
+                             class="w-full h-48 object-cover">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/400px-Bahla_fort.jpg" 
+                             class="w-full h-48 object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition"
+                             style="filter: sepia(30%) contrast(1.2);">
+                    </div>
+                    <div class="p-3 text-center">
+                        <p class="font-bold text-sm">Bahla Fort</p>
+                        <p class="text-xs text-gray-500">Hover for Vintage</p>
+                    </div>
+                </div>
+                
+                <!-- Jabrin Castle -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                    <div class="relative group">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/400px-Jabrin_Castle.jpg" 
+                             class="w-full h-48 object-cover">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/400px-Jabrin_Castle.jpg" 
+                             class="w-full h-48 object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition"
+                             style="filter: brightness(1.3) saturate(1.5);">
+                    </div>
+                    <div class="p-3 text-center">
+                        <p class="font-bold text-sm">Jabrin Castle</p>
+                        <p class="text-xs text-gray-500">Hover for Vivid</p>
+                    </div>
+                </div>
+                
+                <!-- Rustaq Fort -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition">
+                    <div class="relative group">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rustaq_Fort.jpg/400px-Rustaq_Fort.jpg" 
+                             class="w-full h-48 object-cover">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rustaq_Fort.jpg/400px-Rustaq_Fort.jpg" 
+                             class="w-full h-48 object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition"
+                             style="filter: brightness(0.9) contrast(1.3) grayscale(20%);">
+                    </div>
+                    <div class="p-3 text-center">
+                        <p class="font-bold text-sm">Rustaq Fort</p>
+                        <p class="text-xs text-gray-500">Hover for Dramatic</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-6">
+                <p class="text-gray-500">Use the image editor to create your own edits!</p>
+                <a href="editor.html" class="inline-block mt-2 px-6 py-3 bg-oman-blue text-white font-bold rounded-full hover:bg-blue-700 transition">
+                    🎨 Open Image Editor
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 text-center">
+        <h2 class="text-2xl font-bold mb-2">Oman<span class="text-oman-gold">Castles</span></h2>
+        <p class="text-gray-400">🇴🇲 سلطنة عُمان 🇴🇲</p>
+        <p class="text-gray-500 text-sm mt-4">© 2026 OmanCastles | Educational Project</p>
+        
+        <!-- Easter Egg Hint -->
+        <p id="easterHint" class="text-gray-600 text-xs mt-2 opacity-0 transition-opacity">Hint: Press Ctrl+Shift+O</p>
+    </footer>
+
+    <script>
+        /* ==================== VIDEO CONTROLS ==================== */
+        const video = document.getElementById('mainVideo');
+        let isPlaying = false;
+        
+        video.addEventListener('loadedmetadata', () => {
+            document.getElementById('timeDisplay').textContent = `0:00 / ${formatTime(video.duration)}`;
+        });
+        
+        video.addEventListener('timeupdate', () => {
+            const progress = (video.currentTime / video.duration) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('timeDisplay').textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+        });
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function togglePlay() {
+            if (video.paused) {
+                video.play();
+                document.getElementById('playIcon').className = 'fas fa-pause text-gray-900';
+            } else {
+                video.pause();
+                document.getElementById('playIcon').className = 'fas fa-play text-gray-900';
+            }
+        }
+        
+        function toggleMute() {
+            video.muted = !video.muted;
+            document.getElementById('muteIcon').className = video.muted ? 'fas fa-volume-mute text-xl' : 'fas fa-volume-up text-xl';
+        }
+        
+        function seekVideo(e) {
+            const rect = e.target.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            video.currentTime = percent * video.duration;
+        }
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.querySelector('.video-wrapper').requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        function playRoute(route) {
+            const titles = {
+                1: '🏰 Nizwa Fort Journey',
+                2: '🏛️ Bahla Fort Journey'
+            };
+            document.getElementById('videoTitle').textContent = titles[route];
+            // Simulate different content
+            video.currentTime = 0;
+            video.play();
+            alert(`Playing ${titles[route]}\n\nThis demonstrates interactive video - content changes based on user selection!`);
+        }
+        
+        function openYouTube() {
+            window.open('https://www.youtube.com/watch?v=ScMzIvxBwi4', '_blank');
+        }
+        
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+            if (e.code === 'ArrowRight') video.currentTime += 10;
+            if (e.code === 'ArrowLeft') video.currentTime -= 10;
+        });
+        
+        /* ==================== 3D CONTROLS ==================== */
+        let autoRotate = false;
+        let isDragging = false;
+        let lastPos = { x: 0, y: 0 };
+        
+        const cube = document.getElementById('castleCube');
+        const container = document.getElementById('cubeContainer');
+        
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            lastPos = { x: e.clientX, y: e.clientY };
+            if (autoRotate) toggleAutoRotate();
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - lastPos.x;
+            const dy = e.clientY - lastPos.y;
+            cube.style.transform = `rotateX(${-20 + dy * 0.5}deg) rotateY(${-30 + dx * 0.5}deg)`;
+            lastPos = { x: e.clientX, y: e.clientY };
+        });
+        
+        document.addEventListener('mouseup', () => isDragging = false);
+        
+        function reset3D() {
+            cube.style.transform = 'rotateX(-20deg) rotateY(-30deg)';
+        }
+        
+        function toggleAutoRotate() {
+            autoRotate = !autoRotate;
+            const btn = document.getElementById('autoRotateBtn');
+            if (autoRotate) {
+                cube.style.animation = 'rotate3d 10s linear infinite';
+                btn.classList.remove('bg-oman-gold', 'text-gray-900');
+                btn.classList.add('bg-white', 'text-gray-900');
+            } else {
+                cube.style.animation = 'none';
+                btn.classList.add('bg-oman-gold', 'text-gray-900');
+                btn.classList.remove('bg-white', 'text-gray-900');
+            }
+        }
+        
+        function showYouTube3D() {
+            document.getElementById('youtube3D').classList.remove('hidden');
+        }
+        
+        function hideYouTube3D() {
+            document.getElementById('youtube3D').classList.add('hidden');
+        }
+        
+        /* ==================== GALLERY ==================== */
+        function refreshGallery() {
+            const images = [
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/320px-Nizwa_fort_oman.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/320px-Bahla_fort.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/320px-Jabrin_Castle.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rustaq_Fort.jpg/320px-Rustaq_Fort.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nakhal_Fort.jpg/320px-Nakhal_Fort.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Sunayr_Fort.jpg/320px-Sunayr_Fort.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Sultan_Qaboos_Grand_Mosque_Muscat_Oman.jpg/320px-Sultan_Qaboos_Grand_Mosque_Muscat_Oman.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Khanjar.jpg/320px-Khanjar.jpg'
+            ];
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = images.sort(() => Math.random() - 0.5).map(src => 
+                `<img src="${src}" class="rounded-lg shadow hover:shadow-xl transition hover-scale cursor-pointer">`
+            ).join('');
+        }
+        
+        /* ==================== EASTER EGG (AUDIO) ==================== */
+        let easterPlayed = false;
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'O') {
+                e.preventDefault();
+                playEasterEgg();
+            }
+        });
+        
+        // Show hint after 30 seconds
+        setTimeout(() => {
+            document.getElementById('easterHint').classList.remove('opacity-0');
+        }, 30000);
+        
+        function playEasterEgg() {
+            if (easterPlayed) return;
+            easterPlayed = true;
+            
+            // Web Audio API - Generate tones
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Omani-style melody (A, C, D notes)
+                const notes = [440, 523, 392, 349, 440];
+                notes.forEach((freq, i) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime + i * 0.3);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.3 + 0.5);
+                    osc.start(audioCtx.currentTime + i * 0.3);
+                    osc.stop(audioCtx.currentTime + i * 0.3 + 0.5);
+                });
+            } catch(e) {
+                console.log('Audio not supported');
+            }
+            
+            alert('🎉 EASTER EGG FOUND!\n\nYou discovered the hidden audio feature!\n\nThis uses Web Audio API to generate synthesized tones - no audio file needed!\n\nCreated for educational purposes.');
+        }
+        
+        /* ==================== FEATURE DETECTION ==================== */
+        // Check WebGL
+        if (!window.WebGLRenderingContext) {
+            document.getElementById('cubeContainer').innerHTML = '<p class="text-white">3D not supported. <button onclick="showYouTube3D()" class="text-oman-gold underline">Watch on YouTube</button></p>';
+        }
+        
+        // Check Fullscreen
+        if (!document.fullscreenEnabled) {
+            console.log('Fullscreen not supported in this browser');
+        }
+    
+    
+    </script>
+</body>
+</html>

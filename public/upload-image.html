@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image - Oman Castles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-gradient-to-r from-oman-blue to-blue-800 text-white py-6">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold">🖼️ Upload Image</h1>
+                <p class="mt-1">Upload and manage images</p>
+            </div>
+            <a href="upload-video.html" class="px-4 py-2 bg-white/20 rounded hover:bg-white/30">🎬 Go to Video</a>
+            <a href="editor.html" class="px-4 py-2 bg-oman-gold text-oman-dark rounded hover:bg-yellow-400">🎨 Go to Editor</a>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto p-4">
+        <!-- Upload Area -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-4">
+            <h2 class="text-xl font-bold mb-4">Select Images</h2>
+            
+            <div onclick="document.getElementById('fileInput').click()" class="border-2 border-dashed border-gray-300 rounded-xl p-12 text-center hover:border-oman-blue hover:bg-blue-50 cursor-pointer transition">
+                <i class="fas fa-image text-5xl text-gray-300 mb-4"></i>
+                <p class="text-lg text-gray-600">Click to select images</p>
+                <p class="text-sm text-gray-400">Support: JPG, PNG, GIF, WebP</p>
+                <input type="file" id="fileInput" accept="image/*" multiple class="hidden" onchange="handleFiles(this.files)">
+            </div>
+        </div>
+
+        <!-- Gallery -->
+        <div id="gallery" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+
+        <!-- Actions -->
+        <div id="actions" class="bg-white rounded-2xl shadow-lg p-6 mt-4 hidden">
+            <div class="flex gap-4">
+                <button onclick="downloadAll()" class="flex-1 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700">
+                    ⬇️ Download All
+                </button>
+                <button onclick="clearAll()" class="px-4 py-3 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600">
+                    🗑️ Clear
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let images = [];
+        
+        async function handleFiles(files) {
+            if (!files || files.length === 0) return;
+            
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('file' + i, files[i]);
+            }
+            
+            try {
+                const response = await fetch('/api/upload.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    images = result.files.map(f => ({ name: f.name, url: f.url }));
+                    updateGallery();
+                    alert('Upload successful!');
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (e) {
+                alert('Upload failed: ' + e.message);
+            }
+        }
+
+        function updateGallery() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+            images.forEach(img => {
+                const div = document.createElement('div');
+                div.className = 'bg-white rounded-lg overflow-hidden shadow hover:shadow-xl transition';
+                div.innerHTML = `
+                    <img src="${img.url}" class="w-full h-48 object-cover">
+                    <div class="p-3 flex justify-between items-center">
+                        <span class="text-sm truncate text-gray-600">${img.name}</span>
+                        <a href="${img.url}" download="${img.name}" class="text-oman-blue hover:text-oman-gold">
+                            <i class="fas fa-download"></i>
+                        </a>
+                    </div>
+                `;
+                gallery.appendChild(div);
+            });
+            document.getElementById('actions').classList.remove('hidden');
+        }
+
+        function downloadAll() {
+            images.forEach(img => {
+                const link = document.createElement('a');
+                link.href = img.url;
+                link.download = img.name;
+                link.click();
+            });
+        }
+
+        function clearAll() {
+            images = [];
+            document.getElementById('gallery').innerHTML = '';
+            document.getElementById('actions').classList.add('hidden');
+            document.getElementById('fileInput').value = '';
+        }
+    </script>
+</body>
+</html>

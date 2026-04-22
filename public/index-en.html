@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oman Castles - Interactive Cultural Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37',
+                        'oman-red': '#c0392b',
+                        'oman-dark': '#2c3e50',
+                        'oman-light': '#f4f4f4'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        glow: {
+                            '0%, 100%': { opacity: 0.5, transform: 'scale(1)' },
+                            '50%': { opacity: 1, transform: 'scale(1.1)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-oman-light font-sans text-oman-dark">
+    <!-- Loading Screen -->
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-oman-blue to-oman-dark">
+        <div class="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+        <p class="text-white mt-4">Loading...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-oman-blue to-oman-dark text-white py-8 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="particle absolute w-3 h-3 bg-oman-gold rounded-full" style="left: 10%; top: 20%;"></div>
+            <div class="particle absolute w-3 h-3 bg-oman-gold rounded-full" style="left: 20%; top: 60%; animation-delay: 1s;"></div>
+            <div class="particle absolute w-3 h-3 bg-oman-gold rounded-full" style="left: 70%; top: 30%; animation-delay: 2s;"></div>
+            <div class="particle absolute w-3 h-3 bg-oman-gold rounded-full" style="left: 80%; top: 70%; animation-delay: 0.5s;"></div>
+            <div class="particle absolute w-3 h-3 bg-oman-gold rounded-full" style="left: 50%; top: 40%; animation-delay: 1.5s;"></div>
+        </div>
+        <div class="relative z-10">
+            <h1 class=" md:text-5xl text-[60px] font-bold mb-2 animate-fade-in-up" id="main-title">Oman  Castles</h1>
+            <p class="text-[32px] opacity-90 animate-fade-in-up" style="animation-delay: 0.2s; ">Discover the cultural icons of the Sultanate</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-oman-dark sticky top-0 z-40 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Hamburger Button (Mobile) -->
+                <button id="hamburgerBtn" class="md:hidden text-white text-2xl focus:outline-none" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <!-- Logo (Desktop) -->
+                <span class="hidden md:block text-oman-gold font-bold text-xl">🏛️ Oman Castles</span>
+                
+                <!-- Menu Links -->
+                <div id="navMenu" class="hidden md:flex gap-8 flex-wrap">
+                    <a href="gallery.html" class="text-white hover:text-oman-gold">Gallery</a>
+                    <a href="#interactive-video" class="text-white hover:text-oman-gold">Video</a>
+                    <a href="#3d-section" class="text-white hover:text-oman-gold">3D</a>
+                    <a href="#audio" class="text-white hover:text-oman-gold">Audio</a>
+                    <a href="#upload" class="text-white hover:text-oman-gold">Upload</a>
+                </div>
+                
+                <!-- Language Selector -->
+                <div class="flex gap-2">
+                    <a href="index-en.html" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-oman-gold">EN</a>
+                    <a href="index-ar.html" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-oman-gold">AR</a>
+                    <a href="index-hi.html" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-oman-gold">HI</a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu (Dropdown) -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-white/20 pt-4">
+                <div class="flex flex-col gap-4">
+                    <a href="gallery.html" class="text-white hover:text-oman-gold py-2">Gallery</a>
+                    <a href="#interactive-video" class="text-white hover:text-oman-gold py-2">Video</a>
+                    <a href="#3d-section" class="text-white hover:text-oman-gold py-2">3D</a>
+                    <a href="#audio" class="text-white hover:text-oman-gold py-2">Audio</a>
+                    <a href="#upload" class="text-white hover:text-oman-gold py-2">Upload</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <style>
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .preserve-3d {
+            transform-style: preserve-3d;
+        }
+        .rotate-y-5:hover {
+            transform: rotateY(5deg);
+        }
+        .translate-z:hover {
+            transform: translateZ(20px);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotateX-3:hover {
+            transform: rotateX(-3deg);
+        }
+        .rotateY-3:hover {
+            transform: rotateY(3deg);
+        }
+        .animate-3d-float {
+            animation: float3d 6s ease-in-out infinite;
+        }
+        @keyframes float3d {
+            0%, 100% { transform: translateY(0) rotateX(0); }
+            50% { transform: translateY(-15px) rotateX(2deg); }
+        }
+        .animate-3d-spin {
+            animation: spin3d 12s linear infinite;
+        }
+        @keyframes spin3d {
+            0% { transform: rotateY(0deg) rotateX(10deg); }
+            100% { transform: rotateY(360deg) rotateX(10deg); }
+        }
+        .animate-3d-tilt {
+            animation: tilt3d 8s ease-in-out infinite;
+        }
+        @keyframes tilt3d {
+            0%, 100% { transform: rotateY(-5deg) rotateX(0); }
+            25% { transform: rotateY(0) rotateX(3deg); }
+            50% { transform: rotateY(5deg) rotateX(0); }
+            75% { transform: rotateY(0) rotateX(-3deg); }
+        }
+    </style>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        
+<!-- Gallery Section -->
+        <section id="gallery" class="mb-12 perspective-1000">
+            <h2 class="text-3xl font-bold text-oman-blue mb-6">🏛️ Oman Castles Gallery</h2>
+            <p class="mb-6 text-gray-600">Hover to see details</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 transform-style-preserve-3d">
+                <div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer preserve-3d rotateY-3 hover:shadow-2xl transition-all duration-500 transform">
+                    <img src="../nizwa fort.png.jpg" alt="Nizwa Fort" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 p-4 text-center">
+                        <div>
+                            <h3 class="text-white font-bold text-xl">🏰 Nizwa Fort</h3>
+                            <p class="text-gray-300 text-sm">Built: 1668 AD</p>
+                            <p class="text-gray-300 text-sm">Location: Nizwa, Interior</p>
+                            <p class="text-oman-gold text-sm mt-1">Famous for its massive circular tower</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer preserve-3d rotateY-3 hover:shadow-2xl transition-all duration-500 transform">
+                    <img src="../bhla fort.jpg" alt="Bahla Fort" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 p-4 text-center">
+                        <div>
+                            <h3 class="text-white font-bold text-xl">🏰 Bahla Fort</h3>
+                            <p class="text-gray-300 text-sm">Built: 13th Century</p>
+                            <p class="text-gray-300 text-sm">Location: Bahla, Interior</p>
+                            <p class="text-oman-gold text-sm mt-1">UNESCO World Heritage Site</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer preserve-3d rotateY-3 hover:shadow-2xl transition-all duration-500 transform">
+                    <img src="../jarbin-castle.avif" alt="Jabrin Castle" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 p-4 text-center">
+                        <div>
+                            <h3 class="text-white font-bold text-xl">🏰 Jabrin Castle</h3>
+                            <p class="text-gray-300 text-sm">Built: 1675 AD</p>
+                            <p class="text-gray-300 text-sm">Location: Interior Oman</p>
+                            <p class="text-oman-gold text-sm mt-1">Famous for decorated ceilings</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer preserve-3d rotateY-3 hover:shadow-2xl transition-all duration-500 transform">
+                    <img src="../rustaq.jpg" alt="Rustaq Fort" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 p-4 text-center">
+                        <div>
+                            <h3 class="text-white font-bold text-xl">🏰 Rustaq Fort</h3>
+                            <p class="text-gray-300 text-sm">Built: 1250 AD</p>
+                            <p class="text-gray-300 text-sm">Location: Rustaq, Batinah</p>
+                            <p class="text-oman-gold text-sm mt-1">One of the oldest forts</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer preserve-3d rotateY-3 hover:shadow-2xl transition-all duration-500 transform">
+                    <img src="../nakhal fort.jpg" alt="Nakhal Fort" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 p-4 text-center">
+                        <div>
+                            <h3 class="text-white font-bold text-xl">🏰 Nakhal Fort</h3>
+                            <p class="text-gray-300 text-sm">Built: 1500 AD</p>
+                            <p class="text-gray-300 text-sm">Location: Nakhal, Batinah</p>
+                            <p class="text-oman-gold text-sm mt-1">Strategic location</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer preserve-3d rotateY-3 hover:shadow-2xl transition-all duration-500 transform">
+                    <img src="../sultan qaboos masjid.jpg" alt="Grand Mosque" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 p-4 text-center">
+                        <div>
+                            <h3 class="text-white font-bold text-xl">🕌 Sultan Qaboos Mosque</h3>
+                            <p class="text-gray-300 text-sm">Built: 2001 AD</p>
+                            <p class="text-gray-300 text-sm">Location: Muscat</p>
+                            <p class="text-oman-gold text-sm mt-1">One of largest mosques</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Editor -->
+        <section id="image-editor" class="mb-12">
+            <h2 class="text-3xl font-bold text-oman-blue mb-6">🎨 Image Editor</h2>
+            <p class="mb-6 text-gray-600">Upload an image and apply filters</p>
+            
+            <div class="bg-white rounded-xl p-6 shadow-lg">
+                <div class="mb-4">
+                    <label class="block font-bold mb-2">📤 Upload Image</label>
+                    <input type="file" id="editorInput" accept="image/*" onchange="loadEditorImage(event)" class="w-full border p-2 rounded">
+                </div>
+                
+                <div class="mb-4 text-center">
+                    <canvas id="editorCanvas" class="max-w-full max-h-96 mx-auto border rounded bg-gray-100"></canvas>
+                </div>
+                
+                <div class="grid grid-cols-3 md:grid-cols-6 gap-2 mb-4">
+                    <button onclick="applyFilter('original')" class="py-2 px-3 bg-gray-200 rounded hover:bg-gray-300">📷 Original</button>
+                    <button onclick="applyFilter('bright')" class="py-2 px-3 bg-yellow-100 rounded hover:bg-yellow-200">☀️ Bright</button>
+                    <button onclick="applyFilter('dark')" class="py-2 px-3 bg-gray-800 text-white rounded hover:bg-gray-900">🌙 Dark</button>
+                    <button onclick="applyFilter('warm')" class="py-2 px-3 bg-orange-100 rounded hover:bg-orange-200">🔥 Warm</button>
+                    <button onclick="applyFilter('cool')" class="py-2 px-3 bg-blue-100 rounded hover:bg-blue-200">❄️ Cool</button>
+                    <button onclick="applyFilter('vintage')" class="py-2 px-3 bg-amber-100 rounded hover:bg-amber-200">📽️ Vintage</button>
+                    <button onclick="applyFilter('gold')" class="py-2 px-3 bg-yellow-200 rounded hover:bg-yellow-300">✨ Gold</button>
+                    <button onclick="applyFilter('dramatic')" class="py-2 px-3 bg-purple-100 rounded hover:bg-purple-200">🌈 Dramatic</button>
+                    <button onclick="applyFilter('bw')" class="py-2 px-3 bg-gray-400 text-white rounded hover:bg-gray-500">⬛ B&W</button>
+                    <button onclick="applyFilter('sharpen')" class="py-2 px-3 bg-red-100 rounded hover:bg-red-200">🔪 Sharpen</button>
+                    <button onclick="applyFilter('blur')" class="py-2 px-3 bg-cyan-100 rounded hover:bg-cyan-200">🌫️ Soft</button>
+                    <button onclick="applyFilter('pop')" class="py-2 px-3 bg-pink-100 rounded hover:bg-pink-200">🎨 Pop</button>
+                </div>
+                
+                <div class="flex gap-2">
+                    <button onclick="resetEditor()" class="flex-1 py-2 bg-gray-200 rounded font-bold hover:bg-gray-300">🔄 Reset</button>
+                    <button onclick="saveEditorImage()" class="flex-1 py-2 bg-green-600 text-white rounded font-bold hover:bg-green-700">💾 Save</button>
+                </div>
+</div>
+        </section>
+                            
+                <!-- Tab 3: Filter Effects -->
+                <div id="tab3" class="tab-content hidden">
+                    <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-purple-600 mb-4 text-[40px]">🎭 Filter Effects</h4>
+                        <p class="text-gray-600 mb-4 text-[24px]">Apply creative filters like Vintage, HDR, or Artistic effects.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold  mb-2 text-[40px]">Filter 1: High-Pass Sharpening</h5>
+                                <p class="text-gray-600 text-[24px]">1. Duplicate layer (Ctrl/Cmd + J)<br>2. Filter > Other > High Pass<br>3. Radius: 1-3 pixels<br>4. Set layer to "Overlay" or "Soft Light"</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold  mb-2 text-[40px]">Filter 2: Soft Focus / Glow</h5>
+                                <p class="text-gray-600 text-[24px]">1. Duplicate layer<br>2. Filter > Blur > Gaussian Blur (10-20px)<br>3. Change blend mode to "Screen" or "Lighten"<br>4. Lower opacity to 20-40%</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold  mb-2 text-[40px]">Filter 3: Filter Gallery</h5>
+                                <p class="text-gray-600 text-[24px]">Go to <strong>Filter > Filter Gallery</strong>. Explore folders:<br>
+                                <span class=" text-[24px]">• Artistic:</span> Poster Edges, Water Color<br>
+                                <span class=" text-[24px]">• Sketch:</span> Photocopy, Stamp<br>
+                                <span class=" text-[24px]">• Texture:</span> Texturizer, Craquelure</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">Filter 4: HDR Effects</h5>
+                                <p class="text-gray-600 text-[24px]">Filter > HDR > HDR Exposure. Adjust sliders for dramatic look with high detail & contrast.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: Exposure/Sharpness -->
+                <div id="tab4" class="tab-content hidden">
+                    <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-blue-600 mb-4 text-[40px]">☀️ Exposure, Sharpness & Noise Correction</h4>
+                        <p class="text-gray-600 mb-4 text-[24px]">Fix dark/bright photos, add sharpness, or reduce noise.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">1. Exposure Correction</h5>
+                                <p class="text-gray-600 text-[24px]">Go to <strong>Image > Adjustments > Exposure</strong>.<br>
+                                • <strong>Exposure:</strong> Adjust overall brightness (-3 to +3)<br>
+                                • <strong>Offset:</strong> Adjust mid-tones<br>
+                                • <strong>Gamma:</strong> Adjust contrast</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">2. Brightness/Contrast</h5>
+                                <p class="text-gray-600 text-[24px]">Go to <strong>Image > Adjustments > Brightness/Contrast</strong>.<br>Increase Brightness for dark photos. Check "Use Legacy" for better results.</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">3. Sharpness</h5>
+                                <p class="text-gray-600 text-[24px]">Go to <strong>Filter > Sharpen > Unsharp Mask</strong>.<br>
+                                • <strong>Amount:</strong> 100-150%<br>
+                                • <strong>Radius:</strong> 0.5-1 pixel<br>
+                                • <strong>Threshold:</strong> 0-3</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">4. Noise Reduction</h5>
+                                <p class="text-gray-600 text-[24px]">Go to <strong>Filter > Noise > Reduce Noise</strong>.<br>
+                                • <strong>Strength:</strong> 5-10<br>
+                                • <strong>Preserve Details:</strong> 50%<br>
+                                • <strong>Reduce Color Noise:</strong> Checked</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 5: Portrait Editing -->
+                <div id="tab5" class="tab-content hidden">
+                    <div class="bg-gradient-to-r from-pink-50 to-rose-50 rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-pink-600 mb-4 text-[40px]">👤 Portrait Editing</h4>
+                        <p class="text-gray-600 mb-4 text-[24px]">Enhance portraits with skin retouching, subject isolation, and detail enhancement.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">1. Select Subject</h5>
+                                <p class="text-gray-600 text-[24px]">Press <strong>'W'</strong> for Quick Select tool. Click and drag to select the person. Refine edges with "Select and Mask".</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">3. Background Blur (Bokeh)</h5>
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px] ">2. Skin Retouching (Frequency Separation)</h5>
+                                <p class="text-gray-600 text-[18px]">Advanced method:<br>
+                                1. Duplicate layer 2x (Ctrl/Cmd + J)<br>
+                                2. Bottom layer: Filter > Blur > Gaussian (2-5px)<br>
+                                3. Top layer: Image > Apply Image (Mode=Multiply)<br>
+                                4. Use Clone Stamp on top layer to smooth skin while preserving detail</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">3. Background Blur (Bokeh)</h5>
+                                <p class="text-gray-600text-[24px]">1. Select subject and copy (Ctrl/Cmd + J)<br>
+                                2. Select background, apply Gaussian Blur (5-20px)<br>
+                                3. Creates professional portrait look</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">4. High Pass Detail</h5>
+                                <p class="text-gray-600 text-[24px] ">1. Layer > Duplicate<br>
+                                2. Filter > Other > High Pass (1-2px radius)<br>
+                                3. Set blend mode to "Overlay"<br>
+                                4. Adjust opacity to enhance detail</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 6: Scene Enhancement -->
+                <div id="tab6" class="tab-content hidden">
+                    <div class="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-teal-600 mb-4 text-[40px]">🏛️ Scene & Building Enhancement</h4>
+                        <p class="text-gray-600 mb-4 text-[24px]">Enhance architectural photos with HDR, perspective correction, and lighting.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">1. HDR Tone Mapping</h5>
+                                <p class="text-gray-600 text-sm text-[24px]">Go to <strong>Filter > HDR > HDR Toning</strong>.<br>
+                                • AdjustDetail slider for structure<br>
+                                • Highlights for sky/clouds<br>
+                                • Shadows for architecture depth</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[40px]">2. Perspective Correction</h5>
+                                <p class="text-gray-600 text-sm text-[24px]">Use <strong>Filter > Crop</strong> tool or:<br>
+                                1. Enable Ruler (Ctrl/Cmd + R)<br>
+                                2. Draw line along vertical edge<br>
+                                3. Image > Rotate Canvas > Arbitrary (+ correct degrees)</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[24px]">3. Orton Effect (Popular)</h5>
+                                <p class="text-gray-600 text-sm">1. Duplicate layer<br>
+                                2. Bottom: Filter > Blur > Gaussian (20-30px)<br>
+                                3. Top: Filter > Blur > Gaussian (3-5px)<br>
+                                4. Top layer mode: "Soft Light"<br>
+                                Creates dreamy/luminous look</p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg p-4 shadow">
+                                <h5 class="font-bold text-oman-blue mb-2 text-[24px]">4. Architectural Straightening</h5>
+                                <p class="text-gray-600 text-[18px]">For Nizwa Fort or Sultan Qaboos Mosque:<br>
+                                1. Crop tool > Auto (tick)<br>
+                                2. Or use Camera Raw filter<br>
+                                3. Adjust straightening slider<br>
+                                Keep vertical lines parallel!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Picture Tag Art Direction Demo -->
+            <div class="card-hover bg-white rounded-xl p-6 mt-8 shadow-md hover:shadow-2xl transition-all duration-500 animate-pulse hover:animate-none">
+                <h3 class="font-bold text-oman-dark mb-4 text-[40px]">Art Direction</h3>
+            <p class="text-gray-600 mb-4 text-[24px]">Art Direction is the process of defining and guiding the visual style of a project to ensure a consistent and impactful look.</p>
+                
+                <div class="text-center">
+                <picture class="inline-block group">
+                    <source srcset="../Art%20Direction.png" media="(min-width: 1024px)" type="image/webp">
+                    <source srcset="../Art%20Direction.png" media="(min-width: 768px)" type="image/webp">
+                    <source srcset="../Art%20Direction.png" type="image/webp">
+                    <img src="../Art%20Direction.png" alt="Art Direction Demo" class="w-[500px] rounded-lg transform group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                </picture>
+                </div>
+            </div>
+
+            <!-- Pixel Density Demo -->
+            <div class="bg-white rounded-xl p-6 mt-6 shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-pulse hover:animate-none">
+                <h3 class=" font-bold mb-4 text-[40px]">Optimizing Images for Different Pixel Densities</h3>
+                <p class="text-gray-600 mb-4 text-[24px]">Srcset enables responsive images by serving different resolutions based on device pixel density.</p>
+                
+                <div class="text-center">
+                    <picture class="inline-block group">
+                        <source srcset="../pixel.jpg" type="image/jpeg">
+                        <img src="../pixel.jpg" alt="Pixel Density Demo" class="w-[500px] h-auto rounded-lg transform hover:scale-110 transition-all duration-300 shadow-lg">
+                    </picture>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section id="interactive-video" class="mb-12 mt-20 perspective-1000">
+            <h2 class="text-[40px] font-bold text-oman-blue mb-6 relative inline-block section-title">
+                Interactive Video Experience
+            </h2>
+            <p class="mb-6 text-gray-600 text-[24px]">Choose your path through Omani culture</p>
+
+            <div class="video-container relative bg-black rounded-xl overflow-hidden shadow-2xl preserve-3d rotateY-3 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)] transition-all duration-500">
+                <div class="video-placeholder relative aspect-video bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center" id="video-placeholder">
+                    <div class="absolute inset-0 overflow-hidden">
+
+                    </div>
+                    <video src="../mussab content vedio.mp4"></video>
+                
+                        
+                </div>
+               
+
+            </div>
+
+            <div class="mt-4 flex flex-wrap gap-3">
+                <a href="https://youtu.be/UmV46XLp0Q0" target="_blank" class="px-6 py-3 bg-oman-gold text-oman-dark font-bold rounded-lg overflow-hidden hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2">
+                    <i class="fab fa-youtube mr-2"></i> Watch Complete Video on YouTube
+                </a>
+            </div>
+        </section>
+
+        <!-- 3D Section -->
+        <section id="3d-section" class="mb-12">
+            <h2 class="text-3xl font-bold text-oman-blue mb-6 relative inline-block section-title">
+                3D Interactive Experience
+            </h2>
+            <p class="mb-6 text-gray-600">Explore Omani Khanjar in 3D - Drag to rotate, Scroll to zoom</p>
+
+            <div id="webgl-container" class="relative h-[500px] bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-xl overflow-hidden shadow-2xl preserve-3d" style="perspective: 1200px;">
+                <canvas id="threeCanvas" class="w-full h-full"></canvas>
+                
+                <div class="absolute top-4 left-4 bg-black/70 text-white px-4 py-2 rounded-full backdrop-blur-sm">
+                    <i class="fas fa-cube mr-2"></i>Khanjar 3D Model
+                </div>
+                
+                <div class="absolute top-4 right-4 bg-black/50 text-white text-sm px-3 py-1 rounded-full backdrop-blur-sm">
+                    <i class="fas fa-hand-pointer mr-1"></i>Drag to rotate
+                </div>
+                
+                <div class="webgl-controls absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-wrap gap-2 justify-center">
+                    <button onclick="reset3DView()" class="bg-oman-gold/80 border border-oman-gold text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300 backdrop-blur-sm">
+                        <i class="fas fa-home mr-1"></i>Reset
+                    </button>
+                    <button onclick="toggle3DAutoRotate()" id="rotate3dBtn" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300 backdrop-blur-sm">
+                        <i class="fas fa-sync mr-1"></i>Auto Rotate
+                    </button>
+                    <button onclick="toggle3DLighting()" id="light3dBtn" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300 backdrop-blur-sm">
+                        <i class="fas fa-lightbulb mr-1"></i>Lighting
+                    </button>
+                    <button onclick="change3DView('front')" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300 backdrop-blur-sm">Front</button>
+                    <button onclick="change3DView('side')" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300 backdrop-blur-sm">Side</button>
+                    <button onclick="change3DView('top')" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300 backdrop-blur-sm">Top</button>
+                </div>
+            </div>
+            
+            <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white rounded-lg p-4 shadow-md text-center preserve-3d rotate-y-5 hover:shadow-xl transition-all duration-500">
+                    <div class="text-3xl mb-2">⚔️</div>
+                    <p class="font-bold text-oman-dark">Khanjar</p>
+                    <p class="text-sm text-gray-500">Traditional Dagger</p>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow-md text-center preserve-3d rotate-y-5 hover:shadow-xl transition-all duration-500">
+                    <div class="text-3xl mb-2">🏰</div>
+                    <p class="font-bold text-oman-dark">Nizwa Fort</p>
+                    <p class="text-sm text-gray-500">1668 AD</p>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow-md text-center preserve-3d rotate-y-5 hover:shadow-xl transition-all duration-500">
+                    <div class="text-3xl mb-2">🕌</div>
+                    <p class="font-bold text-oman-dark">Sultan Mosque</p>
+                    <p class="text-sm text-gray-500">Grand Mosque</p>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow-md text-center preserve-3d rotate-y-5 hover:shadow-xl transition-all duration-500">
+                    <div class="text-3xl mb-2">🏛️</div>
+                    <p class="font-bold text-oman-dark">Heritage</p>
+                    <p class="text-sm text-gray-500">UNESCO Sites</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audio Section -->
+        <section id="audio" class="mb-12 perspective-1000">
+            <h2 class="text-3xl font-bold text-oman-blue mb-6 relative inline-block section-title">
+                Audio Journey
+            </h2>
+            <p class="mb-6 text-gray-600">Listen to the narrated journey through Omani culture</p>
+
+            <div class="audio-player relative bg-gradient-to-br from-oman-blue to-oman-dark rounded-xl p-8 text-center overflow-hidden preserve-3d rotateY-3 hover:shadow-[0_25px_50px_rgba(0,0,0,0.4)] transition-all duration-500">
+                <div class="absolute inset-0 opacity-20">
+                    <div class="absolute inset-0 bg-gradient-to-br from-oman-gold/20 animate-pulse-slow rounded-full transform scale-150"></div>
+                </div>
+                <div class="relative z-10">
+                    <div id="audioVisualizer" class="audio-visualizer flex items-end justify-center gap-1.5 h-20 mb-4">
+                        <div class="audio-bar w-2.5 h-8 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-12 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-16 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-20 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-16 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-12 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-8 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-12 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-16 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-20 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-16 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                        <div class="audio-bar w-2.5 h-12 bg-gradient-to-t from-oman-gold to-oman-red rounded-full transition-all duration-300"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">🎵 Omani Music</h3>
+                    <p class="text-white/80 mb-4">Press play for traditional music</p>
+                    <div class="flex justify-center gap-4">
+                        <button onclick="playAudio()" id="playBtn" class="px-8 py-3 bg-oman-gold text-oman-dark font-bold rounded-full hover:bg-yellow-400 transition-all transform hover:scale-105">
+                            ▶ Play
+                        </button>
+                        <button onclick="stopAudio()" class="px-8 py-3 bg-white/20 text-white font-bold rounded-full hover:bg-white/30 transition-all">
+                            ⏹ Stop
+                        </button>
+                    </div>
+                    <p class="text-white/60 text-sm mt-4">Or press Ctrl+Shift+O for Easter Egg</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload" class="mb-12">
+            <h2 class="text-3xl font-bold text-oman-blue mb-6">Upload Media</h2>
+            <p class="mb-6 text-gray-600">Upload your images, audio, and video files</p>
+
+            <div class="bg-white rounded-xl p-6 shadow-md">
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-oman-gold transition-colors">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-oman-gold mb-4"></i>
+                    <p class="text-gray-600 mb-2">Click to upload or drag and drop</p>
+                    <p class="text-sm text-gray-400 mb-4">Images, Audio, or Video files</p>
+                    <input type="file" id="fileInput" accept="image/*,audio/*,video/*" multiple class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-oman-gold file:text-oman-dark hover:file:bg-yellow-400" onchange="previewFiles(this.files)">
+                </div>
+                
+                <div id="filePreview" class="mt-6 hidden">
+                    <h4 class="font-bold text-oman-dark mb-4">Uploaded Files:</h4>
+                    <div id="fileList" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-oman-dark text-white text-center py-8 mt-12 relative overflow-hidden">
+        <p>&copy; 2026 Oman Castles Project | Educational Media Assignment</p>
+        <p class="text-sm text-gray-400 mt-2">All media elements created for web delivery</p>
+    </footer>
+
+    <!-- Easter Egg Hint -->
+    <div id="easter-egg-hint" class="easter-egg-hint fixed bottom-4 right-4 bg-oman-dark text-white/50 px-4 py-2 rounded text-sm opacity-0 transition-opacity duration-300 z-50">
+        Hint: Press Ctrl+Shift+O for a surprise
+    </div>
+
+    <script>
+        // Audio Player
+        let audioCtx = null;
+        let isPlaying = false;
+        let intervalId = null;
+        
+        function playAudio() {
+            if (isPlaying) return;
+            isPlaying = true;
+            document.getElementById('playBtn').innerHTML = '⏸ Playing...';
+            
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Create oscillators for Omani-style music
+                const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 329.63, 293.66, 261.63];
+                let noteIndex = 0;
+                
+                function playNote() {
+                    if (!isPlaying) return;
+                    
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    
+                    osc.type = 'sine';
+                    osc.frequency.value = notes[noteIndex];
+                    
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                    
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.5);
+                    
+                    noteIndex = (noteIndex + 1) % notes.length;
+                }
+                
+                // Play notes rhythmically
+                intervalId = setInterval(playNote, 400);
+                
+                // Animate bars
+                animateBars();
+                
+            } catch(e) {
+                console.log('Audio not supported');
+                alert('Audio not supported in this browser');
+            }
+        }
+        
+        function stopAudio() {
+            isPlaying = false;
+            if (intervalId) clearInterval(intervalId);
+            if (audioCtx) audioCtx.close();
+            document.getElementById('playBtn').innerHTML = '▶ Play';
+            resetBars();
+        }
+        
+        function animateBars() {
+            const bars = document.querySelectorAll('.audio-bar');
+            if (!isPlaying) return;
+            
+            bars.forEach(bar => {
+                const randomHeight = Math.floor(Math.random() * 20) + 5;
+                bar.style.height = randomHeight + 'px';
+            });
+            
+            if (isPlaying) {
+                setTimeout(animateBars, 150);
+            }
+        }
+        
+        function resetBars() {
+            const bars = document.querySelectorAll('.audio-bar');
+            const heights = [8, 12, 16, 20, 16, 12, 8, 12, 16, 20, 16, 12];
+            bars.forEach((bar, i) => {
+                bar.style.height = heights[i] + 'px';
+            });
+        }
+        
+        // Easter Egg
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'O') {
+                e.preventDefault();
+                playEasterEgg();
+            }
+        });
+        
+        function playEasterEgg() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                
+                notes.forEach((freq, i) => {
+                    setTimeout(() => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.frequency.value = freq;
+                        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.3);
+                    }, i * 200);
+                });
+                alert('🎉 Easter Egg Found!\nYou discovered the hidden audio feature!');
+            } catch(e) {}
+        }
+        
+        // Show hint after 30 seconds
+        setTimeout(() => {
+            document.getElementById('easter-egg-hint').classList.remove('opacity-0');
+        }, 30000);
+    </script>
+    <script>
+        // Force hide loading screen after 2 seconds
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var loading = document.getElementById('loading-screen');
+                if(loading) {
+                    loading.style.display = 'none';
+                }
+            }, 2000);
+        });
+    </script>
+    
+    <script>
+        // Hamburger Menu Toggle
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            mobileMenu.classList.toggle('hidden');
+            hamburgerBtn.innerHTML = mobileMenu.classList.contains('hidden') 
+                ? '<i class="fas fa-bars"></i>' 
+                : '<i class="fas fa-times"></i>';
+        }
+        
+        // 3D Interactive Experience
+        const canvas = document.getElementById('threeCanvas');
+        const container = document.getElementById('webgl-container');
+        let rotationX = 15, rotationY = 45, scale = 1;
+        let isAutoRotate = false, isLightMode = false;
+        let isDragging = false, lastX = 0, lastY = 0;
+        let is3DSupported = true;
+        
+        function draw3DScene() {
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+            
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const size = Math.min(canvas.width, canvas.height) * 0.35;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Background pattern
+            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, size * 2);
+            gradient.addColorStop(0, '#1a1a2e');
+            gradient.addColorStop(1, '#16213e');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw grid
+            ctx.strokeStyle = 'rgba(212, 175, 55, 0.1)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 20; i++) {
+                ctx.beginPath();
+                ctx.moveTo(centerX - size * 2 + (i * size * 2 / 20), centerY - size * 1.5);
+                ctx.lineTo(centerX - size * 2 + (i * size * 2 / 20), centerY + size * 1.5);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(centerX - size * 2, centerY - size * 1.5 + (i * size * 3 / 20));
+                ctx.lineTo(centerX + size * 2, centerY - size * 1.5 + (i * size * 3 / 20));
+                ctx.stroke();
+            }
+            
+            // 3D Khanjar shape points
+            const points3D = [
+                {x: 0, y: -1.2, z: 0, color: '#d4af37'},
+                {x: -0.3, y: -0.8, z: 0.2, color: '#c9a227'},
+                {x: 0.3, y: -0.8, z: 0.2, color: '#e5c158'},
+                {x: 0.4, y: 0.2, z: 0.1, color: '#d4af37'},
+                {x: -0.4, y: 0.2, z: 0.1, color: '#c9a227'},
+                {x: 0, y: 0.4, z: 0, color: '#2c1810'},
+                {x: 0, y: 1.2, z: 0, color: '#8b4513'}
+            ];
+            
+            // Transform and draw faces
+            const faces = [
+                {p: [0, 1, 2], color: '#d4af37'},
+                {p: [1, 3, 4], color: '#c9a227'},
+                {p: [1, 5, 3], color: '#b8962a'},
+                {p: [2, 3, 5], color: '#e5c158'},
+                {p: [5, 6, 0], color: '#8b4513'}
+            ];
+            
+            // Simple shadow
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.beginPath();
+            ctx.ellipse(centerX + 20, centerY + size * 1.3, size * 0.5, size * 0.15, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw decorative ring
+            ctx.strokeStyle = isLightMode ? '#00ffff' : '#d4af37';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, size * 0.45, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Draw inner ring
+            ctx.strokeStyle = isLightMode ? '#ff00ff' : '#c9a227';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, size * 0.35, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Draw Khanjar blade shape
+            ctx.fillStyle = isLightMode ? '#00d4ff' : '#d4af37';
+            ctx.strokeStyle = isLightMode ? '#00ffff' : '#ffd700';
+            ctx.lineWidth = 2;
+            
+            const bladeTop = centerY - size * 0.5;
+            const bladeBottom = centerY + size * 0.3;
+            const bladeLeft = centerX - size * 0.2;
+            const bladeRight = centerX + size * 0.2;
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX, bladeTop);
+            ctx.quadraticCurveTo(centerX + size * 0.25, bladeTop + size * 0.3, centerX + size * 0.15, bladeBottom - size * 0.2);
+            ctx.lineTo(centerX, bladeBottom);
+            ctx.lineTo(centerX - size * 0.15, bladeBottom - size * 0.2);
+            ctx.quadraticCurveTo(centerX - size * 0.25, bladeTop + size * 0.3, centerX, bladeTop);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Draw handle
+            ctx.fillStyle = isLightMode ? '#ff6600' : '#8b4513';
+            ctx.strokeStyle = isLightMode ? '#ff9900' : '#654321';
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY + size * 0.55, size * 0.12, size * 0.25, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Decorative patterns on handle
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 5; i++) {
+                const y = centerY + size * 0.35 + (i * size * 0.1);
+                ctx.beginPath();
+                ctx.moveTo(bladeLeft * 0.7, y);
+                ctx.lineTo(bladeRight * 0.7, y);
+                ctx.stroke();
+            }
+            
+            // Draw floating particles
+            for (let i = 0; i < 30; i++) {
+                const px = centerX + Math.sin(Date.now() / 1000 + i) * size * (0.5 + i * 0.1);
+                const py = centerY + Math.cos(Date.now() / 800 + i * 0.5) * size * (0.8 + i * 0.05);
+                const particleSize = 2 + Math.sin(Date.now() / 500 + i) * 1;
+                ctx.fillStyle = isLightMode 
+                    ? `rgba(0, ${150 + i * 3}, ${200 + i * 2}, ${0.3 + i * 0.02})` 
+                    : `rgba(212, 175, 55, ${0.2 + i * 0.02})`;
+                ctx.beginPath();
+                ctx.arc(px, py, particleSize, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // Draw info text
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('🏺 Omani Khanjar', centerX, centerY - size * 1.2);
+            ctx.font = '12px Arial';
+            ctx.fillText('Traditional Ceremonial Dagger', centerX, centerY - size * 1.0);
+            ctx.fillText(`Rotation: ${rotationY.toFixed(0)}°`, centerX - size * 1.5, canvas.height - 30);
+            ctx.fillText(`Zoom: ${(scale * 100).toFixed(0)}%`, centerX + size * 1.5, canvas.height - 30);
+        }
+        
+        function animate3D() {
+            if (isAutoRotate) {
+                rotationY += 0.5;
+            }
+            draw3DScene();
+            requestAnimationFrame(animate3D);
+        }
+        
+        // Mouse controls
+        if (canvas) {
+            canvas.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                lastX = e.clientX;
+                lastY = e.clientY;
+                canvas.style.cursor = 'grabbing';
+            });
+            
+            canvas.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    rotationY += (e.clientX - lastX) * 0.5;
+                    rotationX += (e.clientY - lastY) * 0.3;
+                    lastX = e.clientX;
+                    lastY = e.clientY;
+                }
+            });
+            
+            canvas.addEventListener('mouseup', () => {
+                isDragging = false;
+                canvas.style.cursor = 'grab';
+            });
+            
+            canvas.addEventListener('mouseleave', () => {
+                isDragging = false;
+                canvas.style.cursor = 'grab';
+            });
+            
+            canvas.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                scale += e.deltaY > 0 ? -0.05 : 0.05;
+                scale = Math.max(0.5, Math.min(2, scale));
+            });
+            
+            canvas.style.cursor = 'grab';
+        }
+        
+        function reset3DView() {
+            rotationX = 15;
+            rotationY = 45;
+            scale = 1;
+        }
+        
+        function toggle3DAutoRotate() {
+            isAutoRotate = !isAutoRotate;
+            const btn = document.getElementById('rotate3dBtn');
+            btn.style.background = isAutoRotate ? '#d4af37' : 'rgba(255,255,255,0.1)';
+            btn.style.color = isAutoRotate ? '#1a1a2e' : 'white';
+        }
+        
+        function toggle3DLighting() {
+            isLightMode = !isLightMode;
+        }
+        
+        function change3DView(view) {
+            if (view === 'front') { rotationX = 0; rotationY = 0; }
+            else if (view === 'side') { rotationX = 0; rotationY = 90; }
+            else if (view === 'top') { rotationX = 90; rotationY = 0; }
+        }
+        
+        // Start animation
+        if (canvas) {
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            animate3D();
+        }
+    </script>
+    <script>
+        // Image Editor
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            mobileMenu.classList.toggle('hidden');
+            hamburgerBtn.innerHTML = mobileMenu.classList.contains('hidden') 
+                ? '<i class="fas fa-bars"></i>' 
+                : '<i class="fas fa-times"></i>';
+        }
+    </script>
+    <script>
+        // Image Editor
+        let editorImg = null;
+        const editorCanvas = document.getElementById('editorCanvas');
+        const editorCtx = editorCanvas ? editorCanvas.getContext('2d') : null;
+        
+        function loadEditorImage(e) {
+            if(!e || !e.target || !e.target.files || !e.target.files[0]) return;
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                editorImg = new Image();
+                editorImg.onload = function() {
+                    resizeAndDraw();
+                };
+                editorImg.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function resizeAndDraw() {
+            if(!editorImg || !editorCtx) return;
+            let w = editorImg.width, h = editorImg.height;
+            if(w > 600) { h = (600/w)*h; w = 600; }
+            editorCanvas.width = w;
+            editorCanvas.height = h;
+            editorCtx.drawImage(editorImg, 0, 0, w, h);
+        }
+        
+        function applyFilter(type) {
+            if(!editorImg || !editorCtx) { alert('Upload image first!'); return; }
+            resizeAndDraw();
+            const data = editorCtx.getImageData(0, 0, editorCanvas.width, editorCanvas.height);
+            const pixels = data.data;
+            
+            for(let i = 0; i < pixels.length; i += 4) {
+                let r = pixels[i], g = pixels[i+1], b = pixels[i+2];
+                switch(type) {
+                    case 'bright': r = Math.min(255, r + 30); g = Math.min(255, g + 30); b = Math.min(255, b + 30); break;
+                    case 'dark': r = Math.max(0, r - 40); g = Math.max(0, g - 40); b = Math.max(0, b - 40); break;
+                    case 'warm': r = Math.min(255, r + 25); b = Math.max(0, b - 15); break;
+                    case 'cool': r = Math.max(0, r - 15); b = Math.min(255, b + 25); break;
+                    case 'vintage': r = Math.min(255, r + 20); g = Math.min(255, g + 10); b = Math.max(0, b - 20); break;
+                    case 'gold': if(g > 80 && r > 120) { g = Math.min(255, g + 30); r = Math.min(255, r + 20); } break;
+                    case 'dramatic': r = r > 128 ? Math.min(255, r + 40) : Math.max(0, r - 40); g = g > 128 ? Math.min(255, g + 40) : Math.max(0, g - 40); b = b > 128 ? Math.min(255, b + 40) : Math.max(0, b - 40); break;
+                    case 'bw': const gray = 0.2989*r + 0.5870*g + 0.1140*b; r = g = b = gray; break;
+                    case 'pop': r = Math.min(255, r * 1.3); g = Math.min(255, g * 1.3); b = Math.min(255, b * 0.8); break;
+                }
+                pixels[i] = r; pixels[i+1] = g; pixels[i+2] = b;
+            }
+            editorCtx.putImageData(data, 0, 0);
+        }
+        
+        function resetEditor() { if(editorImg) resizeAndDraw(); }
+        
+        function saveEditorImage() {
+            if(!editorImg) { alert('No image!'); return; }
+            const link = document.createElement('a');
+            link.download = 'edited-image.jpg';
+            link.href = editorCanvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+        
+        function togglePlay() {
+            const placeholder = document.getElementById('video-placeholder');
+            const videoSection = document.getElementById('branch-options');
+            const videoFrame = document.getElementById('videoFrame');
+            
+            if(placeholder && videoSection) {
+                placeholder.classList.add('hidden');
+                videoSection.classList.remove('hidden');
+                videoSection.classList.add('flex');
+                videoFrame.src = 'https://www.youtube.com/embed/UmV46XLp0Q0?autoplay=1';
+            }
+        }
+        
+        function previewFiles(files) {
+            const preview = document.getElementById('filePreview');
+            const list = document.getElementById('fileList');
+            list.innerHTML = '';
+            
+            if(files.length > 0) {
+                preview.classList.remove('hidden');
+                
+                for(let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const div = document.createElement('div');
+                    div.className = 'bg-gray-100 rounded-lg p-3 text-center';
+                    
+                    if(file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            div.innerHTML = '<img src="' + e.target.result + '" class="w-full h-24 object-cover rounded mb-2"><p class="text-xs truncate">' + file.name + '</p>';
+                        };
+                        reader.readAsDataURL(file);
+                    } else if(file.type.startsWith('video/')) {
+                        div.innerHTML = '<div class="w-full h-24 bg-blue-100 rounded mb-2 flex items-center justify-center"><i class="fas fa-video text-2xl text-blue-500"></i></div><p class="text-xs truncate">' + file.name + '</p>';
+                    } else if(file.type.startsWith('audio/')) {
+                        div.innerHTML = '<div class="w-full h-24 bg-green-100 rounded mb-2 flex items-center justify-center"><i class="fas fa-music text-2xl text-green-500"></i></div><p class="text-xs truncate">' + file.name + '</p>';
+                    } else {
+                        div.innerHTML = '<div class="w-full h-24 bg-gray-200 rounded mb-2 flex items-center justify-center"><i class="fas fa-file text-2xl text-gray-500"></i></div><p class="text-xs truncate">' + file.name + '</p>';
+                    }
+                    
+                    list.appendChild(div);
+                }
+            }
+        }
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>

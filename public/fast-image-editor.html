@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Image Editor - Oman Castles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37',
+                        'oman-dark': '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #d4af37;
+            cursor: pointer;
+            margin-top: -7px;
+        }
+        .slider-thumb::-webkit-slider-runnable-track {
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+        }
+        .editor-btn.active {
+            background: #d4af37;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-oman-blue to-blue-800 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold">🖼️ Professional Image Editor</h1>
+                <p class="text-sm text-gray-200">For Oman Castles Website</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="loadSample('nizwa')" class="px-3 py-2 bg-white/10 rounded hover:bg-white/20">Nizwa Fort</button>
+                <button onclick="loadSample('bahla')" class="px-3 py-2 bg-white/10 rounded hover:bg-white/20">Bahla Fort</button>
+                <button onclick="loadSample('jabrin')" class="px-3 py-2 bg-white/10 rounded hover:bg-white/20">Jabrin</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto p-4">
+        <!-- Upload Area -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <div class="flex items-center gap-4 mb-4">
+                <label class="flex-1 cursor-pointer border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-oman-gold hover:bg-oman-gold/5 transition">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-300 mb-2"></i>
+                    <p class="text-gray-600">Drag & drop your image here</p>
+                    <p class="text-sm text-gray-400">or click to browse</p>
+                    <input type="file" id="fileInput" class="hidden" accept="image/*" onchange="handleFile(this.files[0])">
+                </label>
+                
+                <div class="text-center">
+                    <button onclick="downloadImage('jpg')" class="w-full px-6 py-3 bg-oman-gold text-oman-dark font-bold rounded-xl hover:bg-yellow-500 transition mb-2">
+                        <i class="fas fa-download mr-2"></i> Download JPG
+                    </button>
+                    <button onclick="downloadImage('webp')" class="w-full px-6 py-3 bg-oman-blue text-white font-bold rounded-xl hover:bg-blue-700 transition">
+                        <i class="fas fa-download mr-2"></i> Download WebP
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Editor -->
+        <div class="grid lg:grid-cols-4 gap-6">
+            <!-- Left Sidebar - Tools -->
+            <div class="bg-white rounded-2xl shadow-lg p-4">
+                <h3 class="font-bold text-gray-700 mb-3">🎨 Editing Tools</h3>
+                
+                <div class="space-y-2">
+                    <button onclick="selectTool('brightness')" class="editor-btn w-full px-4 py-3 rounded-lg bg-gray-100 text-left flex items-center gap-3 hover:bg-gray-200">
+                        <span class="w-8 text-center">☀️</span>
+                        <div>
+                            <p class="font-semibold">Brightness</p>
+                            <p class="text-xs text-gray-500">Lighten/darken</p>
+                        </div>
+                    </button>
+                    
+                    <button onclick="selectTool('contrast')" class="editor-btn w-full px-4 py-3 rounded-lg bg-gray-100 text-left flex items-center gap-3 hover:bg-gray-200">
+                        <span class="w-8 text-center">◐</span>
+                        <div>
+                            <p class="font-semibold">Contrast</p>
+                            <p class="text-xs text-gray-500">Enhance difference</p>
+                        </div>
+                    </button>
+                    
+                    <button onclick="selectTool('saturation')" class="editor-btn w-full px-4 py-3 rounded-lg bg-gray-100 text-left flex items-center gap-3 hover:bg-gray-200">
+                        <span class="w-8 text-center">🎨</span>
+                        <div>
+                            <p class="font-semibold">Saturation</p>
+                            <p class="text-xs text-gray-500">Color intensity</p>
+                        </div>
+                    </button>
+                    
+                    <button onclick="selectTool('warmth')" class="editor-btn w-full px-4 py-3 rounded-lg bg-gray-100 text-left flex items-center gap-3 hover:bg-gray-200">
+                        <span class="w-8 text-center">🔥</span>
+                        <div>
+                            <p class="font-semibold">Warmth</p>
+                            <p class="text-xs text-gray-500">Warm/cold tone</p>
+                        </div>
+                    </button>
+                    
+                    <button onclick="selectTool('gold')" class="editor-btn w-full px-4 py-3 rounded-lg bg-gray-100 text-left flex items-center gap-3 hover:bg-gray-200">
+                        <span class="w-8 text-center">✨</span>
+                        <div>
+                            <p class="font-semibold">Gold Enhance</p>
+                            <p class="text-xs text-gray-500">Highlight gold tones</p>
+                        </div>
+                    </button>
+                    
+                    <button onclick="selectTool('sharpen')" class="editor-btn w-full px-4 py-3 rounded-lg bg-gray-100 text-left flex items-center gap-3 hover:bg-gray-200">
+                        <span class="w-8 text-center">🔪</span>
+                        <div>
+                            <p class="font-semibold">Sharpen</p>
+                            <p class="text-xs text-gray-500">Enhance edges</p>
+                        </div>
+                    </button>
+                    
+                    <button onclick="selectTool('blur')" class="editor-btn w-full px-4 py-3 rounded-lg bg-gray-100 text-left flex items-center gap-3 hover:bg-gray-200">
+                        <span class="w-8 text-center">🌫️</span>
+                        <div>
+                            <p class="font-semibold">Blur/Soft</p>
+                            <p class="text-xs text-gray-500">Focus effect</p>
+                        </div>
+                    </button>
+                    
+                    <button onclick="selectTool('vignette')" class="editor-btn w-full px-4 py-3 rounded-lg bg-gray-100 text-left flex items-center gap-3 hover:bg-gray-200">
+                        <span class="w-8 text-center">⭕</span>
+                        <div>
+                            <p class="font-semibold">Vignette</p>
+                            <p class="text-xs text-gray-500">Edge darken</p>
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="mt-6 pt-4 border-t">
+                    <button onclick="resetAll()" class="w-full px-4 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200">
+                        <i class="fas fa-rotate-left mr-2"></i> Reset All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Center - Preview -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-2xl shadow-lg p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-gray-700">👁️ Preview</h3>
+                        <div class="flex gap-2">
+                            <button onclick="toggleCompare()" id="compareBtn" class="px-3 py-1 bg-gray-200 rounded text-sm">
+                                🔄 Compare (Before/After)
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="relative bg-gray-900 rounded-xl overflow-hidden" style="min-height: 400px;">
+                        <canvas id="canvas" class="w-full"></canvas>
+                        <div id="compareOverlay" class="absolute inset-0 hidden bg-gray-900 flex items-center justify-center overflow-hidden">
+                            <div class="absolute inset-0 flex">
+                                <img id="beforeImg" class="w-1/2 h-full object-cover border-r border-white">
+                                <img id="afterImg" class="w-1/2 h-full object-cover">
+                            </div>
+                            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+                                Drag to compare
+                            </div>
+                        </div>
+                        
+                        <!-- Loading -->
+                        <div id="loading" class="absolute inset-0 bg-gray-900 flex items-center justify-center hidden">
+                            <div class="text-white text-center">
+                                <i class="fas fa-spinner fa-spin text-3xl mb-2"></i>
+                                <p>Processing...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between mt-2 text-sm text-gray-500">
+                        <span id="imageSize">No image</span>
+                        <span id="imageDims">-</span>
+                    </div>
+                </div>
+                
+                <!-- Preset Filters -->
+                <div class="bg-white rounded-2xl shadow-lg p-4 mt-4">
+                    <h3 class="font-bold text-gray-700 mb-3">⚡ Quick Presets</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="applyPreset('original')" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300">📷 Original</button>
+                        <button onclick="applyPreset('bright')" class="px-4 py-2 bg-yellow-100 rounded-full hover:bg-yellow-200">☀️ Bright</button>
+                        <button onclick="applyPreset('warm')" class="px-4 py-2 bg-orange-100 rounded-full hover:bg-orange-200">🔥 Warm</button>
+                        <button onclick="applyPreset('vintage')" class="px-4 py-2 bg-amber-100 rounded-full hover:bg-amber-200">📽️ Vintage</button>
+                        <button onclick="applyPreset('dramatic')" class="px-4 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-900">🌙 Dramatic</button>
+                        <button onclick="applyPreset('gold')" class="px-4 py-2 bg-oman-gold rounded-full hover:bg-yellow-500">✨ Gold</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right - Adjustments -->
+            <div class="bg-white rounded-2xl shadow-lg p-4">
+                <h3 class="font-bold text-gray-700 mb-3">⚙️ Adjustments</h3>
+                
+                <div id="adjustmentPanel" class="space-y-4">
+                    <p class="text-gray-500 text-center py-8">Select a tool to adjust</p>
+                </div>
+                
+                <!-- Sliders for different tools -->
+                <div id="sliderPanel" class="hidden space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <label class="font-semibold text-sm" id="sliderLabel">Value</label>
+                            <span class="text-sm text-gray-500" id="sliderValue">0</span>
+                        </div>
+                        <input type="range" id="mainSlider" min="-100" max="100" value="0" 
+                            class="w-full slider-thumb" oninput="updateSlider(this.value)">
+                    </div>
+                    
+                    <button onclick="applyAdjustment()" class="w-full py-3 bg-oman-blue text-white font-bold rounded-lg hover:bg-blue-700">
+                        Apply
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Before/After Gallery -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mt-6">
+            <h3 class="font-bold text-gray-700 mb-4">📸 Editing Results</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="resultsGallery">
+                <div class="aspect-video bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
+                    <p class="text-sm">Original</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext('2d');
+        let originalImage = null;
+        let currentImage = null;
+        let compareMode = false;
+        let selectedTool = 'brightness';
+
+        // Sample images from Wikimedia
+        const samples = {
+            nizwa: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/640px-Nizwa_fort_oman.jpg',
+            bahla: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/640px-Bahla_fort.jpg',
+            jabrin: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/640px-Jabrin_Castle.jpg'
+        };
+
+        function loadSample(name) {
+            showLoading(true);
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = function() {
+                originalImage = img;
+                currentImage = img;
+                displayImage(img);
+                showLoading(false);
+            };
+            img.src = samples[name];
+        }
+
+        function handleFile(file) {
+            if (!file) return;
+            showLoading(true);
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    originalImage = img;
+                    currentImage = img;
+                    displayImage(img);
+                    showLoading(false);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function displayImage(img) {
+            let w = img.width, h = img.height;
+            const maxW = 800;
+            if (w > maxW) {
+                h = (maxW / w) * h;
+                w = maxW;
+            }
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(img, 0, 0, w, h);
+            currentImage = img;
+            
+            document.getElementById('imageSize').textContent = Math.round(w * h * 4 / 1024) + ' KB';
+            document.getElementById('imageDims').textContent = w + ' × ' + h + ' px';
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('hidden', !show);
+        }
+
+        function selectTool(tool) {
+            selectedTool = tool;
+            
+            // Update button styles
+            document.querySelectorAll('.editor-btn').forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(tool)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Show slider
+            const labels = {
+                brightness: 'Brightness',
+                contrast: 'Contrast',
+                saturation: 'Saturation',
+                warmth: 'Warmth',
+                gold: 'Gold Enhance',
+                sharpen: 'Sharpness',
+                blur: 'Blur Amount',
+                vignette: 'Vignette'
+            };
+            
+            document.getElementById('sliderPanel').classList.remove('hidden');
+            document.getElementById('sliderLabel').textContent = labels[tool] || 'Value';
+            document.getElementById('mainSlider').value = 0;
+            document.getElementById('sliderValue').textContent = '0';
+            
+            const slider = document.getElementById('mainSlider');
+            if (tool === 'blur') slider.min = '0';
+            else slider.min = '-100';
+            if (tool === 'blur') slider.max = '20';
+            else slider.max = '100';
+        }
+
+        function updateSlider(val) {
+            document.getElementById('sliderValue').textContent = val;
+            
+            // Live preview
+            if (!originalImage) return;
+            
+            // Create preview
+            let preview = applyEffect(selectedTool, parseInt(val));
+            displayImage(preview);
+        }
+
+        function applyEffect(tool, value) {
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+            
+            const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                let r = data[i], g = data[i+1], b = data[i+2];
+                
+                switch(tool) {
+                    case 'brightness':
+                        r = Math.max(0, Math.min(255, r + value));
+                        g = Math.max(0, Math.min(255, g + value));
+                        b = Math.max(0, Math.min(255, b + value));
+                        break;
+                    case 'contrast':
+                        const factor = (259 * (value + 255)) / (255 * (259 - value));
+                        r = Math.max(0, Math.min(255, factor * (r - 128) + 128));
+                        g = Math.max(0, Math.min(255, factor * (g - 128) + 128));
+                        b = Math.max(0, Math.min(255, factor * (b - 128) + 128));
+                        break;
+                    case 'saturation':
+                        const gray = 0.2989 * r + 0.5870 * g + 0.1140 * b;
+                        r = Math.max(0, Math.min(255, gray + (r - gray) * (1 + value / 100)));
+                        g = Math.max(0, Math.min(255, gray + (g - gray) * (1 + value / 100)));
+                        b = Math.max(0, Math.min(255, gray + (b - gray) * (1 + value / 100)));
+                        break;
+                    case 'warmth':
+                        r = Math.max(0, Math.min(255, r + value * 0.5));
+                        b = Math.max(0, Math.min(255, b - value * 0.3));
+                        break;
+                    case 'gold':
+                        if (g > 80 && r > 120 && b < 100) {
+                            r = Math.max(0, Math.min(255, r + value * 0.4));
+                            g = Math.max(0, Math.min(255, g + value * 0.2));
+                        }
+                        break;
+                    case 'sharpen':
+                        if (value > 0) {
+                            const avg = (r + g + b) / 3;
+                            r = Math.max(0, Math.min(255, r + (r - avg) * value / 200));
+                            g = Math.max(0, Math.min(255, g + (g - avg) * value / 200));
+                            b = Math.max(0, Math.min(255, b + (b - avg) * value / 200));
+                        }
+                        break;
+                    case 'vignette':
+                        // Simplified
+                        break;
+                }
+                
+                data[i] = r;
+                data[i+1] = g;
+                data[i+2] = b;
+            }
+            
+            tempCtx.putImageData(imageData, 0, 0);
+            
+            const result = new Image();
+            result.src = tempCanvas.toDataURL();
+            return tempCanvas;
+        }
+
+        function applyAdjustment() {
+            if (!originalImage) return;
+            showLoading(true);
+            
+            setTimeout(() => {
+                const value = parseInt(document.getElementById('mainSlider').value);
+                const newImage = applyEffect(selectedTool, value);
+                
+                // Create new original from this
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvas.height;
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCtx.drawImage(newImage, 0, 0);
+                
+                // Reload as original
+                const img = new Image();
+                img.onload = function() {
+                    originalImage = img;
+                    displayImage(img);
+                    showLoading(false);
+                };
+                img.src = tempCanvas.toDataURL();
+                
+                // Add to gallery
+                addToGallery();
+            }, 100);
+        }
+
+        function applyPreset(preset) {
+            if (!originalImage) return;
+            showLoading(true);
+            
+            setTimeout(() => {
+                let newImg;
+                switch(preset) {
+                    case 'bright':
+                        newImg = applyEffect('brightness', 30);
+                        break;
+                    case 'warm':
+                        newImg = applyEffect('warmth', 40);
+                        break;
+                    case 'vintage':
+                        newImg = applyEffect('sepia', 30);
+                        break;
+                    case 'dramatic':
+                        newImg = applyEffect('contrast', 40);
+                        newImg = applyEffect('brightness', -10);
+                        break;
+                    case 'gold':
+                        newImg = applyEffect('gold', 50);
+                        newImg = applyEffect('saturation', 20);
+                        break;
+                    default:
+                        newImg = originalImage;
+                }
+                
+                displayImage(newImg);
+                
+                const img = new Image();
+                img.onload = function() {
+                    originalImage = img;
+                    showLoading(false);
+                };
+                img.src = newImg.toDataURL();
+            }, 100);
+        }
+
+        function addToGallery() {
+            const gallery = document.getElementById('resultsGallery');
+            const div = document.createElement('div');
+            div.className = 'aspect-video bg-gray-100 rounded-lg overflow-hidden cursor-pointer';
+            div.innerHTML = `<img src="${canvas.toDataURL()}" class="w-full h-full object-cover">`;
+            gallery.appendChild(div);
+        }
+
+        function resetAll() {
+            if (originalImage) {
+                displayImage(originalImage);
+            }
+            document.getElementById('mainSlider').value = 0;
+            document.getElementById('sliderValue').textContent = '0';
+        }
+
+        function toggleCompare() {
+            compareMode = !compareMode;
+            const btn = document.getElementById('compareBtn');
+            const overlay = document.getElementById('compareOverlay');
+            
+            if (compareMode) {
+                btn.classList.add('bg-oman-gold', 'text-oman-dark');
+                btn.textContent = '👁️ Comparing';
+                overlay.classList.remove('hidden');
+                
+                // Set before/after
+                if (originalImage) {
+                    document.getElementById('beforeImg').src = originalImage.src;
+                    document.getElementById('afterImg').src = canvas.toDataURL();
+                }
+            } else {
+                btn.classList.remove('bg-oman-gold', 'text-oman-dark');
+                btn.textContent = '🔄 Compare';
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function downloadImage(format) {
+            if (!originalImage) {
+                alert('Please upload an image first!');
+                return;
+            }
+            
+            const link = document.createElement('a');
+            link.download = 'edited-oman-castle.' + format;
+            link.href = canvas.toDataURL('image/' + format, 0.9);
+            link.click();
+        }
+
+        // Load default sample on start
+        window.onload = function() {
+            loadSample('nizwa');
+        };
+    </script>
+</body>
+</html>

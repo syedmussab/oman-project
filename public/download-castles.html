@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download All Images - Oman Castles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'oman-blue': '#1a5276', 'oman-gold': '#d4af37' }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="bg-oman-blue text-white py-8 text-center">
+        <h1 class="text-3xl font-bold">📥 Download All Images</h1>
+        <p class="mt-2">Click button to download all castle images</p>
+    </div>
+
+    <div class="max-w-2xl mx-auto p-6">
+        <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+            <p class="text-gray-600 mb-4">This will download 6 castle images one by one.</p>
+            
+            <div id="status" class="text-lg font-bold text-oman-blue mb-4">Ready to download</div>
+            
+            <button onclick="downloadAll()" class="px-8 py-4 bg-green-600 text-white text-xl font-bold rounded-lg hover:bg-green-700">
+                ⬇️ Download All Images
+            </button>
+            
+            <p class="text-gray-500 text-sm mt-4">After download, move files to: <code class="bg-gray-200 px-2">public/images/castles/</code></p>
+            <p class="text-gray-500 text-sm">Then website update hogi!</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-lg mt-6">
+            <h3 class="font-bold text-lg mb-2">Files to save as:</h3>
+            <ul class="list-disc pl-6 text-gray-600">
+                <li>nizwa.jpg</li>
+                <li>bahla.jpg</li>
+                <li>jabrin.jpg</li>
+                <li>rustaq.jpg</li>
+                <li>nakhal.jpg</li>
+                <li>sunaysin.jpg</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const images = [
+            { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Nizwa_fort_oman.jpg/640px-Nizwa_fort_oman.jpg', name: 'nizwa.jpg' },
+            { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bahla_fort.jpg/640px-Bahla_fort.jpg', name: 'bahla.jpg' },
+            { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Jabrin_Castle.jpg/640px-Jabrin_Castle.jpg', name: 'jabrin.jpg' },
+            { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rustaq_Fort.jpg/640px-Rustaq_Fort.jpg', name: 'rustaq.jpg' },
+            { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nakhal_Fort.jpg/640px-Nakhal_Fort.jpg', name: 'nakhal.jpg' },
+            { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Sunayr_Fort.jpg/640px-Sunayr_Fort.jpg', name: 'sunaysin.jpg' }
+        ];
+
+        async function downloadAll() {
+            const status = document.getElementById('status');
+            
+            for (let i = 0; i < images.length; i++) {
+                status.textContent = `Downloading ${i+1}/${images.length}: ${images[i].name}`;
+                
+                const link = document.createElement('a');
+                link.download = images[i].name;
+                link.href = images[i].url;
+                link.click();
+                
+                await new Promise(r => setTimeout(r, 1500));
+            }
+            
+            status.textContent = '✅ All images downloaded!';
+            alert('All images downloaded!\n\nNow:\n1. Find files in your Downloads folder\n2. Create folder: public/images/castles/\n3. Move all images there\n4. Rename if needed');
+        }
+    </script>
+</body>
+</html>

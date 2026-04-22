@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Design Document - Oman Celebrities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37',
+                        'oman-red': '#c0392b',
+                        'oman-dark': '#2c3e50'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-oman-blue mb-8">VIDEO DESIGN DOCUMENT</h1>
+        
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">1. PROJECT OVERVIEW</h2>
+            <p class="text-gray-600">A 1-minute video sequence showcasing Omani culture with effects, voice-over, and credits.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">2. SOURCE MATERIAL</h2>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                <li><strong>Original Video:</strong> Student-recorded footage of Omani locations</li>
+                <li><strong>Stock Footage:</strong> Licensed from Pexels/Pixabay (royalty-free)</li>
+                <li><strong>Voice-over:</strong> Original recording by student</li>
+                <li><strong>Music:</strong> Royalty-free Omani-inspired music</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">3. VIDEO EFFECTS (Minimum 5 required)</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">1. Color Correction / Enhancement</h3>
+                    <p class="text-sm text-gray-600">White balance, saturation, and color grading adjustments to enhance Omani cultural colors (gold, blue).</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">2. 3D Effects</h3>
+                    <p class="text-sm text-gray-600">3D text overlays and animated transitions between scenes.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">3. Morphing</h3>
+                    <p class="text-sm text-gray-600">Smooth scene transitions using morphing effects.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">4. Animation Effects</h3>
+                    <p class="text-sm text-gray-600">Animated graphics overlaying video footage.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-semibold text-oman-blue">5. Text Effects</h3>
+                    <p class="text-sm text-gray-600">Animated titles and captions explaining cultural elements.</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4 border-2 border-oman-gold">
+                    <h3 class="font-semibold text-oman-gold">6. Time-based Effect</h3>
+                    <p class="text-sm text-gray-600">Progressive color change throughout video (implemented over time).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">4. VOICE-OVER & CAPTIONS</h2>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                <li><strong>Voice-over:</strong> Describes effects used throughout video</li>
+                <li><strong>Captions:</strong> WebVTT format for HTML5 video</li>
+                <li><strong>Credits:</strong> Sources of all material at end</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-oman-gold mb-4">5. OUTPUT FORMATS</h2>
+            
+            <h3 class="text-xl font-semibold mb-3">5.1 SDR Upload (YouTube)</h3>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600 mb-4">
+                <li>Format: MP4 (H.264)</li>
+                <li>Resolution: 1920x1080</li>
+                <li>Frame Rate: 30fps</li>
+                <li>Bitrate: 8Mbps</li>
+                <li>Audio: AAC 192kbps</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mb-3">5.2 HDR Upload (YouTube)</h3>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600 mb-4">
+                <li>Format: MP4 (H.265/HEVC)</li>
+                <li>Resolution: 3840x2160 (4K)</li>
+                <li>Frame Rate: 60fps</li>
+                <li>Bitrate: 20-53Mbps</li>
+                <li>Color: Rec.2020</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mb-3">5.3 HTML5 Native</h3>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                <li>MP4 (H.264) - Universal browser support</li>
+                <li>WebM (VP9) - Chrome/Firefox</li>
+                <li>Ogg (Theora) - Firefox legacy</li>
+            </ul>
+        </div>
+
+        <div class="bg-oman-blue text-white rounded-xl p-8 shadow-md">
+            <h2 class="text-2xl font-bold mb-4">6. DESIGN RATIONALE (250 words)</h2>
+            <div class="prose prose-invert text-gray-200">
+                <p>The video production for this Oman Celebrities project was designed to create an engaging, educational experience that showcases Omani culture through modern editing techniques.</p>
+                
+                <p>The time-based color effect was implemented progressively to maintain viewer engagement throughout the 1-minute duration while reinforcing the cultural color palette (gold, blue, and white). This aligns with the project's educational objectives by creating visual continuity.</p>
+                
+                <p>Color correction was prioritized to ensure authentic representation of Omani architectural elements and traditional dress. The warm color grading enhances the golden desert tones while maintaining the characteristic blue of Omani architecture.</p>
+                
+                <p>Multiple output formats ensure accessibility across all platforms. The SDR format serves general web viewing, while HDR provides an enhanced experience for capable displays. HTML5 native formats ensure broad browser compatibility without requiring plugins.</p>
+                
+                <p>The voice-over serves dual purposes: providing narration and documenting the editing techniques used. This meta-educational approach helps viewers understand the production process while enjoying the content.</p>
+                
+                <p>Credits are essential for educational integrity, acknowledging all sources of material and ensuring proper attribution for any third-party content used in the production.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

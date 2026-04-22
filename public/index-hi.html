@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="hi" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ओमान सेलिब्रिटीज़ - इंटरैक्टिव सांस्कृतिक अनुभव</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oman-blue': '#1a5276',
+                        'oman-gold': '#d4af37',
+                        'oman-red': '#c0392b',
+                        'oman-dark': '#2c3e50',
+                        'oman-light': '#f4f4f4'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-oman-light font-sans text-oman-dark">
+    <!-- Language Selector -->
+    <div class="lang-selector">
+        <a href="index-en.html" class="lang-btn">EN</a>
+        <a href="index-ar.html" class="lang-btn">AR</a>
+        <a href="index-hi.html" class="lang-btn active">हि</a>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-oman-blue to-oman-dark">
+        <div class="w-20 h-20 border-4 border-oman-gold/20 border-t-oman-gold rounded-full animate-spin"></div>
+        <p class="text-white mt-5 animate-pulse">ओमान अनुभव लोड हो रहा है...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-oman-blue to-oman-dark text-white py-8 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="particle absolute w-3 h-3 bg-oman-gold rounded-full" style="left: 10%; top: 20%;"></div>
+            <div class="particle absolute w-3 h-3 bg-oman-gold rounded-full" style="left: 20%; top: 60%; animation-delay: 1s;"></div>
+            <div class="particle absolute w-3 h-3 bg-oman-gold rounded-full" style="left: 70%; top: 30%; animation-delay: 2s;"></div>
+        </div>
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2 animate-fade-in-up" id="main-title">ओमान सेलिब्रिटीज़</h1>
+            <p class="text-xl opacity-90 animate-fade-in-up" style="animation-delay: 0.2s;">सल्तनत के सांस्कृतिक आइकन खोजें</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-oman-dark sticky top-0 z-40 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <ul class="flex justify-center gap-8 py-3 flex-wrap">
+                <li><a href="#gallery" class="nav-link text-white px-4 py-2 rounded hover:bg-oman-gold/20 transition-all duration-300 relative">गैलरी</a></li>
+                <li><a href="#interactive-video" class="nav-link text-white px-4 py-2 rounded hover:bg-oman-gold/20 transition-all duration-300 relative">इंटरैक्टिव वीडियो</a></li>
+                <li><a href="#3d-section" class="nav-link text-white px-4 py-2 rounded hover:bg-oman-gold/20 transition-all duration-300 relative">3D अनुभव</a></li>
+                <li><a href="#audio" class="nav-link text-white px-4 py-2 rounded hover:bg-oman-gold/20 transition-all duration-300 relative">ऑडियो यात्रा</a></li>
+                <li><a href="#upload" class="nav-link text-white px-4 py-2 rounded hover:bg-oman-gold/20 transition-all duration-300 relative">अपलोड</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        
+        <!-- Gallery Section -->
+        <section id="gallery" class="mb-12">
+            <h2 class="text-3xl font-bold text-oman-blue mb-6 relative inline-block section-title">
+                छवि गैलरी
+            </h2>
+            <p class="mb-6 text-gray-600">विभिन्न उपकरणों के लिए आर्ट दिरेक्शन के साथ रिस्पॉन्सिव इमेज</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="gallery-card relative overflow-hidden rounded-xl opacity-0 transform scale-90 transition-all duration-500" style="animation-delay: 0.1s;">
+                    <img src="https://via.placeholder.com/800x600/1a5276/ffffff?text=पोर्ट्रेट" alt="ओमानी हस्ती" class="w-full h-72 object-cover">
+                    <div class="overlay absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 translate-y-full transition-transform duration-300">
+                        <div>
+                            <h3 class="text-white font-bold text-lg">प्रमुख हस्ती</h3>
+                            <p class="text-gray-300 text-sm">अधिक जानने के लिए क्लिक करें</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card relative overflow-hidden rounded-xl opacity-0 transform scale-90 transition-all duration-500" style="animation-delay: 0.2s;">
+                    <img src="https://via.placeholder.com/800x600/d4af37/ffffff?text=आर्किटेक्चर" alt="ओमानी वास्तुकला" class="w-full h-72 object-cover">
+                    <div class="overlay absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 translate-y-full transition-transform duration-300">
+                        <div>
+                            <h3 class="text-white font-bold text-lg">ऐतिहासिक स्थल</h3>
+                            <p class="text-gray-300 text-sm">ओमानी स्थानों का अन्वेषण करें</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card relative overflow-hidden rounded-xl opacity-0 transform scale-90 transition-all duration-500" style="animation-delay: 0.3s;">
+                    <img src="https://via.placeholder.com/800x600/c0392b/ffffff?text=खंजर" alt="पारंपरिक खंजर" class="w-full h-72 object-cover">
+                    <div class="overlay absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 translate-y-full transition-transform duration-300">
+                        <div>
+                            <h3 class="text-white font-bold text-lg">सांस्कृतिक वस्तुएं</h3>
+                            <p class="text-gray-300 text-sm">पारंपरिक ओमानी वस्तुएं</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Picture Tag Demo -->
+            <div class="card-hover bg-white rounded-xl p-6 mt-8 shadow-md">
+                <h3 class="text-xl font-bold text-oman-dark mb-4">आर्ट दिरेक्शन - Picture Element</h3>
+                <p class="text-gray-600 mb-4">डेस्कटॉप, टैबलेट और स्मार्टफोन के लिए अलग-अलग क्रॉप</p>
+                
+                <picture>
+                    <source srcset="images/portrait-desktop.webp" media="(min-width: 1024px)" type="image/webp">
+                    <source srcset="images/portrait-tablet.webp" media="(min-width: 768px)" type="image/webp">
+                    <source srcset="images/portrait-mobile.webp" type="image/webp">
+                    <img src="images/portrait-mobile.jpg" alt="आर्ट दिरेक्शन डेमो" class="w-full rounded-lg">
+                </picture>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section id="interactive-video" class="mb-12">
+            <h2 class="text-3xl font-bold text-oman-blue mb-6 relative inline-block section-title">
+                इंटरैक्टिव वीडियो अनुभव
+            </h2>
+            <p class="mb-6 text-gray-600">ओमानी संस्कृति के माध्यम से अपना रास्ता चुनें</p>
+
+            <div class="video-container relative bg-black rounded-xl overflow-hidden shadow-2xl">
+                <div class="video-placeholder relative aspect-video bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center" id="video-placeholder">
+                    <button onclick="togglePlay()" class="relative z-10 group">
+                        <i class="fas fa-play text-5xl text-oman-gold group-hover:scale-125 transition-transform duration-300"></i>
+                    </button>
+                    <p class="relative z-10 text-white mt-4">अपनी यात्रा शुरू करने के लिए प्ले पर क्लिक करें</p>
+                </div>
+
+                <div class="branch-options absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden flex-col gap-3 z-20" id="branch-options">
+                    <button onclick="playRoute(1)" class="bg-oman-gold text-oman-dark px-6 py-3 rounded-lg font-semibold hover:bg-white transform hover:scale-105 transition-all duration-300">मार्ग 1: राजकीय विरासत</button>
+                    <button onclick="playRoute(2)" class="bg-oman-gold text-oman-dark px-6 py-3 rounded-lg font-semibold hover:bg-white transform hover:scale-105 transition-all duration-300">मार्ग 2: सांस्कृतिक परंपराएं</button>
+                    <button onclick="playFullVideo()" class="bg-oman-red text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-oman-red transform hover:scale-105 transition-all duration-300">पूरा वीडियो देखें</button>
+                </div>
+
+                <div class="custom-controls absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4 flex items-center gap-4 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                    <button onclick="togglePlay()" class="control-btn w-10 h-10 rounded-full bg-oman-gold flex items-center justify-center hover:scale-110 hover:rotate-180 transition-all duration-300">
+                        <i class="fas text-oman-dark" id="play-icon"></i>
+                    </button>
+                    <div class="progress-bar flex-1 h-1.5 bg-white/30 rounded-full cursor-pointer" onclick="seekVideo(event)">
+                        <div class="progress-fill h-full bg-gradient-to-r from-oman-gold to-oman-red rounded-full transition-all duration-100" id="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <span class="text-white text-sm font-mono" id="time-display">0:00 / 3:00</span>
+                    <button onclick="toggleFullscreen()" class="text-white hover:text-oman-gold transition-colors">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D Section -->
+        <section id="3d-section" class="mb-12">
+            <h2 class="text-3xl font-bold text-oman-blue mb-6 relative inline-block section-title">
+                3D इंटरैक्टिव अनुभव
+            </h2>
+            <p class="mb-6 text-gray-600">इंटरैक्टिव नियंत्रों के साथ 3D मॉडल का अन्वेषण करें</p>
+
+            <div id="webgl-container" class="relative h-[500px] bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl overflow-hidden shadow-2xl">
+                <div id="threeDObject" class="threeDObject center-x">
+                    3D खंजर
+                </div>
+                <div class="absolute top-4 right-4 bg-black/50 text-white text-sm px-3 py-1 rounded-full">घुमाने के लिए क्लिक और खींचें</div>
+                <div class="webgl-controls absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-wrap gap-2 justify-center">
+                    <button onclick="resetCamera()" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300">रीसेट व्यू</button>
+                    <button onclick="toggleAutoRotate()" id="rotateBtn" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300">ऑ���ो रोटेट</button>
+                    <button onclick="zoomIn()" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300">ज़ूम इन +</button>
+                    <button onclick="zoomOut()" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300">ज़ूम आउट -</button>
+                    <button onclick="changeView('front')" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300">सामने</button>
+                    <button onclick="changeView('top')" class="bg-white/10 border border-white/30 text-white px-4 py-2 rounded-full hover:bg-oman-gold hover:text-oman-dark transition-all duration-300">ऊपर</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audio Section -->
+        <section id="audio" class="mb-12">
+            <h2 class="text-3xl font-bold text-oman-blue mb-6 relative inline-block section-title">
+                ऑडियो यात्रा
+            </h2>
+            <p class="mb-6 text-gray-600">ओमानी संस्कृति के माध्यम से वर्णित यात्रा सुनें</p>
+
+            <div class="audio-player relative bg-gradient-to-br from-oman-blue to-oman-dark rounded-xl p-8 text-center overflow-hidden">
+                <div class="relative z-10">
+                    <div class="audio-visualizer flex items-end justify-center gap-1.5 h-20 mb-4">
+                        <div class="audio-bar w-2.5 bg-gradient-to-t from-oman-gold to-oman-red rounded-full animate-pulse" style="animation-delay: 0s;"></div>
+                        <div class="audio-bar w-2.5 bg-gradient-to-t from-oman-gold to-oman-red rounded-full animate-pulse" style="animation-delay: 0.1s;"></div>
+                        <div class="audio-bar w-2.5 bg-gradient-to-t from-oman-gold to-oman-red rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+                        <div class="audio-bar w-2.5 bg-gradient-to-t from-oman-gold to-oman-red rounded-full animate-pulse" style="animation-delay: 0.3s;"></div>
+                        <div class="audio-bar w-2.5 bg-gradient-to-t from-oman-gold to-oman-red rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+                        <div class="audio-bar w-2.5 bg-gradient-to-t from-oman-gold to-oman-red rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+                        <div class="audio-bar w-2.5 bg-gradient-to-t from-oman-gold to-oman-red rounded-full animate-pulse" style="animation-delay: 0.6s;"></div>
+                        <div class="audio-bar w-2.5 bg-gradient-to-t from-oman-gold to-oman-red rounded-full animate-pulse" style="animation-delay: 0.7s;"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">आवाज़ कथा</h3>
+                    <p class="text-white/80 mb-4">सुनने के लिए प्ले दबाएं</p>
+                    <audio id="narrative-audio" controls class="w-full max-w-md mx-auto rounded-full">
+                        <source src="audio/narrative.mp3" type="audio/mpeg">
+                        <source src="audio/narrative.ogg" type="audio/ogg">
+                        आपका ब्राउज़र ऑडियो प्लेबैक का समर्थन नहीं करता।
+                    </audio>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload" class="mb-12">
+            <h2 class="text-3xl font-bold text-oman-blue mb-6 relative inline-block section-title">
+                मीडिया अपलोड
+            </h2>
+            <p class="mb-6 text-gray-600">अपनी मूल छवियों, ऑडियो और वीडियो फ़ाइलें अपलोड करें</p>
+
+            <div class="bg-white rounded-xl p-6 shadow-md">
+                <form id="uploadForm" class="space-y-4">
+                    <div class="upload-area border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-oman-gold transition-colors cursor-pointer" onclick="document.getElementById('fileInput').click()">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-oman-gold mb-4"></i>
+                        <p class="text-gray-600">अपलोड करने के लिए क्लिक करें या खींचें और छोड़ें</p>
+                        <p class="text-sm text-gray-400">छवियां, ऑडियो, या वीडियो फ़ाइलें</p>
+                        <input type="file" id="fileInput" class="hidden" accept="image/*,audio/*,video/*" multiple onchange="handleFiles(this.files)">
+                    </div>
+                    
+                    <div id="filePreview" class="hidden">
+                        <h4 class="font-bold text-oman-dark mb-2">अपलोड की गई फ़ाइलें:</h4>
+                        <div id="fileList" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-oman-blue text-white py-3 rounded-lg font-bold hover:bg-oman-dark transition-colors">
+                        फ़ाइलें प्रोसेस करें
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-oman-dark text-white text-center py-8 mt-12 relative overflow-hidden">
+        <p>© 2026 ओमान सेलिब्रिटीज़ प्रोजेक्ट | शैक्षिक मीडिया असाइनमेंट</p>
+        <p class="text-sm text-gray-400 mt-2">वेब डिलीवरी के लिए बनाए गए सभी मीडिया तत्व</p>
+    </footer>
+
+    <!-- Easter Egg Hint -->
+    <div id="easter-egg-hint" class="easter-egg-hint fixed bottom-4 right-4 bg-oman-dark text-white/50 px-4 py-2 rounded text-sm opacity-0 transition-opacity duration-300 z-50">
+        संकेत: एक आश्चर्य के लिए Ctrl+Shift+O दबाएं
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
